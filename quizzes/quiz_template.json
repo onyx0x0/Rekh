@@ -1,0 +1,25 @@
+{
+  "title": "Quiz Title",
+  "subject": "subject",
+  "topic": "topic",
+  "lectureNumber": "1",
+  "questions": [
+    {
+      "question": "Question text goes here?",
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Explanation for the correct answer."
+    }
+  ],
+  "metadata": {
+    "difficulty": "beginner",
+    "timeEstimate": "5 minutes",
+    "tags": ["tag1", "tag2"],
+    "lastUpdated": "YYYY-MM-DD"
+  }
+} 

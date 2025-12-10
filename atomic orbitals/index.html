@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Volumetric Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+    
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.154.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.154.0/examples/jsm/"
+        }
+      }
+    </script>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <div class="ui-panel">
+        <div class="header">
+            <h1>Quantum Field</h1>
+        </div>
+
+        <!-- Stepper Controls for Integers -->
+        <div class="control-group">
+            <label>Principal (n)</label>
+            <div class="stepper">
+                <button id="n-dec">-</button>
+                <span id="n-val" class="stepper-val">2</span>
+                <button id="n-inc">+</button>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Azimuthal (l)</label>
+            <div class="stepper">
+                <button id="l-dec">-</button>
+                <span id="l-val" class="stepper-val">1 (p)</span>
+                <button id="l-inc">+</button>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Magnetic (m)</label>
+            <div class="stepper">
+                <button id="m-dec">-</button>
+                <span id="m-val" class="stepper-val">0</span>
+                <button id="m-inc">+</button>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Color Spectrum</label>
+            <div class="theme-picker">
+                <button id="theme-toggle" class="theme-toggle">Default Glow</button>
+                <div id="theme-menu" class="theme-menu">
+                    <button class="theme-option" data-theme="0">Default Glow</button>
+                    <button class="theme-option" data-theme="1">Magma Fire</button>
+                </div>
+                <select id="theme-select" aria-label="Color Spectrum" style="display:none;">
+                    <option value="0">Default Glow</option>
+                    <option value="1">Magma Fire</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Phase Visualization</label>
+            <button id="charge-toggle" class="chip-btn">Show Phase: Off</button>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="control-group">
+            <label>Exposure (Brightness)</label>
+            <div class="slider-container">
+                <input type="range" id="exposure-slider" min="1.0" max="15.0" step="0.1" value="15.0">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Z-Slice (Internal View)</label>
+            <div class="slider-container">
+                <input type="range" id="slice-slider" min="0.0" max="1.0" step="0.01" value="1.0">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Opacity Threshold</label>
+            <div class="slider-container">
+                <input type="range" id="threshold-slider" min="0.0" max="0.15" step="0.001" value="0.0">
+            </div>
+        </div>
+
+        <div class="info-box">
+            <span id="orbital-name">2p orbital</span>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loader">
+        <div class="spinner"></div>
+        <p>Calculating Density Field...</p>
+    </div>
+
+    <div class="graph-panel">
+        <div class="graph-header">
+            <div>
+                <p class="graph-label">Radial Insights</p>
+                <h2>Wavefunction + Probability</h2>
+            </div>
+            <div class="graph-legend">
+                <button class="legend-item" data-key="radial"><span class="legend-dot legend-r"></span>R(r)</button>
+                <button class="legend-item" data-key="probability"><span class="legend-dot legend-p"></span>P(r)</button>
+                <button class="legend-item" data-key="cumulative"><span class="legend-dot legend-c"></span>C(r)</button>
+            </div>
+        </div>
+        <div class="graph-grid">
+            <div class="graph-card">
+                <canvas id="graph-all"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div id="axes-widget"></div>
+
+    <div class="modal-overlay" id="info-modal">
+        <div class="modal-card">
+            <button class="modal-close" id="modal-close">×</button>
+            <h3 id="modal-title"></h3>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,5 @@
+{
+  "title": "Motion Graphs and Their Interpretation",
+  "content": "<div class='lecture-section'><h2>Motion Graphs and Their Interpretation</h2><p>Graphs are powerful tools for visualizing and analyzing motion. The most common graphs in kinematics are position-time, velocity-time, and acceleration-time graphs.</p></div><div class='lecture-section'><h2>Position-Time Graphs</h2><p>The slope of a position-time graph gives the velocity. A straight line means constant velocity; a curve means changing velocity.</p></div><div class='lecture-section'><h2>Velocity-Time Graphs</h2><p>The slope of a velocity-time graph gives the acceleration. The area under the curve gives the displacement.</p></div><div class='lecture-section'><h2>Acceleration-Time Graphs</h2><p>The area under an acceleration-time graph gives the change in velocity.</p></div><div class='lecture-section'><h2>Example Problem</h2><p>Given a velocity-time graph with a constant value of 5 m/s for 10 seconds, what is the displacement?</p><ul><li>Displacement = area under the graph = $5 \times 10 = 50$ m</li></ul></div>",
+  "hasCustomScript": false
+} 

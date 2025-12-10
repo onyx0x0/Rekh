@@ -1,0 +1,5 @@
+{
+  "title": "Problem Solving Strategies in Kinematics",
+  "content": "<div class='lecture-section'><h2>Problem Solving Strategies in Kinematics</h2><p>Solving kinematics problems requires a systematic approach. Here are some strategies:</p><ol><li><strong>Draw a diagram:</strong> Visualize the problem and label knowns and unknowns.</li><li><strong>List knowns and unknowns:</strong> Write down all given values and what you need to find.</li><li><strong>Choose a coordinate system:</strong> Decide on positive and negative directions.</li><li><strong>Write relevant equations:</strong> Use the kinematic equations that fit the situation.</li><li><strong>Solve algebraically before plugging in numbers.</strong></li><li><strong>Check units and reasonableness of your answer.</strong></li></ol><div class='lecture-section'><h2>Example Problem</h2><p>A car starts from rest and accelerates at 2 m/s² for 8 seconds. How far does it travel?</p><ul><li>Knowns: $a = 2$ m/s², $t = 8$ s, $v_0 = 0$</li><li>Equation: $x = v_0 t + \frac{1}{2} a t^2$</li><li>Solution: $x = 0 + 0.5 \times 2 \times 8^2 = 64$ m</li></ul></div>",
+  "hasCustomScript": false
+} 

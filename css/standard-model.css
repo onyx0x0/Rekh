@@ -1,0 +1,656 @@
+/* --- START OF FILE standard-model.css --- */
+
+/* Standard Model Modal & Grid Styles */
+
+:root {
+  --sm-orange: #ff8800;
+  --sm-orange-dark: #cc5500;
+  --sm-bg: #111111;
+  --sm-tile-bg: #1b1b1b;
+  --sm-text-muted: #aaaaaa;
+}
+
+/* Button to open modal */
+.standard-model-button {
+  background: linear-gradient(135deg, #96009b, #96009b);
+  color: white !important;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #610064, 0 6px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  margin: 0 5px;
+}
+
+.standard-model-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #610064, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.standard-model-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #610064, 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Wrapper */
+.standard-model-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 2000;
+  overflow: hidden; /* Popup handles scroll */
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.standard-model-modal.visible {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.standard-model-modal.closing {
+  animation: fadeOut 0.3s ease-in-out;
+}
+
+/* Main Container */
+.standard-model-container {
+  background: var(--sm-bg);
+  border-radius: 25px;
+  padding: 30px;
+  width: 95%;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  color: white;
+  animation: popOut 0.4s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(90vw, 880px);
+}
+
+.standard-model-modal.closing .standard-model-container {
+  animation: popIn 0.3s ease-in;
+}
+
+.standard-model-container .modal-close-button {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  z-index: 10;
+}
+
+.standard-model-container .modal-close-button:hover {
+  color: #ffffff;
+}
+
+.standard-model-title {
+  margin: 0 0 20px;
+  font-size: 24px;
+  letter-spacing: 1px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Grid Layout */
+.standard-model-grid {
+  display: grid;
+  grid-template-columns: auto repeat(3, 85px) 85px 85px;
+  grid-template-rows: auto repeat(4, 85px);
+  column-gap: 10px;
+  row-gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+  --sm-header-offset: -5px;
+}
+
+.standard-model-grid .generation-header {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--sm-text-muted);
+  text-align: center;
+  position: relative;
+  top: var(--sm-header-offset);
+  text-transform: uppercase;
+}
+
+.standard-model-grid .generation-header:first-child {
+  text-align: right;
+  padding-right: 10px;
+}
+
+.standard-model-row-label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-size: 11px;
+  color: var(--sm-text-muted);
+  text-transform: uppercase;
+}
+
+/* Particle Tiles */
+.sm-particle {
+  background: var(--sm-tile-bg);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 8px 6px;
+  width: 85px;
+  height: 85px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s;
+}
+
+.sm-particle:focus-visible {
+  outline: 2px solid #00e5ff;
+  outline-offset: 2px;
+}
+
+/* Minimal hover effect as requested */
+.sm-particle:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  z-index: 5;
+  background: #252525;
+}
+
+/* Particle Colors (Headers/Symbols) */
+.sm-particle-type-quark .sm-particle-symbol { color: #d480ff; }
+.sm-particle-type-lepton .sm-particle-symbol { color: #ff5e5e; }
+.sm-particle-type-boson .sm-particle-symbol { color: #ffae00; }
+.sm-particle-type-higgs .sm-particle-symbol { color: #ff40c6; }
+
+.sm-particle-symbol {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.sm-particle-name {
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.2;
+}
+
+/* Animated Bars (Mass/Lifetime) inside Grid Tiles */
+.sm-particle-bar-container {
+  position: absolute;
+  bottom: 8px;
+  left: 10%;
+  width: 80%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sm-particle.show-bars .sm-particle-bar-container {
+  opacity: 1;
+}
+
+.sm-particle-bar {
+  height: 100%;
+  background: var(--sm-orange);
+  width: 0%;
+  border-radius: 2px;
+  transition: width 0.35s ease-out;
+}
+
+/* View Mode Controls */
+.sm-view-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+  background: #1a1a1a;
+  padding: 4px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.sm-view-btn {
+  background: none;
+  border: none;
+  color: #888;
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sm-view-btn:hover {
+  color: #fff;
+}
+
+.sm-view-btn.active {
+  background: #333;
+  color: var(--sm-orange);
+}
+
+/* --- INNER POPUP OVERLAY --- */
+
+.sm-popup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 100;
+  display: none; /* toggled by JS */
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.95);
+  opacity: 0;
+}
+
+.sm-popup-overlay.active {
+  display: flex;
+  animation: smAtomFadeIn 0.3s forwards, smAtomScaleIn 0.3s forwards;
+}
+
+.sm-popup-overlay.closing {
+  display: flex;
+  animation: smAtomFadeOut 0.3s forwards, smAtomScaleOut 0.3s forwards;
+}
+
+.sm-popup-content {
+  background: #181818;
+  width: 90%;
+  max-width: 480px;
+  border-radius: 16px;
+  border: 1px solid #333;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  animation: slideUp 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.sm-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+}
+.sm-popup-close:hover { color: white; }
+
+/* Popup Tabs */
+.sm-popup-tabs {
+  display: flex;
+  border-bottom: 1px solid #333;
+  background: #222;
+}
+
+.sm-popup-tab {
+  flex: 1;
+  padding: 12px;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.sm-popup-tab:hover { color: #ccc; }
+.sm-popup-tab.active {
+  color: var(--sm-orange);
+  border-bottom-color: var(--sm-orange);
+  background: #2a2a2a;
+}
+
+/* Popup Body */
+.sm-tab-content {
+  padding: 20px;
+  display: none;
+}
+.sm-tab-content.active { display: block; }
+
+/* Overview Tab Styling */
+.sm-popup-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sm-popup-symbol {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 5px;
+  line-height: 1;
+}
+
+.sm-popup-name {
+  font-size: 18px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.sm-popup-meta {
+  font-size: 12px;
+  color: var(--sm-orange);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.sm-popup-desc {
+  font-size: 13px;
+  color: #ccc;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Popup Bars */
+.sm-popup-stats {
+  margin-bottom: 20px;
+  background: #222;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.sm-stat-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.sm-stat-row:last-child { margin-bottom: 0; }
+
+.sm-stat-label {
+  width: 70px;
+  color: #aaa;
+}
+
+.sm-stat-track {
+  flex: 1;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.sm-stat-bar {
+  height: 100%;
+  background: var(--sm-orange);
+  width: 0%;
+  transition: width 0.5s ease-out;
+}
+
+/* Badges Grid (Quantum Numbers) */
+.sm-section-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.sm-badges-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.sm-badge {
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.sm-badge span:first-child { color: #888; font-size: 11px; }
+.sm-badge span:last-child { color: #fff; font-size: 12px; font-weight: bold; }
+
+/* Tooltip implementation for badges/pills */
+.sm-tooltip-trigger:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  white-space: nowrap;
+  pointer-events: none;
+  margin-bottom: 5px;
+  z-index: 200;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Interactions Pills */
+.sm-forces-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sm-force-pill {
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 10px;
+  background: #222;
+  color: #555;
+  border: 1px solid #333;
+  position: relative;
+}
+
+.sm-force-pill.active {
+  background: rgba(255, 136, 0, 0.15);
+  color: var(--sm-orange);
+  border-color: var(--sm-orange-dark);
+}
+
+/* FEYNMAN TAB SVG */
+.feynman-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.feynman-svg {
+  width: 240px;
+  height: 180px;
+  /* No background, purely svg */
+}
+
+/* SVG Line Styles */
+.f-line-fermion {
+  stroke: white;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.f-line-boson {
+  stroke: var(--sm-orange);
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 4, 3; /* dashed for bosons usually */
+}
+
+.f-line-z {
+  stroke: var(--sm-orange);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.f-line-higgs {
+  stroke: #ffffff;
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 4, 3; /* Higgs dashed style */
+  stroke-linecap: round;
+}
+
+.f-line-boson.gluon {
+  stroke-dasharray: 0;
+  /* Simplified coil look via path in JS, or just solid for simplicity here */
+}
+
+.f-line-gluon {
+  stroke: var(--sm-orange);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+}
+
+/* Animated Elements */
+.f-particle-dot {
+  fill: white;
+  r: 3;
+}
+
+  .f-vertex-flash {
+    fill: var(--sm-orange);
+    opacity: 0;
+  }
+
+  .f-label {
+    fill: #e5e5e5;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    user-select: none;
+  }
+
+/* CSS Keyframes for synchronization */
+/* 2s cycle:
+   0-50%: Particle approaches
+   50%: Collision/Interaction
+   50-100%: Result leaves
+*/
+
+@keyframes particleIn {
+  0% { offset-distance: 0%; opacity: 1; }
+  45% { opacity: 1; }
+  50% { offset-distance: 100%; opacity: 0; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+@keyframes particleOut {
+  0% { offset-distance: 0%; opacity: 0; }
+  50% { offset-distance: 0%; opacity: 0; }
+  55% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 1; }
+}
+
+@keyframes vertexFlash {
+  0%, 45% { r: 0; opacity: 0; }
+  50% { r: 8px; opacity: 1; }
+  60% { r: 12px; opacity: 0; }
+  100% { r: 0; opacity: 0; }
+}
+
+.anim-in {
+  animation: particleIn 2.5s linear infinite;
+}
+
+.anim-out {
+  animation: particleOut 2.5s linear infinite;
+}
+
+.anim-flash {
+  animation: vertexFlash 2.5s linear infinite;
+}
+
+.feynman-desc {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #ccc;
+  text-align: center;
+  line-height: 1.5;
+  padding: 0 10px;
+}
+
+/* Animations for Modal */
+@keyframes smAtomFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes smAtomFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes smAtomScaleIn {
+  from { transform: scale(0.8); }
+  to { transform: scale(1); }
+}
+
+@keyframes smAtomScaleOut {
+  from { transform: scale(1); }
+  to { transform: scale(0.8); }
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  .standard-model-grid {
+    grid-template-columns: auto repeat(3, 70px) 70px 70px;
+    grid-template-rows: auto repeat(4, 70px);
+    row-gap: 6px;
+    column-gap: 6px;
+  }
+  .sm-particle { width: 70px; height: 70px; }
+  .sm-particle-symbol { font-size: 18px; }
+  .standard-model-row-label, .standard-model-grid .generation-header { display: none; }
+  .standard-model-grid { display: flex; flex-wrap: wrap; justify-content: center; width: 100%; }
+}

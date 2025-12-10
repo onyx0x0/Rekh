@@ -1,0 +1,69 @@
+{
+  "title": "Quiz: Motion in One Dimension",
+  "subject": "physics",
+  "topic": "kinematics",
+  "lectureNumber": "2",
+  "questions": [
+    {
+      "question": "An object that moves with constant acceleration:",
+      "choices": [
+        "Must have constant velocity",
+        "Must have changing velocity",
+        "Must be at rest",
+        "Must be moving in a circle"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Constant acceleration means the velocity is changing at a constant rate."
+    },
+    {
+      "question": "The equation $d = v_i t + \\frac{1}{2}at^2$ is used to calculate:",
+      "choices": [
+        "Final velocity",
+        "Average velocity",
+        "Displacement",
+        "Acceleration"
+      ],
+      "correctAnswer": 2,
+      "explanation": "This equation calculates displacement (d) when initial velocity (v_i), time (t), and acceleration (a) are known."
+    },
+    {
+      "question": "A car accelerates from rest to 20 m/s in 5 seconds. What is its acceleration?",
+      "choices": [
+        "4 m/s²",
+        "5 m/s²",
+        "100 m/s²",
+        "0.25 m/s²"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Acceleration = change in velocity / time = (20 - 0) / 5 = 4 m/s²"
+    },
+    {
+      "question": "A ball is thrown vertically upward with an initial velocity of 15 m/s. How high will it go (assuming g = 10 m/s²)?",
+      "choices": [
+        "7.5 m",
+        "11.25 m",
+        "15 m",
+        "22.5 m"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Using v² = v₀² + 2a(x-x₀), at the highest point v = 0, so 0 = 15² + 2(-10)(h), which gives h = 15²/(2×10) = 11.25 m"
+    },
+    {
+      "question": "Which of the following is true about free fall motion near Earth's surface (ignoring air resistance)?",
+      "choices": [
+        "All objects fall at the same rate regardless of mass",
+        "Heavier objects fall faster than lighter objects",
+        "The acceleration decreases as the object falls",
+        "The velocity remains constant during the fall"
+      ],
+      "correctAnswer": 0,
+      "explanation": "In the absence of air resistance, all objects fall with the same acceleration regardless of their mass."
+    }
+  ],
+  "metadata": {
+    "difficulty": "intermediate",
+    "timeEstimate": "15 minutes",
+    "tags": ["kinematics", "one-dimensional motion", "acceleration"],
+    "lastUpdated": "2025-03-07"
+  }
+} 

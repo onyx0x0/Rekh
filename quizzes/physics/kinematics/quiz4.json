@@ -1,0 +1,50 @@
+{
+  "title": "Quiz: Relative Motion",
+  "subject": "physics",
+  "topic": "kinematics",
+  "lectureNumber": "4",
+  "questions": [
+    {
+      "question": "What is a frame of reference?",
+      "choices": ["A fixed point in space", "A coordinate system from which motion is observed", "A moving object", "A type of force"],
+      "correctAnswer": 1,
+      "explanation": "A frame of reference is a coordinate system from which motion is observed and measured."
+    },
+    {
+      "question": "If a train moves east at 30 m/s and a passenger walks west at 2 m/s relative to the train, what is the passenger's velocity relative to the ground?",
+      "choices": ["28 m/s east", "32 m/s east", "28 m/s west", "32 m/s west"],
+      "correctAnswer": 0,
+      "explanation": "Relative to the ground: 30 m/s east - 2 m/s west = 28 m/s east."
+    },
+    {
+      "question": "Which equation gives the velocity of A relative to B?",
+      "choices": ["v_{A/B} = v_A + v_B", "v_{A/B} = v_A - v_B", "v_{A/B} = v_B - v_A", "v_{A/B} = v_A * v_B"],
+      "correctAnswer": 1,
+      "explanation": "v_{A/B} = v_A - v_B."
+    },
+    {
+      "question": "A boat moves north at 5 m/s relative to the water. The river flows east at 3 m/s. What is the boat's speed relative to the ground?",
+      "choices": ["5 m/s", "3 m/s", "8 m/s", "5.83 m/s"],
+      "correctAnswer": 3,
+      "explanation": "Speed = sqrt(5^2 + 3^2) = 5.83 m/s."
+    },
+    {
+      "question": "If two cars move in the same direction, one at 60 km/h and the other at 80 km/h, what is their relative speed?",
+      "choices": ["20 km/h", "140 km/h", "60 km/h", "80 km/h"],
+      "correctAnswer": 0,
+      "explanation": "Relative speed = 80 km/h - 60 km/h = 20 km/h."
+    },
+    {
+      "question": "Why is relative motion important in physics?",
+      "choices": ["It helps describe motion from different perspectives", "It is only used in astronomy", "It is not important", "It only applies to stationary objects"],
+      "correctAnswer": 0,
+      "explanation": "Relative motion allows us to describe and analyze motion from different frames of reference."
+    }
+  ],
+  "metadata": {
+    "difficulty": "intermediate",
+    "timeEstimate": "12 minutes",
+    "tags": ["kinematics", "relative motion", "frames of reference"],
+    "lastUpdated": "2025-03-07"
+  }
+} 

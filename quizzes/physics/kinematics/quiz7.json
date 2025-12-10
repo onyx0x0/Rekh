@@ -1,0 +1,50 @@
+{
+  "title": "Quiz: Problem Solving Strategies in Kinematics",
+  "subject": "physics",
+  "topic": "kinematics",
+  "lectureNumber": "7",
+  "questions": [
+    {
+      "question": "What is the first step in solving a kinematics problem?",
+      "choices": ["Plug in numbers", "Draw a diagram", "Write the answer", "Guess the formula"],
+      "correctAnswer": 1,
+      "explanation": "Drawing a diagram helps visualize the problem."
+    },
+    {
+      "question": "Why is it important to list knowns and unknowns?",
+      "choices": ["To make the problem look longer", "To confuse yourself", "To organize information and clarify what you need to find", "It is not important"],
+      "correctAnswer": 2,
+      "explanation": "Listing knowns and unknowns helps organize information and clarify the goal."
+    },
+    {
+      "question": "Which equation would you use for an object starting from rest with constant acceleration?",
+      "choices": ["x = v_0 t + 0.5 a t^2", "x = v t", "v = x/t", "a = v/t"],
+      "correctAnswer": 0,
+      "explanation": "x = v_0 t + 0.5 a t^2 is the correct kinematic equation."
+    },
+    {
+      "question": "What should you do before plugging in numbers?",
+      "choices": ["Solve algebraically", "Guess the answer", "Draw a picture", "Check units"],
+      "correctAnswer": 0,
+      "explanation": "Solving algebraically first helps avoid mistakes."
+    },
+    {
+      "question": "A car accelerates at 3 m/s² for 4 seconds from rest. How far does it travel?",
+      "choices": ["12 m", "24 m", "6 m", "48 m"],
+      "correctAnswer": 1,
+      "explanation": "x = 0.5 × 3 × 16 = 24 m."
+    },
+    {
+      "question": "Why should you check the units and reasonableness of your answer?",
+      "choices": ["To make the answer look fancy", "To ensure the answer makes sense and is correct", "It is not necessary", "To confuse the teacher"],
+      "correctAnswer": 1,
+      "explanation": "Checking units and reasonableness helps catch errors and ensures the answer is correct."
+    }
+  ],
+  "metadata": {
+    "difficulty": "beginner",
+    "timeEstimate": "10 minutes",
+    "tags": ["kinematics", "problem solving", "strategies"],
+    "lastUpdated": "2025-03-07"
+  }
+} 

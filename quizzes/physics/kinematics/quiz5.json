@@ -1,0 +1,50 @@
+{
+  "title": "Quiz: Uniform Circular Motion",
+  "subject": "physics",
+  "topic": "kinematics",
+  "lectureNumber": "5",
+  "questions": [
+    {
+      "question": "What is centripetal acceleration?",
+      "choices": ["Acceleration directed away from the center", "Acceleration directed toward the center", "Constant velocity", "Zero acceleration"],
+      "correctAnswer": 1,
+      "explanation": "Centripetal acceleration is always directed toward the center of the circle."
+    },
+    {
+      "question": "Which equation gives the magnitude of centripetal acceleration?",
+      "choices": ["a_c = v^2/r", "a_c = r/v^2", "a_c = v/r^2", "a_c = r^2/v"],
+      "correctAnswer": 0,
+      "explanation": "a_c = v^2/r."
+    },
+    {
+      "question": "A 2 kg object moves in a circle of radius 4 m at 6 m/s. What is the centripetal force?",
+      "choices": ["18 N", "12 N", "9 N", "6 N"],
+      "correctAnswer": 0,
+      "explanation": "F_c = m v^2/r = 2*36/4 = 18 N."
+    },
+    {
+      "question": "What is the period of an object moving at 8 m/s in a circle of radius 4 m?",
+      "choices": ["2π s", "π s", "4π s", "1 s"],
+      "correctAnswer": 0,
+      "explanation": "T = 2πr/v = 2π*4/8 = π s."
+    },
+    {
+      "question": "If the speed of an object in uniform circular motion doubles, what happens to the centripetal acceleration?",
+      "choices": ["It doubles", "It quadruples", "It halves", "It stays the same"],
+      "correctAnswer": 1,
+      "explanation": "a_c = v^2/r, so if v doubles, a_c increases by a factor of 4."
+    },
+    {
+      "question": "What is the direction of the velocity vector in uniform circular motion?",
+      "choices": ["Toward the center", "Away from the center", "Tangent to the circle", "Radially outward"],
+      "correctAnswer": 2,
+      "explanation": "The velocity vector is always tangent to the circle."
+    }
+  ],
+  "metadata": {
+    "difficulty": "intermediate",
+    "timeEstimate": "12 minutes",
+    "tags": ["kinematics", "circular motion", "centripetal force"],
+    "lastUpdated": "2025-03-07"
+  }
+} 

@@ -1,0 +1,69 @@
+{
+  "title": "Quiz: Basics of Thermodynamics",
+  "subject": "physics",
+  "topic": "thermodynamics",
+  "lectureNumber": "1",
+  "questions": [
+    {
+      "question": "The First Law of Thermodynamics is essentially a restatement of:",
+      "choices": [
+        "Conservation of mass",
+        "Conservation of energy",
+        "Conservation of momentum",
+        "Conservation of charge"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The First Law of Thermodynamics states that energy cannot be created or destroyed, only transferred or converted from one form to another."
+    },
+    {
+      "question": "Which of the following is NOT a thermodynamic process?",
+      "choices": [
+        "Isothermal",
+        "Isobaric",
+        "Isochoric",
+        "Isometric"
+      ],
+      "correctAnswer": 3,
+      "explanation": "Isometric is not a thermodynamic process. The thermodynamic processes are isothermal (constant temperature), isobaric (constant pressure), and isochoric (constant volume)."
+    },
+    {
+      "question": "What happens to the internal energy of a system during an adiabatic process?",
+      "choices": [
+        "It always increases",
+        "It always decreases",
+        "It remains constant",
+        "It can increase or decrease depending on whether work is done on or by the system"
+      ],
+      "correctAnswer": 3,
+      "explanation": "In an adiabatic process, no heat is transferred, so the change in internal energy equals the work done. If work is done on the system, internal energy increases; if work is done by the system, internal energy decreases."
+    },
+    {
+      "question": "The Second Law of Thermodynamics states that:",
+      "choices": [
+        "Energy is conserved in all processes",
+        "The entropy of an isolated system always decreases",
+        "The entropy of an isolated system always increases",
+        "Heat flows from cold to hot objects"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The Second Law of Thermodynamics states that the entropy of an isolated system not in equilibrium will tend to increase over time, approaching a maximum value at equilibrium."
+    },
+    {
+      "question": "What is the efficiency of a Carnot engine operating between temperatures of 400K and 300K?",
+      "choices": [
+        "25%",
+        "33%",
+        "75%",
+        "100%"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The efficiency of a Carnot engine is given by η = 1 - Tc/Th = 1 - 300/400 = 1 - 0.75 = 0.25 or 25%."
+    }
+  ],
+  "metadata": {
+    "difficulty": "intermediate",
+    "timeEstimate": "15 minutes",
+    "tags": ["thermodynamics", "energy", "heat"],
+    "lastUpdated": "2025-03-07"
+  }
+} 

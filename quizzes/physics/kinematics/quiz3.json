@@ -1,0 +1,56 @@
+{
+  "title": "Quiz: Motion in Two Dimensions (Vectors & Projectile Motion)",
+  "subject": "physics",
+  "topic": "kinematics",
+  "lectureNumber": "3",
+  "questions": [
+    {
+      "question": "What is a vector?",
+      "choices": ["A quantity with only magnitude", "A quantity with only direction", "A quantity with both magnitude and direction", "A scalar quantity"],
+      "correctAnswer": 2,
+      "explanation": "A vector has both magnitude and direction."
+    },
+    {
+      "question": "Which of the following is a correct equation for the horizontal displacement of a projectile (ignoring air resistance)?",
+      "choices": ["x = v_{0x} t", "x = v_{0y} t", "x = v_{0} t^2", "x = v_{0x} t^2"],
+      "correctAnswer": 0,
+      "explanation": "Horizontal displacement is given by x = v_{0x} t."
+    },
+    {
+      "question": "In projectile motion, what is the vertical acceleration (ignoring air resistance)?",
+      "choices": ["0 m/s²", "9.8 m/s² upward", "9.8 m/s² downward", "-9.8 m/s² downward"],
+      "correctAnswer": 3,
+      "explanation": "The vertical acceleration is -9.8 m/s² downward due to gravity."
+    },
+    {
+      "question": "A ball is launched at 10 m/s at 45°. What are the initial velocity components?",
+      "choices": ["v_{0x} = 10 m/s, v_{0y} = 0 m/s", "v_{0x} = 0 m/s, v_{0y} = 10 m/s", "v_{0x} = 7.07 m/s, v_{0y} = 7.07 m/s", "v_{0x} = 5 m/s, v_{0y} = 5 m/s"],
+      "correctAnswer": 2,
+      "explanation": "At 45°, both components are 10/sqrt(2) ≈ 7.07 m/s."
+    },
+    {
+      "question": "Which statement is true about projectile motion?",
+      "choices": ["Horizontal and vertical motions are independent", "Horizontal velocity changes due to gravity", "Vertical velocity is constant", "The path is a straight line"],
+      "correctAnswer": 0,
+      "explanation": "Horizontal and vertical motions are independent in projectile motion."
+    },
+    {
+      "question": "What is the shape of a projectile's trajectory (ignoring air resistance)?",
+      "choices": ["Circle", "Straight line", "Parabola", "Ellipse"],
+      "correctAnswer": 2,
+      "explanation": "Projectile motion traces a parabolic path."
+    },
+    {
+      "question": "A projectile is launched horizontally from a cliff. What determines the time it takes to hit the ground?",
+      "choices": ["Horizontal speed", "Height of the cliff", "Both horizontal speed and height", "Neither"],
+      "correctAnswer": 1,
+      "explanation": "The time to hit the ground depends only on the vertical drop (height)."
+    }
+  ],
+  "metadata": {
+    "difficulty": "intermediate",
+    "timeEstimate": "15 minutes",
+    "tags": ["kinematics", "projectile motion", "vectors"],
+    "lastUpdated": "2025-03-07"
+  }
+} 

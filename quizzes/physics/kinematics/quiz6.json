@@ -1,0 +1,50 @@
+{
+  "title": "Quiz: Motion Graphs and Their Interpretation",
+  "subject": "physics",
+  "topic": "kinematics",
+  "lectureNumber": "6",
+  "questions": [
+    {
+      "question": "What does the slope of a position-time graph represent?",
+      "choices": ["Acceleration", "Velocity", "Displacement", "Time"],
+      "correctAnswer": 1,
+      "explanation": "The slope of a position-time graph gives the velocity."
+    },
+    {
+      "question": "What does the area under a velocity-time graph represent?",
+      "choices": ["Acceleration", "Displacement", "Speed", "Force"],
+      "correctAnswer": 1,
+      "explanation": "The area under a velocity-time graph gives the displacement."
+    },
+    {
+      "question": "A straight line on a velocity-time graph indicates:",
+      "choices": ["Constant velocity", "Constant acceleration", "Changing acceleration", "Zero velocity"],
+      "correctAnswer": 1,
+      "explanation": "A straight line (not horizontal) means constant acceleration."
+    },
+    {
+      "question": "What does the area under an acceleration-time graph represent?",
+      "choices": ["Velocity", "Displacement", "Change in velocity", "Change in position"],
+      "correctAnswer": 2,
+      "explanation": "The area under an acceleration-time graph gives the change in velocity."
+    },
+    {
+      "question": "If a position-time graph is a curve, what does this indicate?",
+      "choices": ["Constant velocity", "Changing velocity (acceleration)", "Constant acceleration", "Zero velocity"],
+      "correctAnswer": 1,
+      "explanation": "A curve means the velocity is changing, so there is acceleration."
+    },
+    {
+      "question": "A velocity-time graph shows a horizontal line at 5 m/s for 10 seconds. What is the displacement?",
+      "choices": ["5 m", "10 m", "50 m", "0 m"],
+      "correctAnswer": 2,
+      "explanation": "Displacement = velocity × time = 5 × 10 = 50 m."
+    }
+  ],
+  "metadata": {
+    "difficulty": "beginner",
+    "timeEstimate": "10 minutes",
+    "tags": ["kinematics", "graphs", "motion"],
+    "lastUpdated": "2025-03-07"
+  }
+} 
