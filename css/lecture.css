@@ -1,0 +1,5 @@
+/* Placeholder lecture styles.
+ * The layout is handled by lecture-content.css; this file exists to avoid 404/MIME errors
+ * when pages reference css/lecture.css. Extend with page-specific overrides as needed.
+ */
+

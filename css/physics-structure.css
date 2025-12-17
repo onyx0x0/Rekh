@@ -1,0 +1,640 @@
+:root {
+    --bg-color: #000000;
+    --card-bg: #15171e;
+    --card-bg-active: #1f222b;
+    --accent: #ffae00;
+    --accent-dim: #996900;
+    --text-main: #e0e0e0;
+    --text-muted: #757a85;
+    --border-color: #2f323b;
+    --font-stack: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-stack);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+.screen-vignette,
+.noise-overlay,
+.bg-grid-plane {
+    display: none;
+}
+
+#app-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem 1.5rem 3rem;
+    overflow: visible;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* When injected into the home inline viewer, center and lift the block */
+#course-content #app-container,
+.course-content-shell #app-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0;
+    transform: translateY(-180px);
+    align-items: center;
+}
+
+/* Hard center alignment when embedded in the inline viewer */
+.course-content-shell #app-container .ui-layer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.course-content-shell #app-container .mission-carousel-stage {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.course-content-shell #app-container .lecture-track-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Lift and center the back arrow in the inline viewer */
+.course-content-shell #course-back {
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ui-layer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mission-carousel-stage {
+    position: relative;
+    width: min(92vw, 1400px);
+    max-width: 1400px;
+    min-height: 470px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2.4rem;
+    top: 14px;
+    transform: translateY(18px);
+    overflow: visible;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding-top: 18px;
+}
+
+.course-rail {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 12px 8px 6px;
+}
+
+.rail-top,
+.rail-heading,
+.rail-title,
+.rail-meta,
+.rail-controls,
+.rail-btn {
+    display: none;
+}
+
+.deck-window {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+    min-height: 420px;
+}
+
+.course-deck {
+    --card-width: min(26vw, 320px);
+    --card-height: calc(var(--card-width) * 1.35);
+    position: relative;
+    width: 100%;
+    height: calc(var(--card-height) + 30px);
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    transition: transform 0.7s var(--ease-out-quint);
+    will-change: transform, opacity;
+}
+
+.course-card {
+    position: relative;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: var(--card-width);
+    min-width: 230px;
+    height: var(--card-height);
+    aspect-ratio: 0.707;
+    background: #0b0b0b;
+    border: 1px solid #1c1c1c;
+    border-radius: 14px;
+    padding: 18px 18px 18px;
+    overflow: hidden;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55);
+    transition: transform 0.65s var(--ease-out-quint), box-shadow 0.45s, border-color 0.4s, opacity 0.4s, background 0.4s;
+    cursor: pointer;
+    color: var(--text-main);
+    backface-visibility: hidden;
+    transform: var(--pose);
+}
+
+.course-card::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 14px;
+    background: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.course-card:hover {
+    border-color: var(--accent);
+    background: #0f0f0f;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55);
+    transform: var(--pose) translateY(-4px);
+}
+
+.course-card:hover::after {
+    opacity: 0;
+}
+
+.course-card.active {
+    border-color: var(--accent);
+    background: #0e0e0e;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 174, 0, 0.35);
+}
+
+.card-chip {
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-family: var(--font-stack);
+}
+
+.card-heading {
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.card-sub {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.card-visual {
+    width: 100%;
+    aspect-ratio: 16 / 11;
+    border: 1px dashed #1c1c1c;
+    border-radius: 12px;
+    background: #0f0f0f;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-visual::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: none;
+    opacity: 0;
+    transform: none;
+}
+
+@media (max-width: 900px) {
+    .mission-carousel-stage {
+        min-height: 430px;
+    }
+
+    .deck-window {
+        min-height: 390px;
+    }
+
+    .course-deck {
+        --card-width: min(70vw, 260px);
+        --card-height: calc(var(--card-width) * 1.35);
+        height: calc(var(--card-height) + 24px);
+    }
+}
+
+@media (max-width: 520px) {
+    .mission-carousel-stage {
+        min-height: 400px;
+    }
+
+    .deck-window {
+        min-height: 360px;
+    }
+
+    .course-deck {
+        height: calc(var(--card-height) + 16px);
+    }
+}
+
+.lecture-track-container {
+    width: min(90vw, 1400px);
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding-top: 0.6rem;
+    padding-bottom: 2rem;
+    position: relative;
+}
+
+.track-label {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    opacity: 0.9;
+    padding: 0 2px;
+    display: inline-block;
+    align-self: center;
+}
+
+.lecture-track {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(150px, 1fr));
+    gap: 18px;
+    width: 100%;
+    position: relative;
+    align-items: stretch;
+    justify-items: stretch;
+    justify-content: center;
+}
+
+@media (max-width: 1200px) {
+    .lecture-track {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
+
+.tech-module {
+    position: relative;
+    width: auto;
+    max-width: 100%;
+    min-height: 150px;
+    height: auto;
+    background: #0b0b0b;
+    border: 1px solid #1c1c1c;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.2s, background 0.2s;
+    opacity: 0;
+    transform: translateY(10px);
+    overflow: hidden;
+    box-shadow: none;
+}
+
+.tech-module.visible {
+    animation: moduleReveal 0.4s forwards;
+}
+
+.tech-module:hover {
+    background: #0f0f0f;
+    border-color: var(--accent);
+    transform: translateY(-4px);
+}
+
+.tech-module:hover .status-dot {
+    background: var(--accent);
+}
+
+.tech-module:hover .module-action {
+    opacity: 1;
+}
+
+.tech-module:active {
+    transform: translateY(-1px);
+}
+
+.module-corner {
+    display: none;
+}
+
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.module-id {
+    font-size: 0.55rem;
+    color: #8a8a8a;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background: #444;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.module-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.module-code {
+    font-family: monospace;
+    font-size: 0.65rem;
+    color: var(--accent-dim);
+}
+
+.module-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1.2;
+}
+
+.module-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    padding-top: 10px;
+    border-top: 1px solid #141414;
+}
+
+.module-action {
+    display: none;
+}
+
+@keyframes moduleReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes slideUpFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Module detail modal */
+.module-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(2px);
+    z-index: 3200;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 20px;
+}
+
+.module-modal-overlay.visible {
+    display: flex;
+    animation: moduleModalFadeIn 0.3s ease-in-out forwards;
+}
+
+.module-modal-overlay.closing {
+    animation: moduleModalFadeOut 0.3s ease-in-out forwards;
+}
+
+.module-modal-card {
+    position: relative;
+    width: min(760px, 88vw);
+    background: #0b0b0b;
+    border: 1px solid #1c1c1c;
+    border-radius: 16px;
+    box-shadow: none;
+    padding: 20px 20px 20px 20px;
+    animation: moduleModalPopOut 0.4s var(--ease-out-quint);
+}
+
+.module-modal-overlay.closing .module-modal-card {
+    animation: moduleModalPopIn 0.3s ease-in forwards;
+}
+
+.module-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid #1c1c1c;
+    background: #0b0b0b;
+    color: #c9c9c9;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.module-modal-close:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.module-modal-content {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.module-modal-media {
+    background: transparent;
+    border: none;
+    border-radius: 14px;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+.module-media-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    border: 1px dashed #1c1c1c;
+    background: #0b0b0b;
+    box-shadow: none;
+}
+
+.module-modal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 100%;
+}
+
+.module-modal-difficulty {
+    font-size: 0.75rem;
+    letter-spacing: 2.4px;
+    color: var(--accent);
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.module-modal-title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1.2;
+}
+
+.module-modal-description {
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: 4px;
+}
+
+.module-modal-actions {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.module-initiate-btn {
+    background: var(--accent);
+    color: #0b0b0b;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background-color 0.1s ease;
+}
+
+.module-initiate-btn:hover {
+    background: #ffd34d;
+}
+
+.module-initiate-btn:active {
+    background: var(--accent-dim);
+}
+
+@media (max-width: 860px) {
+    .module-modal-content {
+        grid-template-columns: 1fr;
+    }
+
+    .module-modal-card {
+        padding: 20px 18px 20px 18px;
+    }
+
+    .module-modal-close {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+@keyframes moduleModalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes moduleModalFadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes moduleModalPopOut {
+    0% {
+        opacity: 0;
+        transform: scale(0.94) translateY(6px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes moduleModalPopIn {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.9) translateY(6px);
+    }
+}

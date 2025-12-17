@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relativistic Flight Simulator</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Toggle Arrows (optional, used SVG instead for zero-dependency) -->
+</head>
+<body>
+    
+    <!-- Main Viewport -->
+    <canvas id="spaceCanvas"></canvas>
+
+    <!-- LEFT TELEMETRY ISLAND -->
+    <div class="telemetry-island left" id="teleIslandLeft">
+        <button class="toggle-telemetry left" onclick="toggleTelemetry('left')">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <div class="tele-grid">
+            <!-- CORE MOTION -->
+            <div class="tele-cell"><span class="label">Gamma</span><div class="value-box" id="val-gamma">1.00</div></div>
+            <div class="tele-cell"><span class="label">Beta (v/c)</span><div class="value-box" id="val-beta">0.000</div></div>
+            <div class="tele-cell"><span class="label">Kinetic Energy</span><div class="value-box" id="val-ke">0 MJ</div></div>
+            <div class="tele-cell"><span class="label">Rapidity</span><div class="value-box" id="val-rapidity">0.00</div></div>
+            <div class="tele-cell"><span class="label">Rel. Momentum</span><div class="value-box" id="val-mom">0.00</div></div>
+            
+            <!-- TIME -->
+            <div class="tele-cell"><span class="label">Ship vs Ext.</span><div class="value-box" id="val-dil">1 : 1</div></div>
+            <div class="tele-cell"><span class="label">Earth Offset</span><div class="value-box" id="val-offset">0.00s</div></div>
+            <div class="tele-cell"><span class="label">Univ. Age Rate</span><div class="value-box" id="val-age">1.00x</div></div>
+            <div class="tele-cell"><span class="label">Aging Diff</span><div class="value-box" id="val-agediff">0.00</div></div>
+
+            <!-- GEOMETRY -->
+            <div class="tele-cell"><span class="label">Dist. Distortion</span><div class="value-box" id="val-dist">0%</div></div>
+            <div class="tele-cell"><span class="label">90% Cone</span><div class="value-box" id="val-cone">180°</div></div>
+            <div class="tele-cell"><span class="label">Fwd Flux %</span><div class="value-box" id="val-flux">50%</div></div>
+            <div class="tele-cell"><span class="label">Star Conc.</span><div class="value-box" id="val-conc">1.0x</div></div>
+        </div>
+    </div>
+
+    <!-- RIGHT TELEMETRY ISLAND -->
+    <div class="telemetry-island right" id="teleIslandRight">
+        <button class="toggle-telemetry right" onclick="toggleTelemetry('right')">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+        <div class="tele-grid">
+            <!-- PHOTON -->
+            <div class="tele-cell"><span class="label">Bright Shift</span><div class="value-box" id="val-bright">1.0x</div></div>
+            <div class="tele-cell"><span class="label">Color Shift</span><div class="value-box" id="val-color">0nm</div></div>
+            <div class="tele-cell"><span class="label">Beaming Fac</span><div class="value-box" id="val-beam">1.0</div></div>
+            <div class="tele-cell"><span class="label">Rear Redshift</span><div class="value-box" id="val-rear">0.00</div></div>
+            <div class="tele-cell"><span class="label">Doppler F/S/R</span><div class="value-box" id="val-dop">1/1/1</div></div>
+            <div class="tele-cell"><span class="label">Lum Error</span><div class="value-box" id="val-lum">0%</div></div>
+
+            <!-- HAZARD -->
+            <div class="tele-cell"><span class="label">Dust Impact</span><div class="value-box" id="val-dust">0 J</div></div>
+            <div class="tele-cell"><span class="label">Rad Dose</span><div class="value-box" id="val-rad">0 Sv/h</div></div>
+            <div class="tele-cell"><span class="label">Hull Heat</span><div class="value-box" id="val-heat">0 K</div></div>
+            <div class="tele-cell"><span class="label">Micro Flux</span><div class="value-box" id="val-micro">0/s</div></div>
+            <div class="tele-cell"><span class="label">Shield Stress</span><div class="value-box" id="val-shield">0%</div></div>
+            <div class="tele-cell"><span class="label">Fwd Photon</span><div class="value-box" id="val-phot">Vis</div></div>
+
+            <!-- PERCEPTION -->
+            <div class="tele-cell"><span class="label">Reality Gap</span><div class="value-box" id="val-gap">0 ms</div></div>
+            <div class="tele-cell"><span class="label">Lookback</span><div class="value-box" id="val-look">0 y</div></div>
+            <div class="tele-cell"><span class="label">Max Range</span><div class="value-box" id="val-range">100%</div></div>
+            <div class="tele-cell"><span class="label">Horizon Exp</span><div class="value-box" id="val-hor">1.0x</div></div>
+        </div>
+    </div>
+
+    <!-- SPECTRAL COMPRESSION ISLAND -->
+    <div class="spectral-island" id="spectralIsland">
+        <button class="toggle-spectral" onclick="toggleSpectral()">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+        <div class="spectral-head">
+            <div>
+                <div class="spectral-title">Spectral Compression</div>
+                <div class="spectral-subtitle">Live Doppler shift of incoming photons</div>
+            </div>
+            <div class="spectral-views">
+                <button class="view-btn active" id="viewForward" onclick="setSpectralView('forward')">Forward</button>
+                <button class="view-btn" id="viewSide" onclick="setSpectralView('side')">Side</button>
+                <button class="view-btn" id="viewRear" onclick="setSpectralView('rear')">Rear</button>
+            </div>
+        </div>
+        <div class="spectral-canvas-wrap">
+            <canvas id="spectralCanvas" aria-label="Incoming energy spectrum"></canvas>
+            <div class="spectrum-axis">
+                <span>Radio</span>
+                <span>Microwave</span>
+                <span>IR</span>
+                <span>Visible</span>
+                <span>UV</span>
+                <span>X-ray</span>
+                <span>Gamma</span>
+            </div>
+        </div>
+        <div class="spectral-readouts">
+            <div class="readout">
+                <span class="label">Observed window</span>
+                <span class="value" id="specWindow">550 nm (Visible)</span>
+            </div>
+            <div class="readout">
+                <span class="label">Doppler factor</span>
+                <span class="value" id="specDoppler">1.00x</span>
+            </div>
+            <div class="readout">
+                <span class="label">CMB shift</span>
+                <span class="value" id="specCmb">1.0 mm</span>
+            </div>
+            <div class="readout">
+                <span class="label">X-ray spike</span>
+                <span class="value" id="specXray">Dormant</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- UI Overlay (Bottom) -->
+    <div class="ui-container">
+        <div class="control-bar">
+            <div class="slider-group">
+                <label for="speedSlider">Velocity <span id="speedDisplay">0.00c</span></label>
+                <input type="range" id="speedSlider" min="0" max="1000" value="0">
+            </div>
+
+            <div class="toggles">
+                <button id="btnAberration" class="toggle-btn active" onclick="toggleEffect('aberration')">
+                    Aberration
+                </button>
+                <button id="btnDoppler" class="toggle-btn active" onclick="toggleEffect('doppler')">
+                    Doppler Color
+                </button>
+                <button id="btnBeaming" class="toggle-btn active" onclick="toggleEffect('beaming')">
+                    Beaming
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

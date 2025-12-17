@@ -1,0 +1,916 @@
+/* Modern Premium Quiz Styling */
+:root {
+  --quiz-primary: #4a148c; /* Dark purple */
+  --quiz-secondary: #ff8800; /* Orange */
+  --quiz-accent: #6a1b9a; /* Lighter purple */
+  --quiz-text: #ffffff;
+  --quiz-background: rgba(0, 0, 0, 0.7);
+  --quiz-success: #00e676; /* Vibrant green */
+  --quiz-error: #ff1744; /* Vibrant red */
+  --quiz-neutral: #9e9e9e;
+  --quiz-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  --quiz-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  
+  /* Kurzgesagt-inspired vibrant color palette */
+  --k-turquoise: #00b9ae;
+  --k-blue: #0083c7;
+  --k-purple: #8246af;
+  --k-pink: #fb3880;
+  --k-orange: #ff8e31;
+  --k-yellow: #ffde17;
+  --k-red: #ff3838;
+  --k-green: #25d380;
+}
+
+/* Quiz Container */
+.quiz-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  background-color: var(--quiz-background);
+  border-radius: 12px;
+  box-shadow: var(--quiz-shadow);
+  padding: 2rem;
+  color: var(--quiz-text);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Quiz Header */
+#quiz-title {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--quiz-text);
+  font-weight: 700;
+  position: relative;
+}
+
+/* Remove the color spectrum (::after pseudo-element) */
+#quiz-title::after {
+  display: none;
+}
+
+/* Progress Bar */
+.quiz-progress {
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.quiz-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--quiz-primary), var(--quiz-secondary));
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* Question Container */
+.question-container {
+  margin-bottom: 2rem;
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.question-text {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Answer Options */
+.answer-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.answer-option {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: var(--quiz-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.answer-option:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.answer-option.selected {
+  border-color: var(--quiz-secondary);
+  background-color: rgba(255, 136, 0, 0.2);
+}
+
+.answer-option.correct {
+  border-color: var(--quiz-success);
+  background-color: rgba(76, 175, 80, 0.2);
+}
+
+.answer-option.incorrect {
+  border-color: var(--quiz-error);
+  background-color: rgba(244, 67, 54, 0.2);
+}
+
+.answer-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.answer-option label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.answer-option .option-marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-right: 1rem;
+  font-weight: bold;
+  transition: var(--quiz-transition);
+}
+
+.answer-option.selected .option-marker {
+  background-color: var(--quiz-secondary);
+}
+
+.answer-option.correct .option-marker {
+  background-color: var(--quiz-success);
+}
+
+.answer-option.incorrect .option-marker {
+  background-color: var(--quiz-error);
+}
+
+/* Quiz Controls */
+.quiz-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.quiz-button {
+  background: linear-gradient(135deg, #ff8800, #ff6600);
+  color: white !important;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #cc5500, 0 6px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  min-width: 120px;
+  text-align: center;
+}
+
+.quiz-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quiz-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #cc5500, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.quiz-button:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #cc5500, 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.quiz-button.primary {
+  background: linear-gradient(135deg, #ff8800, #ff6600);
+  color: white !important;
+}
+
+.quiz-button.secondary {
+  background-color: transparent;
+  color: var(--quiz-text);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.quiz-button.secondary:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+}
+
+/* Quiz Results */
+#quiz-results {
+  text-align: center;
+  animation: fadeIn 0.5s ease-out; /* Restore animation */
+}
+
+.results-header {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--quiz-text);
+  opacity: 0; /* Start hidden, JS will control appearance */
+  transition: opacity 0.5s ease-out; /* Add transition to prevent flickering */
+}
+
+.score-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  position: relative;
+  opacity: 0; /* Start hidden, JS will control appearance */
+  transition: opacity 0.5s ease-out; /* Add transition to prevent flickering */
+}
+
+.score-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease-out;
+  overflow: visible;
+  z-index: 2;
+}
+
+/* Remove all ::before pseudo-element styling */
+.score-circle::before {
+  content: none;
+  display: none;
+}
+
+.score-circle.animate::before {
+  content: none;
+  display: none;
+}
+
+/* SVG styling for the progress circle */
+.score-circle svg {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: calc(100% + 16px);
+  height: calc(100% + 16px);
+  transform: rotate(-90deg);
+  z-index: 1;
+  filter: drop-shadow(0 0 3px rgba(255, 136, 0, 0.3));
+}
+
+.score-circle circle {
+  fill: transparent;
+  stroke: var(--quiz-secondary);
+  stroke-width: 8px;
+  transition: stroke-dasharray 0.1s linear;
+  stroke-linecap: round;
+}
+
+.score-value {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--quiz-text);
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.score-label {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.feedback-container {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  opacity: 0; /* Start hidden, JS will control appearance */
+  transition: opacity 0.5s ease-out; /* Smooth transition without animation delay */
+}
+
+/* Remove the colored gradient background */
+.feedback-container::before {
+  display: none;
+}
+
+.feedback-message {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  opacity: 0; /* Start hidden, JS will control appearance */
+  transition: opacity 0.5s ease-out; /* Smooth transition without animation delay */
+}
+
+/* Mission-style feedback grid */
+.feedback-grid-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  opacity: 0; /* Start hidden, JS will control appearance */
+  transition: opacity 0.5s ease-out; /* Smooth transition without animation delay */
+}
+
+.feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 100px); /* Fixed 5 columns */
+  gap: 12px;
+  margin-top: 1.5rem;
+  max-width: 540px; /* Limit width to 5 columns + gaps */
+  justify-content: center;
+}
+
+/* Remove scrollbar styling for the feedback grid since we don't need it anymore */
+.feedback-grid::-webkit-scrollbar,
+.feedback-grid::-webkit-scrollbar-track,
+.feedback-grid::-webkit-scrollbar-thumb,
+.feedback-grid::-webkit-scrollbar-thumb:hover {
+  display: none;
+}
+
+.mission-item {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1.2rem 0.8rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.mission-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--quiz-neutral);
+  opacity: 0.7;
+}
+
+.mission-item.correct::before {
+  background-color: var(--quiz-success);
+}
+
+.mission-item.incorrect::before {
+  background-color: var(--quiz-error);
+}
+
+.mission-number {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.mission-status {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mission-item.correct .mission-status {
+  color: #4caf50;
+}
+
+.mission-item.incorrect .mission-status {
+  color: #f44336;
+}
+
+/* Remove the mission-icon styles */
+.mission-icon {
+  display: none;
+}
+
+.mission-item.correct .mission-icon {
+  display: none;
+}
+
+.mission-item.incorrect .mission-icon {
+  display: none;
+}
+
+.mission-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.mission-item.correct:hover {
+  background-color: rgba(76, 175, 80, 0.2);
+}
+
+.mission-item.incorrect:hover {
+  background-color: rgba(244, 67, 54, 0.2);
+}
+
+/* Animation for mission items */
+@keyframes missionAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  60% {
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.mission-item {
+  animation: missionAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: calc(var(--item-index) * 0.1s);
+  opacity: 0;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .feedback-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 10px;
+  }
+  
+  .mission-number {
+    font-size: 1.5rem;
+  }
+  
+  .mission-status {
+    font-size: 0.8rem;
+  }
+}
+
+/* Animations */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+/* Confetti Animation for Success */
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #f0f;
+  opacity: 0;
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .quiz-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  #quiz-title {
+    font-size: 1.8rem;
+  }
+  
+  .question-text {
+    font-size: 1.2rem;
+  }
+  
+  .quiz-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .quiz-button {
+    width: 100%;
+  }
+  
+  .score-circle {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .score-value {
+    font-size: 2.5rem;
+  }
+}
+
+/* For KaTeX Support */
+.katex {
+  font-size: 1.1em !important;
+}
+
+/* Hidden Class */
+.hidden {
+  display: none !important;
+}
+
+.mission-item::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 10px;
+  background: transparent;
+  z-index: -1;
+  transition: box-shadow 0.3s ease;
+}
+
+.mission-item:hover::after {
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+}
+
+.mission-item.incorrect:hover::after {
+  box-shadow: 0 0 15px rgba(244, 67, 54, 0.4);
+}
+
+.mission-item.correct {
+  background-color: rgba(76, 175, 80, 0.15);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.mission-item.incorrect {
+  background-color: rgba(244, 67, 54, 0.15);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+#quiz-results .quiz-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  opacity: 0; /* Start hidden, JS will control appearance */
+  transition: opacity 0.5s ease-out;
+}
+
+/* Cartoonish star burst animation for high scores - with more vibrant colors */
+@keyframes starBurst {
+  0% {
+    box-shadow: 0 0 0 0 var(--k-orange), 0 0 0 0 var(--k-green), 0 0 0 0 var(--k-blue), 0 0 0 0 var(--k-pink);
+    transform: scale(1);
+  }
+  25% {
+    box-shadow: 0 0 0 15px var(--k-orange), 0 0 0 25px var(--k-green), 0 0 0 35px var(--k-blue), 0 0 0 45px var(--k-pink);
+    transform: scale(1.1);
+  }
+  50% {
+    box-shadow: 0 0 0 20px var(--k-orange), 0 0 0 30px var(--k-green), 0 0 0 40px var(--k-blue), 0 0 0 50px var(--k-pink);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 0 25px transparent, 0 0 0 45px transparent, 0 0 0 65px transparent, 0 0 0 85px transparent;
+    transform: scale(1);
+  }
+}
+
+/* Replace celebration stars with exploding square flares */
+.flare-square {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  opacity: 0;
+  z-index: 1;
+  animation: flareExplode 1.4s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+  transform-origin: center center;
+}
+
+@keyframes flareExplode {
+  0% {
+    opacity: 0;
+    transform: translate(var(--sx), var(--sy)) scale(0) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(calc(var(--sx) * 0.8), calc(var(--sy) * 0.8)) scale(0.6) rotate(20deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(1) rotate(180deg);
+  }
+}
+
+/* Comic explosion particles for high scores - updated with vibrant colors and gravity */
+.score-particle {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  animation: particleExplode 1.4s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+  z-index: 1;
+  transform-origin: center center;
+}
+
+@keyframes particleExplode {
+  0% {
+    transform: translate(var(--sx), var(--sy)) scale(0);
+    opacity: 0;
+  }
+  15% {
+    transform: translate(calc(var(--sx) * 0.8), calc(var(--sy) * 0.8)) scale(0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty)) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Progress bar tip square particles */
+.progress-particle-square {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 0; /* Square shape */
+  opacity: 0;
+  z-index: 5; /* Higher z-index to ensure visibility */
+  animation: progressSquare 1s ease-out forwards;
+  transform-origin: center center;
+  pointer-events: none; /* Ensure particles don't interfere with interactions */
+  will-change: transform, opacity; /* Improve animation performance */
+}
+
+.progress-particle-square.small {
+  animation-name: progressSquareSmall;
+  animation-duration: 0.8s;
+}
+
+@keyframes progressSquare {
+  0% {
+    transform: translate(0, 0) scale(0.2) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    transform: translate(0, 0) scale(1.2) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--fx), var(--fy)) scale(0.8) rotate(90deg);
+    opacity: 0;
+  }
+}
+
+@keyframes progressSquareSmall {
+  0% {
+    transform: translate(0, 0) scale(0.2) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(0, 0) scale(1) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--fx), var(--fy)) scale(0.6) rotate(90deg);
+    opacity: 0;
+  }
+}
+
+/* Score circle animation */
+.score-circle.celebrate {
+  animation: celebratePulse 1s ease-in-out, starBurst 2s ease-out;
+}
+
+/* Comic explosion animation - more energetic */
+@keyframes celebratePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Score circle error shake animation for low scores */
+.score-circle.error-shake {
+  animation: shakeAnimation 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  perspective: 1000px;
+}
+
+/* Simple shake animation without flashing */
+@keyframes shakeAnimation {
+  10%, 90% {
+    transform: translate3d(-2px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(4px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-6px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(6px, 0, 0);
+  }
+}
+
+/* XP and Level Styles */
+.xp-bubble {
+  background-color: #001372;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 20px;
+  border: none; /* Remove the white border */
+  font-weight: bold;
+  z-index: 100;
+  pointer-events: none;
+  animation: xpBubblePopFromCircle 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform-origin: bottom center;
+}
+
+@keyframes xpBubblePopFromCircle {
+  0% {
+    transform: translateY(20px) scale(0.2);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.xp-bubble span {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.xp-orb {
+  pointer-events: none;
+  z-index: 100;
+  background-color: #001372 !important;
+  border: 1px solid white;
+}
+
+.level-progress-container {
+  margin: 20px auto 30px;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  position: relative;
+  z-index: 5;
+}
+
+.level-header {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.level-title {
+  font-size: 18px;
+}
+
+.level-xp {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.level-progress-bar-container {
+  background-color: #0c0c0c;
+  height: 25px; /* Taller bar */
+  border-radius: 12.5px; /* Half the height for perfect rounded ends */
+  overflow: hidden;
+  border: 4px solid #1d1d1d; /* Same color as the fill */
+  position: relative;
+  box-sizing: border-box; /* Make sure border is counted in size calculation */
+}
+
+.level-progress-bar {
+  background: #002aff; /* Single solid color */
+  height: 100%;
+  border-radius: 8.5px; /* Adjusted to match the container's inner radius */
+  transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+/* Game-like level up message with slide-in from right and punch effect */
+.level-up-message {
+  background-color: #001372;
+  color: white;
+  border: 3px solid #fbbe00; /* Yellow border for contrast */
+  padding: 25px 50px;
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 28px;
+  text-transform: uppercase;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
+  transform: translate(100vw, -50%); /* Start offscreen to the right */
+  animation: levelUpSlideIn 0.4s forwards, 
+             levelUpPunch 0.3s forwards 0.4s,
+             levelUpSlideOut 0.6s forwards 2.5s;
+}
+
+@keyframes levelUpSlideIn {
+  0% { transform: translate(100vw, -50%); }
+  80% { transform: translate(-55%, -50%); }
+  100% { transform: translate(-50%, -50%); }
+}
+
+@keyframes levelUpPunch {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  30% { transform: translate(-50%, -50%) scale(1.3); }
+  50% { transform: translate(-50%, -50%) scale(0.9); }
+  70% { transform: translate(-50%, -50%) scale(1.1); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes levelUpSlideOut {
+  0% { transform: translate(-50%, -50%); }
+  100% { transform: translate(-150vw, -50%); } /* Exit to the left */
+}
+
+.level-up-particle {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background-color: #fbbe00; /* Use a solid color instead of random */
+  border: 1px solid white;
+  opacity: 1;
+  z-index: 999;
+  transform-origin: center;
+  animation: levelUpParticleBounce 0.8s forwards;
+}
+
+.level-up-particle.square {
+  border-radius: 0;
+}
+
+.level-up-particle.blue {
+  background-color: #001372;
+}
+
+.level-up-particle.red {
+  background-color: #e30050;
+}
+
+@keyframes levelUpParticleBounce {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x, 0), var(--y, 0)) scale(0.5) rotate(var(--r, 0deg));
+    opacity: 0;
+  }
+} 

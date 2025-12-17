@@ -1,0 +1,1136 @@
+/* Periodic Table Modal Styles */
+
+.periodic-table-button {
+  background: linear-gradient(135deg, #96009b, #96009b);
+  color: white !important;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #610064, 0 6px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  margin: 0 5px;
+}
+
+.periodic-table-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #610064, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.periodic-table-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #610064, 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Container */
+.periodic-table-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2000;
+  overflow: auto;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.periodic-table-modal.closing {
+  animation: fadeOut 0.3s ease-in-out;
+}
+
+.periodic-table-modal.visible {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.periodic-table-container {
+  background: #111111;
+  border-radius: 25px;
+  padding: 20px;
+  width: 90%;
+  max-width: 1400px;
+  max-height: 85vh;
+  overflow: auto;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  color: white;
+  animation: popOut 0.4s ease-out;
+}
+
+.periodic-table-modal.closing .periodic-table-container {
+  animation: popIn 0.3s ease-in;
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  color: #bbbbbb;
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.2s ease;
+}
+
+.modal-close-button:hover {
+  color: #ffffff;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes popOut {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  80% {
+    transform: scale(1.02) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+/* Periodic Table Grid */
+.periodic-table {
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  grid-gap: 3px;
+}
+
+.element {
+  padding: 0px 8px;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 10px;
+}
+
+.element:hover {
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+.atomic-number {
+  font-size: 15px;
+  font-weight: bold;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}
+
+.symbol {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.name {
+  font-size: 8px;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Element categories */
+.alkali-metal { background-color: #eb004d; }
+.alkaline-earth { background-color: #d00031; }
+.transition-metal { background-color: #f17700; }
+.post-transition { background-color: #cc0078; }
+.metalloid { background-color: #f770ff; }
+.nonmetal { background-color: #ff6c5a; }
+.noble-gas { background-color: #420057; }
+.lanthanide { background-color: #38163a; }
+.actinide { background-color: #6e0029; }
+.unknown { background-color: #303262; }
+
+/* Phase states */
+.solid { background-color: #ff7b00; }
+.liquid { background-color: #c300ff; }
+.gas { background-color: #ff0077; }
+.unknown-phase { background-color: #222222; }
+
+/* Temperature control panel in the periodic table */
+.temperature-control-cell {
+  grid-column: span 10;
+  grid-row: span 2;
+  background: rgba(29, 29, 29, 0.7);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Temperature control panel */
+.temperature-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.temperature-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5px;
+  position: relative;
+  height: 35px;
+}
+
+.temperature-toggle {
+  position: absolute;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Temperature value container with modern dial look */
+.temperature-value-container {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 120px;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(145deg, #111111, #0a0a0a);
+  border: 1px solid #1b1b1b;
+  border-radius: 8px;
+  padding: 3px 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin: 0 auto;
+}
+
+/* New temperature toggle style based on calculator's angle-mode-toggle */
+.temp-mode-toggle {
+  display: flex;
+  margin-right: 10px;
+  background: #333;
+  border-radius: 16px;
+  padding: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) inset;
+}
+
+.temp-mode-btn {
+  background: #2a2a2a;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 5px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+  min-width: 40px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 0 #1a1a1a, 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.temp-mode-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 #1a1a1a, 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.temp-mode-btn.active {
+  background: #9c27b0;
+  box-shadow: 0 2px 0 #6a1b9a, 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.temperature-slider-container {
+  width: 110%;
+  height: calc(100% - 35px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+  margin-top: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Disabled state for the temperature slider container */
+.temperature-slider-container.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.temperature-slider {
+  width: 90%;
+  margin: 2px 0;
+  height: 12px;
+  transition: opacity 0.3s ease;
+  /* Adding styling to the slider */
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+/* Styling the slider track for different browsers */
+.temperature-slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: linear-gradient(to right, #7612f8, #ff0062);
+  border-radius: 10px;
+}
+
+/* Styling the slider thumb for different browsers */
+.temperature-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #ffa600;
+  cursor: pointer;
+  margin-top: -5px; /* Position the thumb vertically */
+  transition: all 0.2s ease;
+}
+
+.temperature-slider::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #ffa600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.temperature-slider::-ms-thumb {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #ffa600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Hover effects for slider thumb */
+.temperature-slider::-webkit-slider-thumb:hover {
+  background: #ffa600;
+  transform: scale(1.1);
+}
+
+.temperature-slider::-moz-range-thumb:hover {
+  background: #ffa600;
+  transform: scale(1.1);
+  box-shadow: none;
+}
+
+.temperature-slider::-ms-thumb:hover {
+  background: #ffa600;
+  transform: scale(1.1);
+  box-shadow: none;
+}
+
+.temperature-slider::-moz-range-thumb:hover {
+  background: #f8f8f8;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(156, 39, 176, 0.7);
+}
+
+.temperature-slider::-ms-thumb:hover {
+  background: #f8f8f8;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(156, 39, 176, 0.7);
+}
+
+.temperature-slider:focus {
+  outline: none;
+}
+
+.temperature-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  white-space: nowrap;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  transition: color 0.3s ease;
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+.temperature-value.disabled {
+  color: #666666;
+  text-shadow: none;
+}
+
+.phase-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 18px;
+}
+
+.phase-legend-item {
+  display: flex;
+  align-items: center;
+  margin: -20px 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.phase-indicator {
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
+  border-radius: 2px;
+}
+
+.phase-indicator.solid { background-color: #ff7b00; }
+.phase-indicator.liquid { background-color: #c300ff; }
+.phase-indicator.gas { background-color: #ff0077; }
+.phase-indicator.unknown-phase { background-color: #222222; }
+
+/* Placeholders for table layout */
+.placeholder {
+  grid-column: span 1;
+  visibility: hidden;
+}
+
+.lanthanide-row, .actinide-row {
+  grid-column: span 18;
+  height: 20px;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 15px 0;
+  gap: 5px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.legend-item.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(70%);
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  border-radius: 6px;
+  border: none;
+}
+
+/* Atom Visualization */
+.atom-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #161616;
+  border-radius: 20px;
+  padding: 20px;
+  width: 420px;
+  z-index: 3000;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-align: center;
+  opacity: 0;
+}
+
+.atom-modal.visible {
+  display: block;
+  animation: atom-fadeIn 0.3s forwards, atom-scaleIn 0.3s forwards;
+}
+
+.atom-modal.closing {
+  animation: atom-fadeOut 0.3s forwards, atom-scaleOut 0.3s forwards;
+}
+
+@keyframes atom-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes atom-fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes atom-scaleIn {
+  from { transform: translate(-50%, -50%) scale(0.8); }
+  to { transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes atom-scaleOut {
+  from { transform: translate(-50%, -50%) scale(1); }
+  to { transform: translate(-50%, -50%) scale(0.8); }
+}
+
+.atom-container {
+  position: relative;
+  width: 300px;
+  height: 330px;
+  margin: 0 auto 50px;
+  pointer-events: none;
+}
+
+.nucleus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: #b700ff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0 0 30px rgba(171, 45, 255, 0.5);
+  z-index: 10;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+}
+
+.nucleus:hover {
+  box-shadow: 0 0 30px rgba(171, 45, 255, 0.8);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Nucleus clone for zoom animation */
+#nucleus-clone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: #b700ff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0 0 30px rgba(171, 45, 255, 0.5);
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 1;
+  will-change: transform, opacity;
+}
+
+/* Particle clone for zoom animation */
+#particle-clone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 1;
+  will-change: transform, opacity, box-shadow, left, top;
+  transition: transform 0.05s linear, opacity 0.05s linear, box-shadow 0.05s linear, left 0.05s linear, top 0.05s linear;
+  mix-blend-mode: screen;
+}
+
+/* Nucleus structure view styles */
+.enlarged-nucleus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  background: rgba(183, 0, 255, 0.15);
+  border-radius: 50%;
+  box-shadow: 0 0 50px rgba(171, 45, 255, 0.5);
+  animation: pulsate 4s ease-in-out infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  will-change: transform, width, height, opacity;
+  transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+}
+
+/* Adding nucleus back button styles */
+.nucleus-back-button {
+  position: absolute;
+  top: 10px;
+  left: -40px;
+  background: #9c27b0;
+  color: white !important;
+  border: none;
+  border-radius: 16px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 5000;
+  box-shadow: 0 4px 0 #6a1b9a, 0 6px 15px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  will-change: opacity, transform;
+}
+
+.nucleus-back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #6a1b9a, 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes pulsate {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.03); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.nucleus-title {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.nuclear-particle {
+  position: absolute;
+  border-radius: 50%;
+  transition: transform 0.2s ease, opacity 0.5s ease;
+  opacity: 0.95;
+  mix-blend-mode: screen;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.nuclear-particle.proton {
+  background: #ff2a6d;
+  box-shadow: 0 0 8px rgba(255, 42, 109, 0.7);
+  z-index: 2;
+}
+
+.nuclear-particle.neutron {
+  background: #05d9e8;
+  box-shadow: 0 0 8px rgba(5, 217, 232, 0.7);
+  z-index: 1;
+}
+
+.nuclear-particle:hover {
+  transform: scale(1.3);
+  z-index: 10 !important;
+  opacity: 1;
+}
+
+.nucleus-legend {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  border-radius: 10px;
+  transition: opacity 0.5s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.nucleus-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nucleus-legend-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.nucleus-legend-circle.proton {
+  background: #ff2a6d;
+  box-shadow: 0 0 8px rgba(255, 42, 109, 0.7);
+}
+
+.nucleus-legend-circle.neutron {
+  background: #05d9e8;
+  box-shadow: 0 0 8px rgba(5, 217, 232, 0.7);
+}
+
+.electron-shell-with-electrons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease;
+  pointer-events: auto;
+  background-color: transparent;
+  will-change: opacity, transform;
+}
+
+/* Remove all extra shell-ring CSS */
+.shell-ring {
+  display: none;
+}
+
+.electron-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #00ffff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+}
+
+.atom-info {
+  margin-top: 45px;
+  font-size: 16px;
+}
+
+.atom-info h3 {
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.atom-info p {
+  margin: 5px 0;
+}
+
+/* New styles for the modernized atom info section */
+.atom-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.atom-icon {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #ff9f43;
+}
+
+.atom-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 5px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 600px) {
+  .atom-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.info-item {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  transition: all 0.2s ease;
+}
+
+.info-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.info-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #232323;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.info-icon i {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.info-label {
+  font-size: 12px;
+  color: #b8b8b8;
+  margin-bottom: 3px;
+}
+
+.info-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.atom-close-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #bbbbbb;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.atom-close-button:hover {
+  color: #ffffff;
+}
+
+/* Highlighted shell effect */
+.highlight-shell {
+  border-color: #00ffff !important;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5) !important;
+}
+
+/* Orbital tooltip styles */
+.orbital-tooltip {
+  position: fixed;
+  background-color: rgba(73, 0, 97, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  z-index: 4000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  border: 1px solid #8100b0;
+}
+
+.orbital-name {
+  font-weight: bold;
+  color: #00ffff;
+  margin-bottom: 3px;
+}
+
+.orbital-electrons {
+  font-size: 12px;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 1024px) {
+  .periodic-table-container {
+    width: 95%;
+    padding: 15px;
+  }
+  
+  .element {
+    padding: 4px 2px;
+    min-height: 45px;
+  }
+  
+  .symbol {
+    font-size: 14px;
+  }
+  
+  .name {
+    font-size: 6px;
+  }
+  
+  .atomic-number {
+    font-size: 8px;
+  }
+}
+
+media screen and (max-width: 768px) {
+  .periodic-table {
+    grid-gap: 2px;
+  }
+  
+  .element {
+    min-height: 35px;
+  }
+  
+  .symbol {
+    font-size: 12px;
+  }
+  
+  .name {
+    display: none;
+  }
+  
+  .legend {
+    font-size: 10px;
+  }
+}
+
+/* Removing the Nucleus configuration panel styles since they're no longer needed */
+.nucleus-config-panel,
+.config-control,
+.config-control label,
+.config-control input[type="range"],
+.config-control input[type="range"]::-webkit-slider-thumb,
+.config-control input[type="range"]::-moz-range-thumb,
+.config-control span {
+  display: none;
+}
+
+/* Element highlighting and dimming styles */
+.element-highlighted {
+  background-color: #ff8000 !important; /* Orange color */
+  z-index: 5;
+  transition: background-color 0.3s ease;
+}
+
+.element-dimmed {
+  background-color: #222222 !important; /* Dark color */
+  transition: background-color 0.3s ease;
+}
+
+/* Quark View Styles */
+.quark-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 250px;
+  transform: translate(-50%, -50%);
+  /* border: 1px dashed cyan; */ /* Remove temporary border */
+  pointer-events: none; /* Allow clicks to pass through container */
+}
+
+.probability-sphere {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(253, 253, 253, 0.1) 0%, rgba(160, 32, 240, 0.3) 50%, rgba(255, 45, 255, 0.404) 70%);
+  /* Add animation for oscillation later */
+  /* animation: sphere-oscillate 5s ease-in-out infinite; */
+  box-shadow: 0 0 60px rgba(160, 32, 240, 0.3);
+}
+
+.quark {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3), inset 0 0 10px rgba(0,0,0,0.4);
+  z-index: 10;
+}
+
+.quark.up-quark {
+  /* background defined inline for now */
+  box-shadow: 0 0 15px rgba(255, 58, 58, 0.7), inset 0 0 10px rgba(0,0,0,0.4);
+}
+
+.quark.down-quark {
+  /* background defined inline for now */
+  box-shadow: 0 0 15px rgba(58, 140, 255, 0.7), inset 0 0 10px rgba(0,0,0,0.4);
+}
+
+/* Reusing nucleus back button styles, but ensure it's clickable */
+.quark-back-button {
+  pointer-events: auto;
+  position: absolute;
+  top: 10px;
+  left: -50px;
+}
+
+/* Gluon Styles */
+.gluon-container {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  overflow: hidden; /* Contain gluons visually */
+}
+
+.gluon {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  /* background-color set inline */
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  z-index: 5; /* Below quarks */
+  will-change: left, top;
+}
+
+/* Keyframes for probability sphere oscillation */
+@keyframes sphere-oscillate {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+    box-shadow: 0 0 60px rgba(160, 32, 240, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+    box-shadow: 0 0 80px rgba(160, 32, 240, 0.726);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+    box-shadow: 0 0 60px rgba(160, 32, 240, 0.3);
+  }
+}
+
+/* Apply animation to the sphere */
+.probability-sphere {
+  animation: sphere-oscillate 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  transform-origin: center center; /* Ensure scaling happens from the center */
+}
+
+/* Quark Legend Styles (Restored and Updated) */
+.quark-legend {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.5s ease;
+  pointer-events: none; /* Legend doesn't need interaction */
+  z-index: 5500; /* Below back button but above other content */
+}
+
+.quark-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.quark-legend-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: none;
+}
+
+.quark-legend-circle.up-quark {
+  background-color: #ff3a3a; /* Red */
+  box-shadow: 0 0 8px rgba(255, 58, 58, 0.7);
+}
+
+.quark-legend-circle.down-quark {
+  background-color: #3a8cff; /* Blue */
+  box-shadow: 0 0 8px rgba(58, 140, 255, 0.7);
+}
+
+.quark-legend-circle.gluon-legend {
+  background-color: #ffff00; /* Yellow */
+  box-shadow: 0 0 8px rgba(255, 255, 0, 0.7);
+} 

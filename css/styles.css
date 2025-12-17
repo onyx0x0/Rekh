@@ -1,0 +1,804 @@
+/* styles.css */
+
+/* Add custom scrollbar styling at the top of the file */
+/* Modern, thin scrollbar styling */
+:root {
+  --scrollbar-width: 8px;
+  --scrollbar-track-color: rgba(20, 20, 20, 0.3);
+  --scrollbar-thumb-color: rgba(100, 100, 100, 0.8);
+  --scrollbar-thumb-hover-color: rgba(150, 150, 150, 0.9);
+}
+
+/* Scrollbar for Webkit browsers (Chrome, Safari, newer Edge) */
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-color);
+}
+
+/* Scrollbar for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+}
+
+/* Ensure consistent page width regardless of scrollbar */
+html {
+  height: 100%;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  margin-right: 0 !important;
+}
+
+body {
+  min-height: 100%;
+  padding-right: var(--scrollbar-width) !important;
+  box-sizing: border-box;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+body.journey-locked {
+  overflow: hidden;
+}
+
+/* Header Styles */
+header {
+  position: fixed;
+  width: 100%;
+  background: transparent;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 14px;
+}
+
+.nav-island {
+  display: flex;
+  align-items: center;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0)) #0e0e12;
+  border-radius: 20px;
+  padding: 8px 2px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-left, .nav-right {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-left li, .nav-right li {
+  margin: 0 10px;
+}
+
+.nav-folder {
+  position: relative;
+  z-index: 3200;
+}
+
+.folder-button {
+  background: linear-gradient(135deg, #96009b, #7c0d7f);
+  color: #ffffff !important;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #610064, 0 12px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.folder-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #610064, 0 16px 30px rgba(0, 0, 0, 0.4);
+}
+
+.folder-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #610064, 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+.folder-panel {
+  position: fixed;
+  top: var(--folder-top, 64px);
+  left: var(--folder-left, 20px);
+  min-width: 320px;
+  background: linear-gradient(155deg, #0f0f12, #0a0a0c);
+  border-radius: 18px;
+  padding: 16px 18px;
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  z-index: 3300;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px) scale(0.97);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+}
+
+.folder-panel::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: var(--folder-arrow-left, 22px);
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #0f0f12, #0a0a0c);
+  transform: rotate(45deg);
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.nav-folder.open .folder-panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(96px, 1fr));
+  gap: 16px;
+}
+
+.app-tile {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #eaeaf1;
+  text-decoration: none;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.app-tile:hover {
+  transform: none;
+  filter: none;
+}
+
+.app-tile:active {
+  transform: translateY(2px);
+}
+
+.app-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  position: relative;
+  transition: box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.app-glyph {
+  font-size: 28px;
+  color: #ffffff;
+}
+
+.app-label {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: #d2d6e4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: color 0.18s ease;
+}
+
+.app-tile:hover .app-icon {
+  filter: brightness(1.15) saturate(1.08);
+  box-shadow: 0 16px 26px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.app-tile:hover .app-label {
+  color: #ffffff;
+}
+
+.app-icon-calculator,
+.app-icon-graph,
+.app-icon-canvas,
+.app-icon-converter,
+.app-icon-periodic,
+.app-icon-standard,
+.app-icon-nuclide,
+.app-icon-sol,
+.app-icon-orbitals {
+  background: linear-gradient(145deg, #11131a, #0b0d12);
+}
+
+
+/* Game-like Button Styles - excluding course buttons */
+.button, 
+header .button,
+.subject-header button {
+  background: linear-gradient(135deg, #ff8800, #ff6600);
+  color: white !important;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #cc5500, 0 6px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Course buttons - restore to original with no animations */
+.course-button {
+  margin: 0 20px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  position: relative;
+  transition: all 0.2s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.course-button img {
+  width: 250px;
+  height: 400px;
+  border-radius: 30px;
+  box-shadow: none;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 2;
+}
+
+/* Create extending shadow effect using pseudo-element */
+.course-button::after {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 400px;
+  background-size: 100% 100%;
+  border-radius: 30px;
+  left: 0;
+  top: 4px;
+  z-index: 1;
+  opacity: 0.5;
+  filter: brightness(0.5);
+  transition: all 0.2s ease;
+}
+
+.course-button:nth-child(1)::after {
+  background-image: url('../images/physics.png');
+}
+
+.course-button:nth-child(2)::after {
+  background-image: url('../images/math.png');
+}
+
+.course-button:nth-child(3)::after {
+  background-image: url('../images/chemistry.png');
+}
+
+/* Add hover effect for course buttons */
+.course-button:hover img {
+  transform: translateY(-3px);
+}
+
+.course-button:hover::after {
+  top: 6px;
+  opacity: 0.6;
+  transform: translateY(-3px);
+}
+
+/* Add click effect for course buttons */
+.course-button:active img {
+  transform: translateY(2px);
+}
+
+.course-button:active::after {
+  top: 2px;
+  opacity: 0.4;
+  transform: translateY(2px);
+}
+
+.course-button span {
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* Responsive adjustments (navigation/home tiles) */
+@media screen and (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .nav-island {
+    width: 100%;
+    justify-content: center;
+  }
+  .course-button img {
+    width: 200px;
+    height: 150px;
+    box-shadow: none;
+  }
+  .course-button::after {
+    width: 200px;
+    height: 150px;
+  }
+  .folder-panel {
+    min-width: 260px;
+  }
+  .app-grid {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+  }
+}
+
+/* Adjust header buttons */
+header .nav-left .button,
+header .nav-right .button {
+  margin: 0 5px;
+  padding: 8px 15px;
+  font-size: 14px;
+}
+
+/* Lecture Page Styling */
+.lecture-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+}
+
+/* A4-style content area */
+.lecture-content {
+  width: 100%;
+  max-width: 800px; /* Roughly A4 width */
+  background-color: rgba(0, 0, 0, 0.7); /* Transparent black background */
+  color: #ffffff; /* White text */
+  padding: 40px;
+  margin: 0 auto 20px auto; /* Center horizontally with auto margins and keep bottom margin */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  height: 100%; /* Flexible height based on content */
+  box-sizing: border-box;
+}
+
+/* Quiz Button Styling */
+#quiz-button {
+  align-self: center;
+  margin-top: 20px;
+}
+
+/* Specific styling for Quill editor to prevent transparency */
+#quill-editor .ql-editor {
+  background-color: white; /* Ensure the editor area has a white background */
+  color: black; /* Ensure text is visible */
+}
+
+/* Ensure the admin-container has a solid background */
+.admin-container {
+  background-color: #ffffff; /* White background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Lecture Page Specific Styles */
+#lecture-title {
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.lecture-content {
+  min-height: 300px;
+  position: relative;
+}
+
+.lecture-page.loading::before {
+  content: "Loading lecture...";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 1.2em;
+  opacity: 0.7;
+}
+
+/* Hide the navigation right section initially */
+.nav-right {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Reveal the navigation right section when 'visible' class is added */
+.nav-right.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Main Content Styles */
+main {
+  margin-top: 80px; /* Adjust if header height changes */
+  padding: 20px;
+}
+
+.home-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: calc(100vh - 120px); /* fills viewport without extra scroll */
+  box-sizing: border-box;
+  margin-top: 0; /* override default main margin */
+  padding: 120px 20px 40px 20px; /* spacing from header without adding extra height */
+}
+
+/* Home Page Styles */
+/* Course Selection Styles */
+.course-selection {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 120px; /* push buttons away from header */
+}
+.home-main .course-selection {
+  margin-top: 0; /* use flex centering instead */
+}
+
+.course-button {
+  margin: 0 20px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  position: relative;
+  transition: all 0.2s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.course-button span {
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* Wide Picture Styles */
+.wide-picture img {
+  width: 100%;
+  height: auto;
+  margin-top: 50px;
+}
+
+/* Inline course view */
+.course-selection,
+.wide-picture {
+  transition: opacity 0.35s ease;
+}
+
+.is-fading-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.course-view {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 20px 40px 20px;
+  box-sizing: border-box;
+}
+
+.course-view.active {
+  display: block;
+}
+
+.course-view.ready {
+  opacity: 1;
+}
+
+.course-back {
+  position: fixed;
+  top: 90px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background: #121212;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  z-index: 1200;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.course-back::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  margin-left: 4px;
+}
+
+.course-back:hover {
+  color: #ffffff;
+  background: #1a1a1a; /* keep simple highlight without motion */
+}
+
+.course-back:active {
+  transform: scale(1.08);
+  background: #222;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.course-content-shell,
+.lecture-view {
+  transition: opacity 0.35s ease;
+}
+
+.course-content-shell {
+  padding-top: 110px; /* push course category buttons down without affecting lecture view */
+  box-sizing: border-box;
+}
+
+.lecture-view {
+  display: none;
+  opacity: 0;
+}
+
+.lecture-view.active {
+  display: block;
+}
+
+.lecture-view.ready {
+  opacity: 1;
+}
+
+/* Regular buttons - NO hover animations */
+.button:hover, 
+header .button:hover,
+.subject-header button:hover {
+  /* Restore hover animations */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #cc5500, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Keep only click animation */
+.button:active, 
+header .button:active,
+.subject-header button:active {
+  /* Restore active animations */
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #cc5500, 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Onboarding hint icon */
+.journey-hint-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background: #121212;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -4px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  will-change: transform;
+}
+
+.journey-hint-button:hover {
+  background: #1a1a1a; /* keep simple highlight without motion */
+}
+
+.journey-hint-button:active {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  background: #222;
+}
+
+/* Journey overlay: dark backdrop and a single glassy line */
+.journey-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 10, 22, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  z-index: 2500;
+  padding: 24px;
+}
+
+.journey-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.journey-sequence {
+  position: relative;
+  width: min(1000px, 94vw);
+}
+
+.journey-track {
+  position: relative;
+  width: 100%;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 2px solid #ffffff;
+  border-radius: 20px;
+  overflow: visible; /* allow the large icons and text to sit above the line */
+}
+
+.journey-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: #ff9100;
+  transition: width 0.42s ease-in;
+}
+
+.journey-step {
+  position: absolute;
+  top: 50%;
+  transform: translate(calc(-50% + var(--step-shift, 0%)), -50%); /* allow slight per-step nudging */
+  text-align: center;
+  z-index: 2;
+}
+
+.journey-step[data-step="earth"] {
+  left: 0%;
+  --step-shift: 20%;
+}
+
+.journey-step[data-step="exoplanet"] {
+  left: 50%;
+  --step-shift: 0%;
+}
+
+.journey-step[data-step="blackhole"] {
+  left: 100%;
+  --step-shift: -20%;
+}
+
+.journey-step img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 12px;
+  filter: brightness(0.1) saturate(0.45);
+  opacity: 0.55;
+  transform: scale(var(--step-scale, 1));
+  transform-origin: center;
+  transition: filter 0.28s ease, opacity 0.28s ease, transform 0.28s ease;
+}
+
+.journey-step.is-lit img {
+  filter: brightness(1) saturate(1);
+  opacity: 1;
+  transform: scale(calc(var(--step-scale, 1) + var(--step-scale-bump, 0.08)));
+}
+
+.journey-step[data-step="earth"] img {
+  --step-scale: 1.3;
+}
+
+.journey-step[data-step="exoplanet"] img {
+  --step-scale: 2;
+}
+
+.journey-step[data-step="blackhole"] img {
+  --step-scale: 1.8;
+}
+
+.journey-callout {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translate(-50%, 12px);
+  background: #0b1526;
+  border: 2px solid #1fd4d4;
+  color: #e5f4ff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  min-width: 240px;
+  max-width: 280px;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: 0;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+.journey-step.is-shown .journey-callout {
+  opacity: 1;
+  transform: translate(-50%, -6px);
+}
+
+@media screen and (max-width: 768px) {
+  .journey-sequence {
+    width: 100%;
+  }
+
+  .journey-track {
+    height: 22px;
+  }
+
+  .journey-step img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .journey-step[data-step="earth"] {
+    left: 14%;
+  }
+
+  .journey-step[data-step="blackhole"] {
+    left: 86%;
+  }
+
+  .journey-callout {
+    min-width: 210px;
+    max-width: 240px;
+    font-size: 13px;
+  }
+}

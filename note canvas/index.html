@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Infinite Canvas</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Material Icons for modern buttons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+</head>
+<body>
+
+    <!-- The Drawing Canvas -->
+    <canvas id="canvas"></canvas>
+
+    <!-- Top Left: Theme Toggle -->
+    <button id="theme-btn" class="island-btn top-left" title="Toggle Theme">
+        <span class="material-icons-round">dark_mode</span>
+    </button>
+    <button id="grid-btn" class="island-btn top-left grid-offset" title="Toggle Grid">
+        <span class="material-icons-round">grain</span>
+    </button>
+
+    <!-- Top Right: Layers Toggle -->
+    <button id="layers-btn" class="island-btn top-right" title="Toggle Layers">
+        <span class="material-icons-round">layers</span>
+    </button>
+
+    <!-- Layers Island (Slide-in) -->
+    <div id="layers-panel" class="glass-island layers-hidden">
+        <div class="layers-header">
+            <span>Layers</span>
+        </div>
+        <div id="layers-list">
+            <!-- Layer items injected here via JS -->
+        </div>
+    </div>
+
+    <!-- Bottom Toolbar Island -->
+    <div class="toolbar-island glass-island">
+        <!-- Tools -->
+        <div class="tool-group">
+            <button class="tool-btn active" data-tool="select" title="Select / Move (V)">
+                <span class="material-icons-round">near_me</span>
+            </button>
+            <button class="tool-btn" data-tool="pen" title="Pen (P)">
+                <span class="material-icons-round">edit</span>
+            </button>
+            <button class="tool-btn" data-tool="eraser" title="Eraser (E)">
+                <span class="material-icons-round">cleaning_services</span>
+            </button>
+        </div>
+
+        <div class="separator"></div>
+
+        <!-- Shapes -->
+        <div class="tool-group">
+            <button class="tool-btn" data-tool="line" title="Line (L)">
+                <span class="material-icons-round">show_chart</span> <!-- Closest to line -->
+            </button>
+            <button class="tool-btn" data-tool="arrow" title="Arrow (A)">
+                <span class="material-icons-round">arrow_right_alt</span>
+            </button>
+            <button class="tool-btn" data-tool="rect" title="Rectangle (R)">
+                <span class="material-icons-round">crop_square</span>
+            </button>
+            <button class="tool-btn" data-tool="ellipse" title="Ellipse (C)">
+                <span class="material-icons-round">radio_button_unchecked</span>
+            </button>
+            <button class="tool-btn" data-tool="text" title="Text (T)">
+                <span class="material-icons-round">text_fields</span>
+            </button>
+            <label class="tool-btn" title="Upload Image">
+                <span class="material-icons-round">image</span>
+                <input type="file" id="img-upload" accept="image/*" hidden>
+            </label>
+        </div>
+
+        <div class="separator"></div>
+
+        <!-- Properties -->
+        <div class="tool-group properties">
+            <div class="color-picker-wrapper">
+                <input type="color" id="color-picker" class="native-color-input" value="#ffffff" aria-label="Color input">
+                <button class="color-trigger" id="color-trigger" title="Color Picker" type="button"></button>
+                <div class="color-pop" id="color-pop"></div>
+            </div>
+            <div class="range-wrap" title="Stroke Width">
+                <span class="material-icons-round small-icon">line_weight</span>
+                <input type="range" id="stroke-width" min="1" max="50" value="3">
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <!-- Actions -->
+        <div class="tool-group">
+            <button class="action-btn" id="undo-btn" title="Undo (Ctrl+Z)">
+                <span class="material-icons-round">undo</span>
+            </button>
+            <button class="action-btn" id="redo-btn" title="Redo (Ctrl+Y)">
+                <span class="material-icons-round">redo</span>
+            </button>
+            <button class="action-btn" id="clear-btn" title="Clear Canvas">
+                <span class="material-icons-round">delete_forever</span>
+            </button>
+            <button class="action-btn" id="download-btn" title="Download Image">
+                <span class="material-icons-round">download</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Hidden Input Container for Text Tool -->
+    <div id="text-input-container"></div>
+    <div id="tool-pop" class="tool-pop"></div>
+    <div id="tool-connector" class="tool-connector"></div>
+    <div id="head-modal" class="head-modal">
+        <div class="head-modal-card">
+            <div class="head-modal-header">
+                <h3>Arrow Head</h3>
+                <button type="button" class="head-close" id="head-close"><span class="material-icons-round">close</span></button>
+            </div>
+            <div class="head-type-row">
+                <div class="head-type" data-head="classic"><span class="material-icons-round">call_made</span></div>
+                <div class="head-type" data-head="triangle"><span class="material-icons-round">arrow_upward</span></div>
+                <div class="head-type" data-head="bar"><span class="material-icons-round">horizontal_rule</span></div>
+                <div class="head-type" data-head="dot"><span class="material-icons-round">fiber_manual_record</span></div>
+            </div>
+            <div class="slider-row">
+                <span>Size</span>
+                <input type="range" id="head-size-slider" min="0.5" max="3" step="0.1" value="1">
+            </div>
+            <label class="both-toggle">
+                <input type="checkbox" id="head-both-toggle">
+                <span>Arrow on both ends</span>
+            </label>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

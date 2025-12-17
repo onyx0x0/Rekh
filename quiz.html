@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educational Website - Quiz</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/background.css">
+  <link rel="stylesheet" href="css/quiz.css">
+  <link rel="stylesheet" href="css/signup-popup.css">
+  <link rel="stylesheet" href="css/calculator.css">
+  <link rel="stylesheet" href="css/graph-tool.css">
+  <link rel="stylesheet" href="css/unit-converter.css">
+  <link rel="stylesheet" href="css/note-canvas.css">
+  <link rel="stylesheet" href="css/speed-of-light.css">
+  <link rel="stylesheet" href="css/atomic-orbitals.css">
+  <link rel="stylesheet" href="css/periodic-table.css">
+  <link rel="stylesheet" href="css/standard-model.css">
+  <link rel="stylesheet" href="css/nuclide-chart.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- jQuery (required by MathQuill) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- MathQuill for LaTeX Calculator -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
+  
+  <!-- MathJax for rendering LaTeX -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <!-- KaTeX for math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  
+  <!-- Chart.js for Graph Tool -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Firebase SDK (Compat Versions) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js" defer></script>
+  
+  <!-- Firebase Configuration -->
+  <script src="js/firebase.js" defer></script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <div class="nav-island nav-island-left">
+        <ul class="nav-left">
+          <li><a href="index.html" class="button">Home</a></li>
+          <li class="nav-folder nav-folder-tools">
+            <button type="button" id="tools-folder-toggle" class="folder-button folder-button-tools" aria-haspopup="true" aria-expanded="false" aria-controls="tools-folder-panel">Tools</button>
+            <div id="tools-folder-panel" class="folder-panel" role="menu">
+              <div class="app-grid">
+                <button type="button" id="calculator-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-calculator">
+                    <span class="app-glyph fa-solid fa-calculator" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Calculator</span>
+                </button>
+                <button type="button" id="graph-tool-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-graph">
+                    <span class="app-glyph fa-solid fa-chart-line" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Graph Tool</span>
+                </button>
+                <button type="button" id="note-canvas-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-canvas">
+                    <span class="app-glyph fa-solid fa-pen-ruler" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Note Canvas</span>
+                </button>
+                <button type="button" id="unit-converter-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-converter">
+                    <span class="app-glyph fa-solid fa-ruler-combined" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Unit Converter</span>
+                </button>
+              </div>
+            </div>
+          </li>
+          <li class="nav-folder nav-folder-data">
+            <button type="button" id="data-folder-toggle" class="folder-button folder-button-data" aria-haspopup="true" aria-expanded="false" aria-controls="data-folder-panel">Data</button>
+            <div id="data-folder-panel" class="folder-panel" role="menu">
+              <div class="app-grid">
+                <button type="button" id="periodic-table-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-periodic">
+                    <span class="app-glyph fa-solid fa-table" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Periodic Table</span>
+                </button>
+                <button type="button" id="standard-model-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-standard">
+                    <span class="app-glyph fa-solid fa-atom" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Standard Model</span>
+                </button>
+                <button type="button" id="nuclide-chart-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-nuclide">
+                    <span class="app-glyph fa-solid fa-circle-nodes" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Nuclides</span>
+                </button>
+                <button type="button" id="speed-of-light-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-sol">
+                    <span class="app-glyph fa-solid fa-gauge-high" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Speed of Light</span>
+                </button>
+                <button type="button" id="orbitals-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-orbitals">
+                    <span class="app-glyph fa-solid fa-dna" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Atomic Orbitals</span>
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="nav-island nav-island-right">
+        <ul class="nav-right">
+          <!-- Buttons will be added dynamically via main.js -->
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="quiz-container">
+      <!-- Quiz Progress Bar -->
+      <div class="quiz-progress">
+        <div class="quiz-progress-bar" id="progress-bar" style="width: 0%"></div>
+      </div>
+      
+      <!-- Quiz Content Area -->
+      <div id="quiz-content">
+        <!-- Question will be loaded here -->
+        <div class="question-container">
+          <p class="question-text">Loading questions...</p>
+          <div class="answer-options">
+            <!-- Answer options will be loaded here -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quiz Controls -->
+      <div class="quiz-controls">
+        <button id="prev-question" class="quiz-button secondary" disabled>
+          Previous
+        </button>
+        <button id="next-question" class="quiz-button primary" disabled>
+          Next
+        </button>
+      </div>
+      
+      <!-- Quiz Results (Hidden initially) -->
+      <div id="quiz-results" class="hidden">
+        <h2 class="results-header">Quiz Results</h2>
+        
+        <div class="score-container">
+          <div class="score-circle" id="score-circle">
+            <div class="score-value" id="score-value">0%</div>
+            <div class="score-label">Score</div>
+          </div>
+        </div>
+        
+        <div class="feedback-container">
+          <p class="feedback-message" id="feedback-message">You've completed the quiz!</p>
+          <div id="feedback-items">
+            <!-- Feedback items will be added here -->
+          </div>
+        </div>
+        
+        <div class="quiz-controls">
+          <button id="review-quiz" class="quiz-button secondary">
+            Review Answers
+          </button>
+          <button id="back-to-lecture" class="quiz-button primary">
+            Back to Lecture
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Sign Up / Login Modal -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close-button" id="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="tabs">
+          <button class="tab active" data-tab="signup">Sign Up</button>
+          <button class="tab" data-tab="login">Log In</button>
+        </div>
+        
+        <!-- Sign Up Form -->
+        <div id="signup-form-container" class="form-container active">
+          <form id="signup-form">
+            <div class="form-group">
+              <label for="signup-email">Email</label>
+              <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+              <label for="signup-password">Password</label>
+              <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required>
+              <div class="form-error"></div>
+            </div>
+            <button type="submit" class="submit-button">Create Account</button>
+          </form>
+        </div>
+        
+        <!-- Login Form -->
+        <div id="login-form-container" class="form-container">
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-email">Email</label>
+              <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+              <div class="form-error"></div>
+            </div>
+            <button type="submit" class="submit-button">Log In</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confetti Container for Celebration Animation -->
+  <div id="confetti-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/main.js" defer></script>
+  <script src="js/quizLoader.js" defer></script>
+  <script src="js/quiz.js" defer></script>
+  <script src="js/background.js" defer></script>
+  <script src="js/auth-popup.js" defer></script>
+  <script src="js/calculator.js" defer></script>
+  <script src="js/graph-tool.js" defer></script>
+  <script src="js/unit-converter.js" defer></script>
+  <script src="js/note-canvas.js" defer></script>
+  <script src="js/speed-of-light.js" defer></script>
+  <script src="js/atomic-orbitals.js" defer></script>
+  <script src="js/periodic-table.js" defer></script>
+  <script src="js/standard-model.js" defer></script>
+  <script src="js/nuclide-chart.js" defer></script>
+</body>
+</html>

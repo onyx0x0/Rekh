@@ -1,0 +1,122 @@
+/* Minimal Note Canvas modal overlay */
+.note-canvas-modal {
+  position: fixed;
+  inset: 0;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 3600;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+}
+
+.note-canvas-modal.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.2s ease, visibility 0s linear 0s;
+}
+
+.note-canvas-shell {
+  width: min(1400px, 96vw);
+  height: min(900px, 90vh);
+  position: relative;
+  display: flex;
+  background: transparent;
+  border: none;
+  border-radius: 28px;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  transform: scale(0.97);
+  transition: transform 0.22s ease;
+}
+
+.note-canvas-modal.visible .note-canvas-shell {
+  transform: scale(1);
+}
+
+.note-canvas-frame-wrap {
+  position: relative;
+  flex: 1;
+}
+
+.note-canvas-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.note-canvas-modal.note-canvas-loaded .note-canvas-frame {
+  opacity: 1;
+}
+
+.note-canvas-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(6, 8, 14, 0.9);
+  color: #e5edff;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  z-index: 2;
+  transition: opacity 0.18s ease, visibility 0.18s ease;
+}
+
+.note-canvas-modal.note-canvas-loaded .note-canvas-loader {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.note-canvas-loader-text {
+  font-size: 13px;
+  color: #d7e5ff;
+}
+
+.note-canvas-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2fe7da;
+  box-shadow: 0 0 0 6px rgba(47, 231, 218, 0.12);
+  animation: noteCanvasPulse 0.9s ease-in-out infinite;
+}
+
+.note-canvas-dot:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.note-canvas-dot:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+@keyframes noteCanvasPulse {
+  0% { transform: translateY(0); opacity: 0.55; }
+  50% { transform: translateY(-6px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 0.55; }
+}
+
+.note-canvas-open {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .note-canvas-modal {
+    padding: 8px;
+  }
+
+  .note-canvas-shell {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "title": "Quiz: Introduction to Kinematics",
+  "subject": "physics",
+  "topic": "kinematics",
+  "lectureNumber": "1",
+  "questions": [
+    {
+      "question": "What is kinematics?",
+      "choices": [
+        "Study of motion without considering its causes",
+        "Study of forces",
+        "Study of energy",
+        "Study of matter"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Kinematics is the branch of mechanics that describes the motion of objects without considering the forces that cause the motion."
+    },
+    {
+      "question": "Which of the following is not a kinematic quantity?",
+      "choices": [
+        "Velocity",
+        "Acceleration",
+        "Force",
+        "Displacement"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Force is a dynamic quantity, not a kinematic one. It causes changes in motion but is not a description of motion itself."
+    },
+    {
+      "question": "In a position-time graph, what does the slope represent?",
+      "choices": [
+        "Acceleration",
+        "Velocity",
+        "Force",
+        "Displacement"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The slope of a position-time graph represents the velocity of the object at that point in time."
+    },
+    {
+      "question": "If an object moves with constant velocity, its acceleration is:",
+      "choices": [
+        "Increasing",
+        "Decreasing",
+        "Zero",
+        "Cannot be determined"
+      ],
+      "correctAnswer": 2,
+      "explanation": "When velocity is constant, acceleration is zero. Acceleration is the rate of change of velocity, and if velocity isn't changing, acceleration is zero."
+    },
+    {
+      "question": "The area under a velocity-time graph represents:",
+      "choices": [
+        "Acceleration",
+        "Force",
+        "Displacement",
+        "Speed"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The area under a velocity-time graph represents the displacement of the object over that time interval."
+    },
+    {
+      "question": "Which equation represents the position of an object under constant acceleration?",
+      "choices": [
+        "x = x₀ + v₀t + ½at²",
+        "x = x₀ + vt",
+        "v = v₀ + at",
+        "a = (v - v₀)/t"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The equation x = x₀ + v₀t + ½at² gives the position of an object under constant acceleration, where x₀ is initial position, v₀ is initial velocity, a is acceleration, and t is time."
+    },
+    {
+      "question": "What is the definition of average velocity?",
+      "choices": [
+        "Total displacement divided by total time",
+        "Total distance divided by total time",
+        "Change in position",
+        "Rate of change of acceleration"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Average velocity is defined as the total displacement (change in position) divided by the total time taken."
+    },
+    {
+      "question": "A car accelerates from 0 to 60 mph in 8 seconds. What is its average acceleration?",
+      "choices": [
+        "7.5 mph/s",
+        "6.5 mph/s",
+        "8.5 mph/s",
+        "5.5 mph/s"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Average acceleration = change in velocity / time = (60 - 0) / 8 = 7.5 mph/s"
+    },
+    {
+      "question": "Which of the following is a vector quantity?",
+      "choices": [
+        "Speed",
+        "Distance",
+        "Time",
+        "Velocity"
+      ],
+      "correctAnswer": 3,
+      "explanation": "Velocity is a vector quantity because it has both magnitude (speed) and direction. Speed, distance, and time are scalar quantities."
+    },
+    {
+      "question": "What happens to the acceleration of a freely falling object on Earth (ignoring air resistance)?",
+      "choices": [
+        "It remains constant",
+        "It increases with time",
+        "It decreases with time",
+        "It depends on the mass of the object"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The acceleration due to gravity remains constant at approximately 9.8 m/s² near Earth's surface, regardless of time or the object's mass (when ignoring air resistance)."
+    },
+    {
+      "question": "In projectile motion, which component of velocity remains constant (ignoring air resistance)?",
+      "choices": [
+        "Vertical component",
+        "Horizontal component",
+        "Both components",
+        "Neither component"
+      ],
+      "correctAnswer": 1,
+      "explanation": "In projectile motion, the horizontal component of velocity remains constant because there is no horizontal acceleration (ignoring air resistance). The vertical component changes due to gravity."
+    },
+    {
+      "question": "What is the relationship between angular velocity (ω) and linear velocity (v) for an object moving in a circle of radius r?",
+      "choices": [
+        "v = ωr",
+        "v = ω/r",
+        "v = ω²r",
+        "v = r/ω"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The relationship is v = ωr, where v is linear velocity, ω is angular velocity, and r is the radius of the circle."
+    },
+    {
+      "question": "A ball is thrown vertically upward. At the highest point, what is its velocity?",
+      "choices": [
+        "Maximum",
+        "Minimum",
+        "Zero",
+        "Equal to initial velocity"
+      ],
+      "correctAnswer": 2,
+      "explanation": "At the highest point of a vertical throw, the velocity is momentarily zero as the object transitions from moving upward to moving downward."
+    },
+    {
+      "question": "Which of the following scenarios involves zero acceleration?",
+      "choices": [
+        "A car moving at constant speed around a curve",
+        "A car moving at constant speed in a straight line",
+        "A car slowing down in a straight line",
+        "A car speeding up in a straight line"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A car moving at constant speed in a straight line has zero acceleration. Even at constant speed, moving in a curve involves acceleration because the direction of velocity is changing."
+    },
+    {
+      "question": "If a position-time graph is a parabola, what can you conclude about the motion?",
+      "choices": [
+        "The object has constant velocity",
+        "The object has constant acceleration",
+        "The object has varying acceleration",
+        "The object is at rest"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A parabolic position-time graph indicates constant acceleration, as the second derivative of position with respect to time (which gives acceleration) is constant."
+    }
+  ],
+  "metadata": {
+    "difficulty": "beginner",
+    "timeEstimate": "20 minutes",
+    "tags": ["kinematics", "motion", "graphs"],
+    "lastUpdated": "2025-03-07"
+  }
+} 

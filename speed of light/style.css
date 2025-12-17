@@ -1,0 +1,568 @@
+:root {
+    --bg-color: #050505;
+    --ui-bg: rgba(12, 12, 12, 0.75);
+    --ui-border: rgba(255, 255, 255, 0.1);
+    --ui-highlight: rgba(255, 255, 255, 0.2);
+    --text-main: #f0f0f0;
+    --text-dim: #888888;
+    --box-bg: rgba(0, 0, 0, 0.5);
+    --accent: #4a9eff;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- TELEMETRY ISLANDS --- */
+
+.telemetry-island {
+    position: absolute;
+    top: 20px;
+    width: 320px; /* Compact width */
+    background: var(--ui-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--ui-border);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
+    z-index: 10;
+}
+
+.telemetry-island.left { left: 20px; }
+.telemetry-island.right { right: 20px; }
+
+/* Collapsed States */
+.telemetry-island.collapsed.left {
+    transform: translateX(calc(-100% - 30px));
+    opacity: 0.5;
+    pointer-events: none;
+}
+.telemetry-island.collapsed.right {
+    transform: translateX(calc(100% + 30px));
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Toggle Buttons */
+.toggle-telemetry {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--ui-bg);
+    border: 1px solid var(--ui-border);
+    color: var(--text-main);
+    width: 24px;
+    height: 40px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: auto; /* Ensure clickable even when parent is pointer-events-none */
+    transition: background 0.2s, transform 0.4s;
+    z-index: 20;
+}
+
+.toggle-telemetry:hover {
+    background: var(--ui-highlight);
+}
+
+.toggle-telemetry.left {
+    right: -28px; /* Hangs off the right side of the left island */
+    border-radius: 0 8px 8px 0;
+}
+
+.toggle-telemetry.right {
+    left: -28px; /* Hangs off the left side of the right island */
+    border-radius: 8px 0 0 8px;
+}
+
+/* Rotate arrows when collapsed */
+.telemetry-island.collapsed .toggle-telemetry.left svg {
+    transform: rotate(180deg);
+}
+.telemetry-island.collapsed .toggle-telemetry.right svg {
+    transform: rotate(180deg);
+}
+
+
+/* Grid Layout */
+.tele-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.tele-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    cursor: pointer;
+    transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.label {
+    font-size: 9px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.value-box {
+    background: var(--box-bg);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 4px;
+    color: var(--text-main);
+    font-size: 11px;
+    font-family: 'Roboto Mono', monospace;
+    padding: 4px 6px;
+    text-align: center;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.tele-cell:hover .value-box,
+.tele-cell:hover .label {
+    color: #f1f1f1;
+}
+
+.tele-cell:hover .value-box {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.18);
+}
+
+/* --- BOTTOM CONTROLS (Existing) --- */
+
+.ui-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 24px 16px;
+    pointer-events: none;
+}
+
+.control-bar {
+    width: min(1000px, 92vw);
+    background: linear-gradient(145deg, rgba(12,12,12,0.9), rgba(18,18,18,0.82));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--ui-border);
+    padding: 18px 24px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    pointer-events: auto;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+.slider-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.slider-group label {
+    color: var(--text-dim);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.slider-group label span {
+    color: var(--text-main);
+    font-variant-numeric: tabular-nums;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+}
+
+input[type=range]:focus { outline: none; }
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #1b1b1b, #111);
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+input[type=range]::-webkit-slider-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 12px;
+    background: #dcdcdc;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -6px; 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    transition: transform 0.08s, background 0.08s;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    background: #f0f0f0;
+}
+
+.toggles {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    margin-top: -2px;
+}
+
+.toggle-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--ui-border);
+    color: var(--text-dim);
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    min-width: 140px;
+    letter-spacing: 0.4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+.toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-dim);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+.toggle-btn.active {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-main);
+    border-color: var(--ui-highlight);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 14px rgba(0,0,0,0.3);
+}
+
+/* Telemetry modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 30;
+}
+
+.modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal {
+    background: linear-gradient(140deg, rgba(8,8,8,0.96), rgba(14,14,14,0.9));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px 16px;
+    min-width: 260px;
+    max-width: 440px;
+    color: var(--text-main);
+    position: relative;
+    transform: scale(0.97);
+    transition: transform 0.16s ease, opacity 0.16s ease;
+    opacity: 0;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.modal-overlay.open .modal {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-main);
+    border-radius: 8px;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    transition: background 0.1s ease;
+}
+
+.modal-close:hover {
+    background: rgba(255,255,255,0.14);
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.modal-title {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.modal-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 4px 0;
+    font-size: 32px;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: 0.5px;
+}
+
+.modal-description {
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+}
+
+/* --- SPECTRAL COMPRESSION ISLAND --- */
+
+.spectral-island {
+    position: absolute;
+    right: 20px;
+    top: 340px;
+    width: 360px;
+    background: var(--ui-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--ui-border);
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 14px 32px rgba(0,0,0,0.55);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 11;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.spectral-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.spectral-title {
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.spectral-subtitle {
+    color: var(--text-dim);
+    font-size: 11px;
+    letter-spacing: 0.2px;
+}
+
+.spectral-tags {
+    display: flex;
+    gap: 6px;
+}
+
+.spectral-views {
+    display: flex;
+    gap: 6px;
+}
+
+.toggle-spectral {
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    transform: translateY(-50%);
+    background: var(--ui-bg);
+    border: 1px solid var(--ui-border);
+    color: var(--text-main);
+    width: 26px;
+    height: 42px;
+    border-radius: 8px 0 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.35s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    pointer-events: auto;
+    z-index: 2;
+}
+
+.toggle-spectral:hover {
+    background: var(--ui-highlight);
+}
+
+.spectral-island.collapsed {
+    transform: translateX(calc(100% + 30px));
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.spectral-island.collapsed .toggle-spectral svg {
+    transform: rotate(180deg);
+}
+
+.view-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--ui-border);
+    color: var(--text-dim);
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    transition: all 0.12s ease;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+.view-btn:hover {
+    color: var(--text-main);
+    border-color: rgba(255,255,255,0.18);
+}
+
+.view-btn.active {
+    background: rgba(255,255,255,0.12);
+    color: var(--text-main);
+    border-color: var(--ui-highlight);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 8px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    border: 1px solid var(--ui-border);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-main);
+}
+
+.tag.forward { border-color: rgba(74, 158, 255, 0.6); color: #b9d8ff; }
+.tag.rear { border-color: rgba(255, 120, 74, 0.5); color: #ffd1b5; }
+
+.spectral-canvas-wrap {
+    position: relative;
+    width: 100%;
+    height: 170px;
+    background: linear-gradient(90deg, #241724, #101018);
+    border: 1px solid var(--ui-border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+#spectralCanvas {
+    width: 100%;
+    height: 140px;
+    display: block;
+}
+
+.spectrum-axis {
+    position: absolute;
+    bottom: 4px;
+    left: 8px;
+    right: 8px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-dim);
+    font-size: 10px;
+    letter-spacing: 0.3px;
+    pointer-events: none;
+}
+
+.spectral-readouts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.readout {
+    background: var(--box-bg);
+    border: 1px solid var(--ui-border);
+    border-radius: 10px;
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.readout .label {
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.3px;
+}
+
+.readout .value {
+    font-size: clamp(10px, 1.6vw, 12px);
+    color: var(--text-main);
+    font-family: 'Roboto Mono', monospace;
+    line-height: 1.15;
+    white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+    .spectral-island {
+        right: 12px;
+        left: 12px;
+        width: auto;
+        top: auto;
+        bottom: 200px;
+    }
+    .spectral-readouts {
+        grid-template-columns: 1fr;
+    }
+}

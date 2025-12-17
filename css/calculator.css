@@ -1,0 +1,1151 @@
+/* Font for mathematical symbols */
+@font-face {
+  font-family: 'Symbola';
+  src: url('https://cdn.jsdelivr.net/gh/jseidelin/symbola-font@master/Symbola.ttf') format('truetype');
+  /* Improved Symbola font loading */
+}
+
+.calculator-button {
+  background: linear-gradient(135deg, #96009b, #96009b);
+  color: white !important;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #610064, 0 6px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  margin: 0 5px;
+}
+
+.calculator-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #610064, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #610064, 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.calculator-modal.closing {
+  animation: fadeOut 0.3s ease-in-out;
+}
+
+.calculator-content {
+  background-color: #141414;
+  margin: 10% auto;
+  padding: 20px;
+  border: none;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 26px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  color: white;
+  animation: popOut 0.4s ease-out;
+}
+
+.calculator-modal.closing .calculator-content {
+  animation: popIn 0.3s ease-in;
+}
+
+.calculator-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.calculator-title {
+  display: none;
+}
+
+.calculator-close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.calculator-close:hover {
+  color: #fff;
+}
+
+.calculator-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.calculator-editor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calculator-latex-editor {
+  width: 100%;
+  min-height: 60px;
+  padding: 10px;
+  border: 1px solid #444;
+  border-radius: 12px;
+  background-color: #1e1e1e;
+  font-size: 18px;
+  color: white;
+  box-sizing: border-box;
+}
+
+.calculator-result {
+  width: 100%;
+  min-height: 40px;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  background-color: #2a2a2a;
+  font-size: 18px;
+  color: white;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+/* Tab Navigation */
+.calculator-tabs {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: none;
+  margin-bottom: 8px;
+}
+
+.calculator-tabs-left {
+  display: flex;
+  gap: 10px;
+}
+
+.calculator-tabs-right {
+  display: flex;
+  align-items: center;
+}
+
+.calculator-tab-btn {
+  background: #2a2a2a;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #1a1a1a, 0 6px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  margin: 0;
+}
+
+.calculator-tab-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #1a1a1a, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-tab-btn.active {
+  background: #4CAF50;
+  box-shadow: 0 4px 0 #2b6e2f, 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-tab-btn.history-btn {
+  background: #2a2a2a;
+  box-shadow: 0 4px 0 #1a1a1a, 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-tab-btn.history-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #1a1a1a, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-tab-btn.history-btn.active {
+  background: #4CAF50;
+  box-shadow: 0 4px 0 #2b6e2f, 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Sub-Tab Navigation */
+.calculator-sub-tabs {
+  display: flex;
+  border-bottom: none;
+  margin-bottom: 12px;
+  margin-top: -10px;
+  gap: 8px;
+}
+
+.calculator-sub-tab-btn {
+  background: #2a2a2a;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #1a1a1a, 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  margin: 0;
+}
+
+.calculator-sub-tab-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #1a1a1a, 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-sub-tab-btn.active {
+  background: #4CAF50;
+  box-shadow: 0 3px 0 #2b6e2f, 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Calculator Pages */
+.calculator-pages {
+  position: relative;
+  min-height: 200px;
+  width: 100%;
+}
+
+.calculator-page {
+  display: none;
+  width: 100%;
+}
+
+.calculator-page.active {
+  display: block;
+}
+
+/* Calculator Sub-Pages */
+.calculator-sub-page {
+  display: none;
+  width: 100%;
+}
+
+.calculator-sub-page.active {
+  display: block;
+}
+
+/* Fixed Action Buttons */
+.calculator-fixed-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  gap: 15px;
+}
+
+.calculator-fixed-buttons button {
+  flex: 1;
+  margin: 0;
+  padding: 12px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #2a2a2a;
+  color: white;
+  box-shadow: 0 4px 0 #1a1a1a, 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-fixed-buttons button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #1a1a1a, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-fixed-buttons button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1a1a1a, 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-fixed-buttons .equals-btn {
+  background: #4CAF50;
+  box-shadow: 0 4px 0 #2b6e2f, 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-fixed-buttons .equals-btn:hover {
+  box-shadow: 0 6px 0 #2b6e2f, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-fixed-buttons .equals-btn:active {
+  box-shadow: 0 2px 0 #388E3C, 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-fixed-buttons .clear-btn {
+  background: #e32e01;
+  box-shadow: 0 4px 0 #920000, 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-fixed-buttons .clear-btn:hover {
+  box-shadow: 0 6px 0 #920000, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-fixed-buttons .clear-btn:active {
+  box-shadow: 0 2px 0 #b71c1c, 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* MathQuill specific styles */
+.mq-editable-field {
+  min-height: 40px !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  font-size: 18px !important;
+  color: white !important;
+}
+
+.mq-math-mode {
+  font-size: 18px !important;
+  color: white !important;
+}
+
+.mq-focused {
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Change cursor color to white */
+.mq-cursor {
+  border-left: 1px solid white !important;
+}
+
+.mq-blink {
+  animation: cursor-blink-white 1.02s infinite;
+}
+
+@keyframes cursor-blink-white {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Make sure all MathQuill elements have white text */
+.mq-root-block, 
+.mq-math-mode .mq-root-block,
+.mq-math-mode .mq-root-block.mq-focused,
+.mq-editable-field .mq-root-block {
+  color: white !important;
+}
+
+.mq-math-mode var, 
+.mq-math-mode .mq-text-mode, 
+.mq-math-mode .mq-nonSymbola {
+  color: white !important;
+}
+
+/* Style the selection in MathQuill */
+.mq-selection, 
+.mq-selection .mq-non-leaf, 
+.mq-selection .mq-scaled {
+  background: #4d4d4d !important;
+  color: white !important;
+  border-color: #4d4d4d !important;
+}
+
+.error-message {
+  color: #ff5252;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Basic calculator page - fixed 4 columns */
+.calculator-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* All non-basic pages - fill entire width with auto-sized buttons */
+#functions-page .calculator-buttons,
+#integral-page .calculator-buttons,
+#advanced-page .calculator-buttons,
+.calculator-sub-page .calculator-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  justify-content: flex-start;
+}
+
+/* Button styling for all buttons */
+.calculator-buttons button {
+  background: #2a2a2a;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 8px 6px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #1a1a1a, 0 6px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  font-family: 'Symbola', serif;
+}
+
+/* Button styling specifically for non-basic pages */
+#functions-page .calculator-buttons button,
+#integral-page .calculator-buttons button,
+#advanced-page .calculator-buttons button,
+.calculator-sub-page .calculator-buttons button {
+  flex: 0 1 auto;
+  min-width: 60px;
+  margin: 0;
+}
+
+.calculator-buttons button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #1a1a1a, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-buttons button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1a1a1a, 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Hide empty buttons */
+.calculator-buttons .empty-btn {
+  display: none;
+}
+
+/* Operator buttons (+, -, ×, ÷) */
+.calculator-buttons .operator-btn {
+  background: #3a2a1e;
+  box-shadow: 0 4px 0 #2a1a0e, 0 6px 15px rgba(0, 0, 0, 0.2);
+  font-family: 'Symbola', serif;
+  font-weight: bold;
+}
+
+.calculator-buttons .operator-btn:hover {
+  box-shadow: 0 6px 0 #2a1a0e, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Function buttons */
+.calculator-buttons .function-btn {
+  background: #1e3a4a;
+  box-shadow: 0 4px 0 #0e2a3a, 0 6px 15px rgba(0, 0, 0, 0.2);
+  font-family: 'Symbola', serif;
+  font-weight: bold;
+}
+
+.calculator-buttons .function-btn:hover {
+  box-shadow: 0 6px 0 #0e2a3a, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Special styling for the integral button */
+.calculator-buttons button[data-insert="\\int"] {
+  font-family: 'Symbola', serif;
+  font-size: 18px;
+  font-weight: bold;
+  background: #2a2a2a;
+  box-shadow: 0 4px 0 #1a1a1a, 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-buttons button[data-insert="\\int"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #1a1a1a, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-buttons button[data-insert="\\int"]:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1a1a1a, 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-buttons .integral-btn {
+  position: relative;
+  font-size: 20px;
+  line-height: 1;
+  background: #2a2a2a;
+  box-shadow: 0 4px 0 #1a1a1a, 0 6px 15px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+}
+
+.calculator-buttons .integral-btn:hover {
+  box-shadow: 0 6px 0 #1a1a1a, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-buttons .latex-btn {
+  font-size: 18px;
+  position: relative;
+  background: #2a2a2a;
+  box-shadow: 0 4px 0 #1a1a1a, 0 6px 15px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+}
+
+.calculator-buttons .latex-btn:hover {
+  box-shadow: 0 6px 0 #1a1a1a, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-buttons .custom-integral-btn {
+  position: relative;
+  font-size: 24px;
+  padding: 10px 15px;
+  background: #2a2a2a;
+  box-shadow: 0 4px 0 #1a1a1a, 0 6px 15px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+}
+
+.calculator-buttons .custom-integral-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #1a1a1a, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-buttons .custom-integral-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1a1a1a, 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-buttons .integral-symbol-btn {
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.2;
+  padding: 6px 0;
+  position: relative;
+  text-align: center;
+  background: #2a2a2a;
+  box-shadow: 0 4px 0 #1a1a1a, 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-buttons .integral-symbol-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #1a1a1a, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-buttons .integral-symbol-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1a1a1a, 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Specific styling for the integral symbol */
+.calculator-buttons .integral-symbol-btn .integral-symbol {
+  font-family: 'Symbola', serif;
+  font-size: 28px;
+  display: inline-block;
+}
+
+.calculator-buttons .integral-symbol-btn sub {
+  position: relative;
+  font-size: 11px;
+  bottom: 1px;
+  left: -1px;
+}
+
+.calculator-buttons .integral-symbol-btn sup {
+  position: relative;
+  font-size: 11px;
+  top: -3px;
+  left: -4px;
+}
+
+/* Hide cursor in the result display */
+.calculator-result .mq-cursor {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.calculator-result .mq-blink {
+  animation: none !important;
+}
+
+/* Make sure all MathQuill elements have white text */
+.mq-root-block, 
+.mq-math-mode .mq-root-block,
+.mq-math-mode .mq-root-block.mq-focused,
+.mq-editable-field .mq-root-block {
+  color: white !important;
+}
+
+.mq-math-mode var, 
+.mq-math-mode .mq-text-mode, 
+.mq-math-mode .mq-nonSymbola {
+  color: white !important;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .calculator-content {
+    width: 95%;
+    margin: 5% auto;
+  }
+  
+  /* Basic page grid for mobile */
+  .calculator-buttons {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    max-width: 100%;
+  }
+  
+  /* All non-basic pages for mobile */
+  #functions-page .calculator-buttons,
+  #integral-page .calculator-buttons,
+  #advanced-page .calculator-buttons,
+  .calculator-sub-page .calculator-buttons {
+    gap: 4px;
+    width: 100%;
+  }
+  
+  /* Button sizing for non-basic pages on mobile */
+  #functions-page .calculator-buttons button,
+  #integral-page .calculator-buttons button,
+  #advanced-page .calculator-buttons button,
+  .calculator-sub-page .calculator-buttons button {
+    min-width: 50px;
+  }
+  
+  .calculator-buttons button {
+    padding: 6px 4px;
+    font-size: 14px;
+  }
+  
+  .calculator-sub-tab-btn {
+    padding: 4px 6px;
+    font-size: 11px;
+  }
+}
+
+.calculator-buttons .integral-symbol-btn {
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.2;
+  padding: 6px 0;
+  position: relative;
+  text-align: center;
+  background: linear-gradient(135deg, #8e2de2, #4a00e0);
+  box-shadow: 0 4px 0 #5e00c2, 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-buttons .integral-symbol-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #5e00c2, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-buttons .integral-symbol-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #5e00c2, 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Specific styling for the integral symbol */
+.calculator-buttons .integral-symbol-btn .integral-symbol {
+  font-family: 'Symbola', serif;
+  font-size: 28px;
+  display: inline-block;
+}
+
+.calculator-buttons .integral-symbol-btn sub {
+  position: relative;
+  font-size: 11px;
+  bottom: 1px;
+  left: -1px;
+}
+
+.calculator-buttons .integral-symbol-btn sup {
+  position: relative;
+  font-size: 11px;
+  top: -3px;
+  left: -4px;
+}
+
+/* Hide cursor in the result display */
+.calculator-result .mq-cursor {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.calculator-result .mq-blink {
+  animation: none !important;
+}
+
+/* Make sure all MathQuill elements have white text */
+.mq-root-block, 
+.mq-math-mode .mq-root-block,
+.mq-math-mode .mq-root-block.mq-focused,
+.mq-editable-field .mq-root-block {
+  color: white !important;
+}
+
+.mq-math-mode var, 
+.mq-math-mode .mq-text-mode, 
+.mq-math-mode .mq-nonSymbola {
+  color: white !important;
+}
+
+.calculator-buttons .integral-btn sub {
+  position: absolute;
+  bottom: 2px;
+  right: calc(50% - 10px);
+  font-size: 12px;
+}
+
+.calculator-buttons .integral-btn sup {
+  position: absolute;
+  top: 2px;
+  right: calc(50% - 10px);
+  font-size: 12px;
+}
+
+.calculator-buttons .latex-btn .latex-content {
+  display: inline-block;
+  font-size: 20px;
+  font-family: 'Symbola', serif;
+}
+
+.calculator-buttons .custom-integral-btn .integral-symbol {
+  font-size: 24px;
+  font-family: 'Symbola', serif;
+}
+
+.calculator-buttons .custom-integral-btn .integral-limits {
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  margin-left: -5px;
+}
+
+.calculator-buttons .custom-integral-btn .upper-limit {
+  position: absolute;
+  top: -12px;
+  right: 0;
+  font-size: 14px;
+}
+
+.calculator-buttons .custom-integral-btn .lower-limit {
+  position: absolute;
+  bottom: -12px;
+  right: 0;
+  font-size: 14px;
+}
+
+/* Number buttons (0-9 and decimal) */
+#basic-page .calculator-buttons button[data-insert="0"],
+#basic-page .calculator-buttons button[data-insert="1"],
+#basic-page .calculator-buttons button[data-insert="2"],
+#basic-page .calculator-buttons button[data-insert="3"],
+#basic-page .calculator-buttons button[data-insert="4"],
+#basic-page .calculator-buttons button[data-insert="5"],
+#basic-page .calculator-buttons button[data-insert="6"],
+#basic-page .calculator-buttons button[data-insert="7"],
+#basic-page .calculator-buttons button[data-insert="8"],
+#basic-page .calculator-buttons button[data-insert="9"],
+#basic-page .calculator-buttons button[data-insert="."] {
+  background: #d8a200;
+  box-shadow: 0 4px 0 #9c7500, 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+#basic-page .calculator-buttons button[data-insert="0"]:hover,
+#basic-page .calculator-buttons button[data-insert="1"]:hover,
+#basic-page .calculator-buttons button[data-insert="2"]:hover,
+#basic-page .calculator-buttons button[data-insert="3"]:hover,
+#basic-page .calculator-buttons button[data-insert="4"]:hover,
+#basic-page .calculator-buttons button[data-insert="5"]:hover,
+#basic-page .calculator-buttons button[data-insert="6"]:hover,
+#basic-page .calculator-buttons button[data-insert="7"]:hover,
+#basic-page .calculator-buttons button[data-insert="8"]:hover,
+#basic-page .calculator-buttons button[data-insert="9"]:hover,
+#basic-page .calculator-buttons button[data-insert="."]:hover {
+  box-shadow: 0 6px 0 #9c7500, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* All other buttons on basic page (operators, π, ^, parentheses) */
+#basic-page .calculator-buttons button:not([data-insert="0"]):not([data-insert="1"]):not([data-insert="2"]):not([data-insert="3"]):not([data-insert="4"]):not([data-insert="5"]):not([data-insert="6"]):not([data-insert="7"]):not([data-insert="8"]):not([data-insert="9"]):not([data-insert="."]):hover {
+  box-shadow: 0 6px 0 #b30095, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Specific styles for +, -, ×, and ÷ buttons only */
+#basic-page .calculator-buttons button[data-insert="+"],
+#basic-page .calculator-buttons button[data-insert="-"],
+#basic-page .calculator-buttons button[data-insert="\\cdot"],
+#basic-page .calculator-buttons button[data-action="fraction"] {
+  background: #e30050 !important; /* Reddish pink */
+  box-shadow: 0 4px 0 #990036, 0 6px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+#basic-page .calculator-buttons button[data-insert="+"]:hover,
+#basic-page .calculator-buttons button[data-insert="-"]:hover,
+#basic-page .calculator-buttons button[data-insert="\\cdot"]:hover,
+#basic-page .calculator-buttons button[data-action="fraction"]:hover {
+  box-shadow: 0 6px 0 #990036, 0 8px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Restore the hot pink color for π, ^, %, and ×10^n buttons */
+#basic-page .calculator-buttons button[data-insert="\\pi"],
+#basic-page .calculator-buttons button[data-insert="^"],
+#basic-page .calculator-buttons button[data-action="percentage"],
+#basic-page .calculator-buttons button[data-action="power-of-ten"] {
+  background: #001db1 !important; /* Hot pink */
+  box-shadow: 0 4px 0 #001477, 0 6px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+#basic-page .calculator-buttons button[data-insert="\\pi"]:hover,
+#basic-page .calculator-buttons button[data-insert="^"]:hover,
+#basic-page .calculator-buttons button[data-action="percentage"]:hover,
+#basic-page .calculator-buttons button[data-action="power-of-ten"]:hover {
+  box-shadow: 0 6px 0 #001477, 0 8px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* History Modal */
+.history-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1100;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.history-overlay.closing {
+  animation: fadeOut 0.2s ease-in-out;
+}
+
+.history-modal {
+  display: none;
+  position: fixed;
+  /* Position will be set dynamically in JavaScript */
+  width: 300px;
+  max-height: 400px;
+  background-color: #1e1e1e;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  z-index: 1101;
+  overflow: hidden;
+  animation: popOut 0.3s ease-out;
+  transform-origin: top right;
+}
+
+.history-modal.closing {
+  animation: popIn 0.2s ease-in;
+}
+
+/* Fix for calculator pages and buttons to remain visible when history is open */
+.history-overlay[style*="display: block"] ~ .calculator-pages .calculator-page.active,
+.history-overlay[style*="display: block"] ~ .calculator-pages .calculator-page.active .calculator-sub-page.active {
+  display: block !important;
+  pointer-events: none;
+}
+
+/* Fix for calculator buttons to remain visible when history is open */
+.history-overlay[style*="display: block"] ~ .calculator-pages .calculator-page.active .calculator-buttons button,
+.history-overlay[style*="display: block"] ~ .calculator-pages .calculator-page.active .calculator-sub-page.active .calculator-buttons button {
+  display: inline-block !important;
+  pointer-events: none;
+}
+
+/* Ensure calculator tabs remain visible but non-interactive when history is open */
+.history-overlay[style*="display: block"] ~ .calculator-tabs,
+.history-overlay[style*="display: block"] ~ .calculator-sub-tabs,
+.history-overlay[style*="display: block"] ~ .calculator-fixed-buttons {
+  pointer-events: none;
+}
+
+/* When history is closed, restore interaction */
+.history-overlay[style*="display: none"] ~ .calculator-pages .calculator-page,
+.history-overlay[style*="display: none"] ~ .calculator-pages .calculator-sub-page,
+.history-overlay[style*="display: none"] ~ .calculator-tabs,
+.history-overlay[style*="display: none"] ~ .calculator-sub-tabs,
+.history-overlay[style*="display: none"] ~ .calculator-fixed-buttons,
+.history-overlay:not([style*="display: block"]) ~ .calculator-pages .calculator-page,
+.history-overlay:not([style*="display: block"]) ~ .calculator-pages .calculator-sub-page,
+.history-overlay:not([style*="display: block"]) ~ .calculator-tabs,
+.history-overlay:not([style*="display: block"]) ~ .calculator-sub-tabs,
+.history-overlay:not([style*="display: block"]) ~ .calculator-fixed-buttons {
+  pointer-events: auto;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  to { 
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes popOut {
+  0% { 
+    opacity: 0;
+    transform: scale(0.1);
+    filter: blur(3px);
+  }
+  70% {
+    opacity: 0.9;
+    transform: scale(1.05);
+    filter: blur(0);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes popIn {
+  0% { 
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+  30% {
+    opacity: 0.9;
+    transform: scale(0.9);
+    filter: blur(0);
+  }
+  100% { 
+    opacity: 0;
+    transform: scale(0.1);
+    filter: blur(3px);
+  }
+}
+
+.history-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #2a2a2a;
+  border-bottom: 1px solid #333;
+}
+
+.history-title {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.history-close {
+  color: #aaa;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.history-close:hover {
+  color: white;
+}
+
+.history-body {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.history-item {
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  pointer-events: auto !important; /* Ensure clickability */
+}
+
+.history-item * {
+  user-select: none; /* Prevent text selection for all child elements */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  pointer-events: none; /* Make child elements non-interactive */
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-item:hover {
+  background-color: #2a2a2a;
+}
+
+.history-empty {
+  color: #666;
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+}
+
+.history-latex {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  cursor: pointer; /* Show pointer cursor on hover */
+  pointer-events: none; /* Make this element non-interactive */
+}
+
+.history-latex .mq-math-mode,
+.history-latex .mq-math-mode * {
+  color: white !important;
+  user-select: none !important; /* Prevent text selection */
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* IE/Edge */
+  cursor: pointer; /* Show pointer cursor on hover */
+  pointer-events: none !important; /* Make these elements non-interactive */
+}
+
+/* Mobile responsiveness for history modal */
+@media (max-width: 600px) {
+  .history-modal {
+    width: 90%;
+    right: 5%;
+    left: auto;
+    max-width: none;
+  }
+  
+  .history-body {
+    max-height: 250px;
+  }
+}
+
+#basic-page .calculator-buttons button:not([data-insert="0"]):not([data-insert="1"]):not([data-insert="2"]):not([data-insert="3"]):not([data-insert="4"]):not([data-insert="5"]):not([data-insert="6"]):not([data-insert="7"]):not([data-insert="8"]):not([data-insert="9"]):not([data-insert="."]):hover {
+  box-shadow: 0 6px 0 #b30095, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Fix for calculator pages and buttons to remain visible when history is open */
+.history-overlay[style*="display: block"] ~ .calculator-pages .calculator-page.active,
+.history-overlay[style*="display: block"] ~ .calculator-pages .calculator-page.active .calculator-sub-page.active {
+  display: block !important;
+  pointer-events: none;
+}
+
+/* When history is closed, restore proper page visibility */
+.history-overlay:not([style*="display: block"]) ~ .calculator-pages .calculator-page:not(.active),
+.history-overlay[style*="display: none"] ~ .calculator-pages .calculator-page:not(.active) {
+  display: none !important;
+}
+
+.history-overlay:not([style*="display: block"]) ~ .calculator-pages .calculator-page.active,
+.history-overlay[style*="display: none"] ~ .calculator-pages .calculator-page.active {
+  display: block !important;
+  pointer-events: auto;
+}
+
+/* Fix for history overlay interaction */
+.history-overlay[style*="display: block"] ~ .calculator-pages .calculator-page,
+.history-overlay[style*="display: block"] ~ .calculator-pages .calculator-sub-page {
+  pointer-events: none;
+}
+
+#basic-page .calculator-buttons button:not([data-insert="0"]):not([data-insert="1"]):not([data-insert="2"]):not([data-insert="3"]):not([data-insert="4"]):not([data-insert="5"]):not([data-insert="6"]):not([data-insert="7"]):not([data-insert="8"]):not([data-insert="9"]):not([data-insert="."]):hover {
+  box-shadow: 0 6px 0 #b30095, 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Specific style for the parentheses button */
+#basic-page .calculator-buttons button[data-insert="("] {
+  background: #001db1 !important; /* Hot pink */
+  box-shadow: 0 4px 0 #001477, 0 6px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+#basic-page .calculator-buttons button[data-insert="("]:hover {
+  box-shadow: 0 6px 0 #001477, 0 8px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.angle-mode-toggle {
+  display: flex;
+  margin-right: 10px;
+  background: #333;
+  border-radius: 16px;
+  padding: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) inset;
+}
+
+.angle-mode-btn {
+  background: #2a2a2a;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+  min-width: 40px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 0 #1a1a1a, 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.angle-mode-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 #1a1a1a, 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.angle-mode-btn.active {
+  background: #4CAF50;
+  box-shadow: 0 2px 0 #2b6e2f, 0 4px 10px rgba(0, 0, 0, 0.2);
+}

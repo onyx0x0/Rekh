@@ -1,0 +1,217 @@
+<!-- lecture.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educational Website - Lecture</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/background.css">
+  <link rel="stylesheet" href="css/lecture-content.css">
+  <link rel="stylesheet" href="css/signup-popup.css">
+  <link rel="stylesheet" href="css/lecture.css">
+  <link rel="stylesheet" href="css/calculator.css">
+  <link rel="stylesheet" href="css/graph-tool.css">
+  <link rel="stylesheet" href="css/unit-converter.css">
+  <link rel="stylesheet" href="css/note-canvas.css">
+  <link rel="stylesheet" href="css/speed-of-light.css">
+  <link rel="stylesheet" href="css/atomic-orbitals.css">
+  <link rel="stylesheet" href="css/periodic-table.css">
+  <link rel="stylesheet" href="css/standard-model.css">
+  <link rel="stylesheet" href="css/nuclide-chart.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- jQuery (required by MathQuill) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- MathQuill for LaTeX Calculator -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
+  
+  <!-- KaTeX for math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  
+  <!-- MathJax for rendering LaTeX -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <!-- Chart.js for Graph Tool -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Firebase SDK (Compat Versions) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js" defer></script>
+  
+  <!-- Firebase Configuration -->
+  <script src="js/firebase.js" defer></script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <div class="nav-island nav-island-left">
+        <ul class="nav-left">
+          <li><a href="index.html" class="button">Home</a></li>
+          <li class="nav-folder nav-folder-tools">
+            <button type="button" id="tools-folder-toggle" class="folder-button folder-button-tools" aria-haspopup="true" aria-expanded="false" aria-controls="tools-folder-panel">Tools</button>
+            <div id="tools-folder-panel" class="folder-panel" role="menu">
+              <div class="app-grid">
+                <button type="button" id="calculator-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-calculator">
+                    <span class="app-glyph fa-solid fa-calculator" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Calculator</span>
+                </button>
+                <button type="button" id="graph-tool-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-graph">
+                    <span class="app-glyph fa-solid fa-chart-line" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Graph Tool</span>
+                </button>
+                <button type="button" id="note-canvas-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-canvas">
+                    <span class="app-glyph fa-solid fa-pen-ruler" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Note Canvas</span>
+                </button>
+                <button type="button" id="unit-converter-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-converter">
+                    <span class="app-glyph fa-solid fa-ruler-combined" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Unit Converter</span>
+                </button>
+              </div>
+            </div>
+          </li>
+          <li class="nav-folder nav-folder-data">
+            <button type="button" id="data-folder-toggle" class="folder-button folder-button-data" aria-haspopup="true" aria-expanded="false" aria-controls="data-folder-panel">Data</button>
+            <div id="data-folder-panel" class="folder-panel" role="menu">
+              <div class="app-grid">
+                <button type="button" id="periodic-table-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-periodic">
+                    <span class="app-glyph fa-solid fa-table" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Periodic Table</span>
+                </button>
+                <button type="button" id="standard-model-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-standard">
+                    <span class="app-glyph fa-solid fa-atom" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Standard Model</span>
+                </button>
+                <button type="button" id="nuclide-chart-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-nuclide">
+                    <span class="app-glyph fa-solid fa-circle-nodes" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Nuclides</span>
+                </button>
+                <button type="button" id="speed-of-light-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-sol">
+                    <span class="app-glyph fa-solid fa-gauge-high" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Speed of Light</span>
+                </button>
+                <button type="button" id="orbitals-button" class="app-tile" role="menuitem">
+                  <div class="app-icon app-icon-orbitals">
+                    <span class="app-glyph fa-solid fa-dna" aria-hidden="true"></span>
+                  </div>
+                  <span class="app-label">Atomic Orbitals</span>
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="nav-island nav-island-right">
+        <ul class="nav-right">
+          <!-- Buttons will be added dynamically via main.js -->
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="lecture-page loading">
+      <h1 id="lecture-title"></h1>
+      <!-- Lecture Content Area -->
+      <div id="lecture-content" class="lecture-content">
+        <!-- Lecture content will be dynamically loaded here -->
+      </div>
+      <!-- Buttons Container -->
+      <div id="buttons-container" class="buttons-container">
+        <button id="quiz-button" class="button">Take Quiz</button>
+        <!-- Edit Lecture button will be appended here for admins -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Sign Up / Login Modal -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close-button" id="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="tabs">
+          <button class="tab active" data-tab="signup">Sign Up</button>
+          <button class="tab" data-tab="login">Log In</button>
+        </div>
+        
+        <!-- Sign Up Form -->
+        <div id="signup-form-container" class="form-container active">
+          <form id="signup-form">
+            <div class="form-group">
+              <label for="signup-email">Email</label>
+              <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+              <label for="signup-password">Password</label>
+              <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required>
+              <div class="form-error"></div>
+            </div>
+            <button type="submit" class="submit-button">Create Account</button>
+          </form>
+        </div>
+        
+        <!-- Login Form -->
+        <div id="login-form-container" class="form-container">
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-email">Email</label>
+              <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+              <div class="form-error"></div>
+            </div>
+            <button type="submit" class="submit-button">Log In</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/main.js" defer></script> <!-- Handle navigation -->
+  <script src="js/lecture-navigation.js" defer></script> <!-- Handle interactive lecture navigation -->
+  <script src="js/lecture.js" defer></script> <!-- Handle lecture content -->
+  <script src="js/background.js" defer></script>
+  <script src="js/auth-popup.js" defer></script>
+  <script src="js/calculator.js" defer></script>
+  <script src="js/graph-tool.js" defer></script>
+  <script src="js/unit-converter.js" defer></script>
+  <script src="js/note-canvas.js" defer></script>
+  <script src="js/speed-of-light.js" defer></script>
+  <script src="js/atomic-orbitals.js" defer></script>
+  <script src="js/periodic-table.js" defer></script>
+  <script src="js/standard-model.js" defer></script>
+  <script src="js/nuclide-chart.js" defer></script>
+</body>
+</html>
