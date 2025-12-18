@@ -9,7 +9,6 @@ class LectureNavigator {
     this.currentSegment = 0;
     this.totalSegments = 0;
     this.segments = [];
-    this.progressDots = [];
     this.prevButton = null;
     this.nextButton = null;
     this.quizButton = null;
@@ -54,11 +53,6 @@ class LectureNavigator {
     const existingNavigation = this.container.querySelectorAll('.side-nav');
     existingNavigation.forEach(nav => nav.remove());
 
-    const existingProgress = document.getElementById('segment-progress');
-    if (existingProgress) {
-      existingProgress.remove();
-    }
-
     // Clean up any previous quiz button in this container
     this.container
       .querySelectorAll('.quiz-button-container')
@@ -73,11 +67,14 @@ class LectureNavigator {
       return;
     }
 
+    // Reset any stale classes and default to the first segment
+    this.segments.forEach(segment => {
+      segment.classList.remove('active', 'prev', 'next');
+    });
+    this.currentSegment = 0;
+
     // Create the navigation controls
     this.createNavigation();
-    
-    // Create progress indicators
-    this.createProgressIndicators();
     
     // Set the initial active segment
     this.goToSegment(0);
@@ -176,43 +173,6 @@ class LectureNavigator {
   }
 
   /**
-   * Create progress indicator dots
-   */
-  createProgressIndicators() {
-    // Reset stored dots to avoid duplicates on re-init
-    this.progressDots = [];
-
-    // Create progress container
-    const progressContainer = document.createElement('div');
-    progressContainer.className = 'segment-progress';
-    progressContainer.id = 'segment-progress';
-    progressContainer.style.position = 'fixed';
-    progressContainer.style.bottom = '20px';
-    progressContainer.style.left = '50%';
-    progressContainer.style.transform = 'translateX(-50%)';
-    progressContainer.style.zIndex = '100';
-    
-    // Create a dot for each segment
-    for (let i = 0; i < this.totalSegments; i++) {
-      const dot = document.createElement('div');
-      dot.className = 'segment-dot';
-      dot.dataset.index = i;
-      
-      // Add click event to navigate to segment
-      dot.addEventListener('click', (e) => {
-        const index = parseInt(e.target.dataset.index);
-        this.goToSegment(index);
-      });
-      
-      progressContainer.appendChild(dot);
-      this.progressDots.push(dot);
-    }
-    
-    // Add progress container to the body
-    document.body.appendChild(progressContainer);
-  }
-
-  /**
    * Navigate to the previous segment
    */
   previousSegment() {
@@ -255,36 +215,43 @@ class LectureNavigator {
         segment.classList.add('next');
       }
     });
-    
-    // Update progress dots
-    this.progressDots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === index);
-    });
-    
+
     // Update button states
     this.updateButtonStates();
   }
-
-  /**
-   * Update the state of navigation buttons
-   */
   updateButtonStates() {
     if (!this.prevButton || !this.nextButton) return;
+
+    const setNavDisabled = (btn, disabled) => {
+      if (!btn) return;
+      btn.classList.toggle('is-disabled', disabled);
+      btn.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+      const icon = btn.querySelector('.side-nav-icon');
+      if (icon) {
+        if (disabled) {
+          icon.style.background = '#2c2c2c';
+        } else {
+          icon.style.background = '#121212';
+          icon.style.opacity = '1';
+          icon.style.boxShadow = '';
+        }
+      }
+    };
 
     // Update previous button
     if (this.currentSegment === 0) {
       this.prevButton.style.opacity = '0.3';
-      this.prevButton.style.pointerEvents = 'none';
+      setNavDisabled(this.prevButton, true);
     } else {
       this.prevButton.style.opacity = '1';
-      this.prevButton.style.pointerEvents = 'auto';
+      setNavDisabled(this.prevButton, false);
     }
     
     // Update next button and quiz button
     if (this.currentSegment === this.totalSegments - 1) {
       // On last segment, hide next button and show quiz button
       this.nextButton.style.opacity = '0.3';
-      this.nextButton.style.pointerEvents = 'none';
+      setNavDisabled(this.nextButton, true);
       
       // Show the quiz button with a slight delay for better effect
       setTimeout(() => {
@@ -295,7 +262,7 @@ class LectureNavigator {
     } else {
       // Otherwise, show next button and hide quiz button
       this.nextButton.style.opacity = '1';
-      this.nextButton.style.pointerEvents = 'auto';
+      setNavDisabled(this.nextButton, false);
       
       // Make sure quiz button is hidden on all other segments
       if (this.quizButton) {
@@ -373,24 +340,9 @@ class LectureNavigator {
         </div>
       `;
     });
-    
+
     segmentedHTML += '</div>';
     
     return segmentedHTML;
   }
 }
-
-// Initialize the lecture navigator when the DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-  // Check if we're on a lecture page
-  const lectureContent = document.getElementById('lecture-content');
-  if (!lectureContent) return;
-  
-  // Create a global instance of the lecture navigator
-  window.lectureNavigator = new LectureNavigator(lectureContent);
-  
-  // Initialize after a short delay to ensure content is loaded
-  setTimeout(() => {
-    window.lectureNavigator.init(lectureContent);
-  }, 500);
-}); 

@@ -1,5 +1,46 @@
-/* Placeholder lecture styles.
- * The layout is handled by lecture-content.css; this file exists to avoid 404/MIME errors
- * when pages reference css/lecture.css. Extend with page-specific overrides as needed.
- */
+/* Lecture page specific styling */
 
+.lecture-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.lecture-content {
+  width: 100%;
+  max-width: 800px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  padding: 40px;
+  margin: 0 auto 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  min-height: 300px;
+}
+
+#quiz-button {
+  align-self: center;
+  margin-top: 20px;
+}
+
+#lecture-title {
+  display: none;
+}
+
+.lecture-page.loading::before {
+  content: "Loading lecture...";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 1.2em;
+  opacity: 0.7;
+}

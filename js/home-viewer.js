@@ -265,6 +265,9 @@
     currentLectureParams = null;
   }
 
+  // Expose inline lecture opener so other modules (e.g., physics structure) can trigger it without a full page load.
+  window.openInlineLecture = openLecture;
+
   // Create the animated quiz CTA (atom image + button) inside a lecture content container.
   function buildQuizCTA(container, params) {
     if (!container) return null;
@@ -405,6 +408,19 @@
         // Minimal fallback navigation if the navigator script did not load.
         const segments = Array.from(inlineLectureContent.querySelectorAll('.lecture-segment'));
         let idx = 0;
+        const updateFallbackButtons = () => {
+          const prev = inlineLectureContent.querySelector('.side-nav.side-nav-prev');
+          const next = inlineLectureContent.querySelector('.side-nav.side-nav-next');
+          const atFirst = idx === 0;
+          const atLast = idx === segments.length - 1;
+          const toggle = (btn, disabled) => {
+            if (!btn) return;
+            btn.classList.toggle('is-disabled', disabled);
+            btn.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+          };
+          toggle(prev, atFirst);
+          toggle(next, atLast);
+        };
         const showSegment = (newIdx) => {
           segments.forEach((seg, i) => {
             seg.classList.toggle('active', i === newIdx);
@@ -412,6 +428,7 @@
             seg.classList.toggle('next', i > newIdx);
           });
           idx = newIdx;
+          updateFallbackButtons();
           if (quizCTA) {
             const atLast = idx === segments.length - 1 || segments.length === 1;
             quizCTA.classList.toggle('visible', atLast);

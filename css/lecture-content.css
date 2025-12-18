@@ -27,7 +27,8 @@
 }
 
 .lecture-section ul, .lecture-section ol {
-  margin-left: 20px;
+  margin-left: 24px;
+  padding-left: 0;
   margin-bottom: 15px;
   color: #ffffff;
 }
@@ -75,56 +76,17 @@
   color: rgba(255, 255, 255, 0.7);
 }
 
-/* Interactive elements */
-.simulation-container {
-  background-color: rgba(0, 0, 0, 0.2);
-  padding: 15px;
-  border-radius: 5px;
-  margin: 20px 0;
-  color: #ffffff;
-}
-
-.simulation-controls {
-  margin-top: 15px;
-  color: #ffffff;
-}
-
-/* Code blocks */
-.code-block {
-  background-color: rgba(0, 0, 0, 0.3);
-  padding: 15px;
-  border-radius: 5px;
-  font-family: monospace;
-  white-space: pre-wrap;
-  margin: 20px 0;
-  overflow-x: auto;
-  color: #ffffff;
-}
-
-/* Callouts */
-.callout {
-  background-color: rgba(0, 100, 200, 0.2);
-  border-left: 4px solid rgba(0, 100, 200, 0.5);
-  padding: 15px;
-  margin: 20px 0;
-  border-radius: 0 5px 5px 0;
-  color: #ffffff;
-}
-
-.callout-warning {
-  background-color: rgba(200, 100, 0, 0.2);
-  border-left: 4px solid rgba(200, 100, 0, 0.5);
-}
-
-.callout-tip {
-  background-color: rgba(0, 150, 50, 0.2);
-  border-left: 4px solid rgba(0, 150, 50, 0.5);
-}
-
 /* KaTeX specific styling */
 .katex {
   font-size: 1.1em !important;
   color: #ffffff;
+}
+
+.katex-display {
+  text-align: center !important;
+  width: 100%;
+  display: block;
+  margin: 0.6em 0;
 }
 
 /* Override KaTeX colors for better visibility on dark background */
@@ -161,14 +123,14 @@
 .lecture-segments-container {
   position: relative;
   width: 100%;
-  min-height: 400px;
+  min-height: 0;
   margin: 0 auto;
   box-sizing: border-box;
   display: block;
 }
 
 .lecture-segment {
-  background-color: rgb(9, 3, 12);
+  background-color: rgb(15, 15, 15);
   color: #ffffff;
   padding: 40px;
   border-radius: 30px;
@@ -183,6 +145,35 @@
   visibility: hidden;
   box-sizing: border-box;
   left: 0;
+}
+
+.lecture-segment .segment-content {
+  padding-left: 16px;
+  padding-right: 16px;
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Ensure default text and lists inside segments are aligned consistently */
+.lecture-segment .segment-content p {
+  margin: 0 0 15px 0;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+.lecture-segment .segment-content ul,
+.lecture-segment .segment-content ol {
+  margin-left: 24px;
+  padding-left: 0;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.lecture-segment .segment-content li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #ffffff;
 }
 
 .lecture-segment.active {
@@ -205,67 +196,6 @@
   opacity: 0;
   transform: translateX(50px);
   z-index: 1;
-}
-
-/* Navigation Controls */
-.lecture-navigation {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-.nav-button {
-  background-color: #4a148c;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  padding: 12px 25px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-block;
-  align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin: 0 5px;
-}
-
-.nav-button:hover {
-  background-color: #6a1b9a;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.nav-button:active {
-  transform: translateY(-1px);
-}
-
-.nav-button.prev-button {
-  padding-left: 20px;
-}
-
-.nav-button.next-button, .nav-button.quiz-button {
-  padding-right: 20px;
-}
-
-.nav-button i {
-  margin: 0 8px;
-}
-
-.nav-button.disabled {
-  background-color: #9e9e9e;
-  cursor: not-allowed;
-  transform: none;
-  opacity: 0.7;
-}
-
-/* Progress Indicator */
-.segment-progress {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
 }
 
 /* Segment Titles */
@@ -325,15 +255,6 @@
     font-size: 1.5rem;
   }
   
-  .nav-button {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-  
-  .side-nav {
-    top: 50%;
-  }
-  
   .side-nav-icon {
     width: 36px;
     height: 36px;
@@ -343,7 +264,7 @@
 
 /* Side Navigation System - Positioned relative to lecture-content */
 .side-nav {
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translateY(-50%);
   width: 60px;
@@ -357,57 +278,61 @@
   opacity: 1;
   visibility: visible;
   background-color: transparent;
-  pointer-events: none;
-}
-
-.side-nav::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  transition: background-color 0.3s ease;
-  pointer-events: none;
-}
-
-.side-nav:hover::before {
-  background-color: transparent;
+  pointer-events: auto;
 }
 
 .side-nav-prev {
-  left: -60px;
+  left: 16px;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
 
 .side-nav-next {
-  right: -60px;
+  right: 16px;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
 
 .side-nav-icon {
   position: relative;
-  color: white;
-  font-size: 24px;
+  color: #ffffff;
+  font-size: 18px;
   z-index: 101;
-  background-color: rgba(74, 20, 140, 0.9);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  background: #121212;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.1s ease;
   cursor: pointer;
   pointer-events: auto;
 }
 
-.side-nav:hover .side-nav-icon {
-  transform: scale(1.1);
-  background-color: rgba(106, 27, 154, 0.9);
+.side-nav.is-disabled {
+  pointer-events: none !important;
+}
+
+.side-nav.is-disabled .side-nav-icon {
+  opacity: 0.2 !important;
+  box-shadow: none !important;
+  background: #2c2c2c !important;
+  color: #777 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  pointer-events: none !important;
+}
+
+.side-nav:not(.is-disabled):hover .side-nav-icon {
+  background: #1a1a1a;
+}
+
+.side-nav:not(.is-disabled) .side-nav-icon:active {
+  transform: scale(1.08);
+  background: #222;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 /* Quiz Button Container */
@@ -510,14 +435,6 @@
 
 .atom-image {
   animation: float 3s ease-in-out infinite;
-}
-
-/* Show the navigation */
-.lecture-navigation, .segment-progress {
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
 }
 
 #buttons-container {

@@ -217,16 +217,25 @@ function openModuleModal(course, lecture) {
     modal.titleEl.textContent = lecture.title;
     modal.descriptionEl.textContent = lecture.desc;
 
-    moduleModalAction = () => {
-        const isKinematics =
-            course.title === "Classical Mechanics" && lecture.title === "Kinematics";
-        if (isKinematics) {
-            closeModuleModal();
-            window.location.href = "lecture.html?subject=physics&topic=kinematics&lecture=1";
-        } else {
-            closeModuleModal();
-        }
-    };
+  moduleModalAction = () => {
+    const isKinematics =
+      course.title === "Classical Mechanics" && lecture.title === "Kinematics";
+    if (isKinematics) {
+      closeModuleModal();
+      // Prefer inline lecture view if available (home page SPA flow)
+      if (typeof window.openInlineLecture === "function") {
+        window.openInlineLecture({
+          subject: "physics",
+          topic: "kinematics",
+          lecture: "1",
+        });
+      } else {
+        window.location.href = "lecture.html?subject=physics&topic=kinematics&lecture=1";
+      }
+    } else {
+      closeModuleModal();
+    }
+  };
 
     modal.overlay.classList.remove("closing");
     modal.overlay.classList.add("visible");

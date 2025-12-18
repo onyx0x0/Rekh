@@ -50,6 +50,11 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
 }
+body.lecture-page-active {
+  height: 100%;
+  overflow: hidden !important;
+  padding-right: 0 !important;
+}
 body.journey-locked {
   overflow: hidden;
 }
@@ -373,69 +378,9 @@ header .nav-right .button {
   font-size: 14px;
 }
 
-/* Lecture Page Styling */
-.lecture-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  width: 100%;
-}
-
-/* A4-style content area */
-.lecture-content {
-  width: 100%;
-  max-width: 800px; /* Roughly A4 width */
-  background-color: rgba(0, 0, 0, 0.7); /* Transparent black background */
-  color: #ffffff; /* White text */
-  padding: 40px;
-  margin: 0 auto 20px auto; /* Center horizontally with auto margins and keep bottom margin */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  height: 100%; /* Flexible height based on content */
-  box-sizing: border-box;
-}
-
-/* Quiz Button Styling */
-#quiz-button {
-  align-self: center;
-  margin-top: 20px;
-}
-
-/* Specific styling for Quill editor to prevent transparency */
-#quill-editor .ql-editor {
-  background-color: white; /* Ensure the editor area has a white background */
-  color: black; /* Ensure text is visible */
-}
-
-/* Ensure the admin-container has a solid background */
-.admin-container {
-  background-color: #ffffff; /* White background */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Lecture Page Specific Styles */
-#lecture-title {
-  color: #ffffff;
-  margin-bottom: 20px;
-}
-
-.lecture-content {
-  min-height: 300px;
-  position: relative;
-}
-
-.lecture-page.loading::before {
-  content: "Loading lecture...";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #ffffff;
-  font-size: 1.2em;
-  opacity: 0.7;
+/* Hide inline lecture header title */
+#inline-lecture-title {
+  display: none;
 }
 
 /* Hide the navigation right section initially */
