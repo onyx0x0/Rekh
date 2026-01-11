@@ -1,0 +1,228 @@
+.force-scale {
+  width: min(520px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: #e6e6e6;
+}
+
+.force-scale-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.force-scale-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+.force-toggle {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  border: 1px solid transparent;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.force-toggle.is-active {
+  background: #2a2a2a;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.force-toggle:focus-visible {
+  outline: 2px solid #ff8800;
+  outline-offset: 2px;
+}
+
+.force-scale-value {
+  font-size: 0.9rem;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-weight: 600;
+}
+
+.force-scale-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.force-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  transform: translateX(var(--offset-x, 0px)) scale(var(--node-scale, 1));
+  opacity: var(--node-opacity, 1);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.force-node-status {
+  font-size: 0.52rem;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #1a1a1a;
+  border: 1px solid #333333;
+  color: #bdbdbd;
+  white-space: nowrap;
+}
+
+.force-node-status.status-dominant {
+  background: #f0f0f0;
+  border-color: #ffffff;
+  color: #0c0c0c;
+}
+
+.force-node-status.status-relevant {
+  background: #2a2a2a;
+  border-color: #3d3d3d;
+  color: #e6e6e6;
+}
+
+.force-node-status.status-negligible {
+  background: #151515;
+  border-color: #2a2a2a;
+  color: #8b8b8b;
+}
+
+.force-node-status.status-separate {
+  background: #242424;
+  border-color: #3b3b3b;
+  color: #c9c9c9;
+}
+
+.force-node-status.status-merged {
+  background: #3b3b3b;
+  border-color: #606060;
+  color: #ffffff;
+}
+
+.force-node-status.status-unified {
+  background: #4b4b4b;
+  border-color: #8a8a8a;
+  color: #ffffff;
+}
+
+.force-node-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #2b2b2b;
+  border: 1px solid #4a4a4a;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.force-node-label {
+  font-size: 0.6rem;
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 84px;
+}
+
+.force-node--merged .force-node-circle {
+  background: #dcdcdc;
+  border-color: #ffffff;
+}
+
+.force-node--merged .force-node-label {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.force-scale-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.force-scale-slider.is-hidden {
+  display: none;
+}
+
+.force-scale-range {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: #1b1b1b;
+  outline: none;
+  appearance: none;
+}
+
+.force-scale-range--energy {
+  background: linear-gradient(90deg, #2b1200, #ff6a00, #ffb000);
+}
+
+.force-scale-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #ffae00;
+  box-shadow: 0 0 0 4px rgba(255, 174, 0, 0.2);
+  cursor: pointer;
+}
+
+.force-scale-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #ffae00;
+  box-shadow: 0 0 0 4px rgba(255, 174, 0, 0.2);
+  cursor: pointer;
+}
+
+.force-scale-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 560px) {
+  .force-scale {
+    gap: 14px;
+  }
+
+  .force-scale-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .force-node-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .force-node-label {
+    font-size: 0.58rem;
+    max-width: none;
+  }
+}

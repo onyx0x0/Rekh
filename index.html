@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="css/periodic-table.css">
   <link rel="stylesheet" href="css/standard-model.css">
   <link rel="stylesheet" href="css/nuclide-chart.css">
-  <link rel="stylesheet" href="css/lecture-content.css">
+  <link rel="stylesheet" href="css/lecture-content.css?v=8">
   <link rel="stylesheet" href="css/lecture.css">
   
   <!-- Font Awesome for icons -->
@@ -158,10 +158,17 @@
       </div>
     </nav>
   </header>
+  <button type="button" id="lecture-focus-toggle" class="lecture-focus-toggle" aria-label="Toggle header" aria-pressed="false">
+    <span class="focus-toggle-icon fa-solid fa-chevron-down" aria-hidden="true"></span>
+  </button>
 
   <!-- Main Content -->
   <main class="home-main">
     <!-- Course Selection -->
+    <!-- temporary update notification -->
+    <div class="update-notice" role="note">
+      <strong>Update:</strong> Due to hosting costs, only the Nuclear Physics course is currently hosted alongside a few data and tools webapps.
+    </div>
     <div class="course-selection">
       <a href="physics.html" class="course-button">
         <img src="images/physics.png" alt="Physics">
@@ -241,7 +248,8 @@
 
   <!-- Scripts -->
   <script src="js/main.js" defer></script>
-  <script src="js/home-viewer.js" defer></script>
+  <script src="module%20webapps/loader.js?v=1" defer></script>
+  <script src="js/home-viewer.js?v=8" defer></script>
   <script src="js/lecture-navigation.js" defer></script>
   <script src="js/background.js" defer></script>
   <script src="js/auth-popup.js" defer></script>

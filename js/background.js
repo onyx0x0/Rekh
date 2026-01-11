@@ -2,11 +2,12 @@
 
 (function() {
     // Customizable Parameters
-    var numStars = 220;           // Number of stars
+    var numStars = 800;           // Number of stars
     var speed = 0.0004;             // Speed of stars
-    var starColors = ['#ffffff', '#dbe7ff', '#f7efd5']; // Soft white/blue/yellow tones
-    var minStarSize = 0.6;          // Minimum star size
-    var maxStarSize = 1.4;          // Maximum star size
+    var starColors = ['#ff6a3d', '#59b4ff']; // Bright orange-red or bright blue
+    var glowColors = starColors;
+    var minStarSize = 0.2;          // Minimum star size
+    var maxStarSize = 1.2;          // Maximum star size
     var glowIntensity = 0;       // Intensity of the glow effect
 
     // Create the canvas element
@@ -34,8 +35,9 @@
             y: Math.random() * height,
             z: Math.random() * width,
             o: Math.random() * 0.5 + 0.5, // Opacity between 0.5 and 1
-            size: Math.random() * (maxStarSize - minStarSize) + minStarSize,
-            color: starColors[Math.floor(Math.random() * starColors.length)]
+            size: minStarSize + (maxStarSize - minStarSize) * Math.pow(Math.random(), 2.2),
+            color: starColors[Math.floor(Math.random() * starColors.length)],
+            glowColor: glowColors[Math.floor(Math.random() * glowColors.length)]
         };
     }
 
@@ -72,21 +74,28 @@
                 if (star.z > width) {
                     star.z = width;
                 }
-                var size = Math.max(0, star.size * (1 - star.z / width) * 2);
+                var size = star.size;
                 if (size <= 0) {
                     continue;
                 }
 
-                // Set glow effect
-                context.globalAlpha = star.o;
-                context.fillStyle = star.color;
+                // Fade brightness by distance (nearer = brighter, farther = dimmer)
+                var depthRatio = Math.max(0, 1 - star.z / width);
+                var depthBrightness = 0.08 + Math.pow(depthRatio, 1.6) * 0.92;
+                context.globalAlpha = star.o * depthBrightness;
+                var nearWhite = '#ffffff';
+                var mix = Math.min(1, Math.pow(depthRatio, 1.3));
+                context.fillStyle = mixColors(star.color, nearWhite, mix);
+                context.shadowBlur = 0;
+                context.shadowColor = 'transparent';
 
-                // Draw the star
+                // Draw the star (fixed dot size)
                 context.beginPath();
                 context.arc(x, y, size, 0, Math.PI * 2);
                 context.fill();
 
                 // Reset shadow settings
+                context.shadowBlur = 0;
                 context.globalAlpha = 1;
             } else {
                 // Recycle star if it's outside the viewport
@@ -102,3 +111,27 @@
     // Start the animation
     animate();
 })();
+
+function mixColors(baseColor, targetColor, weight) {
+    weight = Math.max(0, Math.min(1, weight));
+    var base = parseHexColor(baseColor);
+    var target = parseHexColor(targetColor);
+    var r = Math.round(base.r * (1 - weight) + target.r * weight);
+    var g = Math.round(base.g * (1 - weight) + target.g * weight);
+    var b = Math.round(base.b * (1 - weight) + target.b * weight);
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+}
+
+function parseHexColor(hex) {
+    if (!hex || hex[0] !== '#') return { r: 255, g: 255, b: 255 };
+    var raw = hex.slice(1);
+    if (raw.length === 3) {
+        raw = raw[0] + raw[0] + raw[1] + raw[1] + raw[2] + raw[2];
+    }
+    var num = parseInt(raw, 16);
+    return {
+        r: (num >> 16) & 255,
+        g: (num >> 8) & 255,
+        b: num & 255
+    };
+}

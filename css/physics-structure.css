@@ -11,20 +11,72 @@
     --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    user-select: none;
-}
-
-body {
+body.physics-page {
     background-color: var(--bg-color);
     color: var(--text-main);
     font-family: var(--font-stack);
     overflow: hidden;
     height: 100vh;
     width: 100vw;
+}
+
+html.physics-page {
+    height: 100%;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+html.physics-inline-open {
+    height: 100%;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+body.physics-inline-open {
+    overflow: hidden;
+}
+
+.course-view.physics-inline-active {
+    padding-bottom: 0;
+}
+
+.course-view.physics-inline-active #course-content #app-container,
+.course-view.physics-inline-active .course-content-shell #app-container {
+    padding-bottom: 0;
+}
+
+body.physics-page #app-container,
+body.physics-page .lecture-track-container {
+    padding-bottom: 0;
+}
+
+.course-content-shell.physics-inline {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-stack);
+    overflow: visible;
+}
+
+:where(body.physics-page *) {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+:where(#app-container, #app-container *) {
+    box-sizing: border-box;
+}
+
+#app-container {
+    color: var(--text-main);
+    font-family: var(--font-stack);
+}
+
+:where(#app-container *) {
+    margin: 0;
+    padding: 0;
+    user-select: none;
 }
 
 .screen-vignette,
@@ -53,9 +105,9 @@ body {
 .course-content-shell #app-container {
     width: 100%;
     max-width: 1100px;
-    margin: 0 auto;
+    margin: -180px auto 0;
     padding: 0;
-    transform: translateY(-180px);
+    transform: none;
     align-items: center;
 }
 
@@ -139,6 +191,10 @@ body {
     width: 100%;
     overflow: visible;
     min-height: 420px;
+}
+
+.deck-window.is-locked {
+    pointer-events: none;
 }
 
 .course-deck {
@@ -230,13 +286,20 @@ body {
 
 .card-visual {
     width: 100%;
-    aspect-ratio: 16 / 11;
-    border: 1px dashed #1c1c1c;
+    aspect-ratio: 1 / 1;
+    border: none;
     border-radius: 12px;
-    background: #0f0f0f;
-    margin-bottom: 12px;
+    background: transparent;
+    margin-bottom: 10px;
     position: relative;
     overflow: hidden;
+}
+
+.card-visual.has-image {
+    background-color: transparent;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .card-visual::before {
@@ -303,9 +366,33 @@ body {
     align-self: center;
 }
 
+.course-lock-note {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 5;
+    margin: 0;
+    max-width: 640px;
+    width: min(90vw, 640px);
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px dashed #2a2a2a;
+    background: rgba(10, 10, 10, 0.65);
+    text-align: center;
+    pointer-events: none;
+    transform: translate(-50%, -90%);
+}
+
+.course-lock-message {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
 .lecture-track {
     display: grid;
-    grid-template-columns: repeat(7, minmax(150px, 1fr));
+    grid-template-columns: repeat(10, minmax(150px, 1fr));
     gap: 18px;
     width: 100%;
     position: relative;
@@ -454,6 +541,17 @@ body {
     align-items: center;
     justify-content: center;
     padding: 28px 20px;
+    color: var(--text-main);
+    font-family: var(--font-stack);
+}
+
+.module-modal-overlay,
+.module-modal-overlay * {
+    box-sizing: border-box;
+}
+
+.module-modal-overlay * {
+    user-select: none;
 }
 
 .module-modal-overlay.visible {

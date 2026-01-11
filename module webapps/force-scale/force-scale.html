@@ -1,0 +1,45 @@
+<div class="force-scale" data-mode="distance">
+  <div class="force-scale-header">
+    <div class="force-scale-toggle" role="group" aria-label="Scale mode">
+      <button type="button" class="force-toggle is-active" data-mode="distance">Distance</button>
+      <button type="button" class="force-toggle" data-mode="energy">Energy</button>
+    </div>
+    <span class="force-scale-value" data-scale-value>10<sup>6</sup> m</span>
+  </div>
+  <div class="force-scale-grid" role="list">
+    <div class="force-node" data-force="gravity" role="listitem">
+      <span class="force-node-status" data-status></span>
+      <span class="force-node-circle" aria-hidden="true"></span>
+      <span class="force-node-label">Gravity</span>
+    </div>
+    <div class="force-node" data-force="em" role="listitem">
+      <span class="force-node-status" data-status></span>
+      <span class="force-node-circle" aria-hidden="true"></span>
+      <span class="force-node-label">Electro<br>magnetism</span>
+    </div>
+    <div class="force-node" data-force="weak" role="listitem">
+      <span class="force-node-status" data-status></span>
+      <span class="force-node-circle" aria-hidden="true"></span>
+      <span class="force-node-label">Weak</span>
+    </div>
+    <div class="force-node" data-force="strong" role="listitem">
+      <span class="force-node-status" data-status></span>
+      <span class="force-node-circle" aria-hidden="true"></span>
+      <span class="force-node-label">Strong</span>
+    </div>
+  </div>
+  <div class="force-scale-slider" data-slider="distance">
+    <input class="force-scale-range force-scale-range--distance" type="range" min="0" max="100" value="0" step="1" aria-label="Distance scale">
+    <div class="force-scale-labels">
+      <span>10<sup>6</sup> m</span>
+      <span>10<sup>-18</sup> m</span>
+    </div>
+  </div>
+  <div class="force-scale-slider is-hidden" data-slider="energy">
+    <input class="force-scale-range force-scale-range--energy" type="range" min="0" max="100" value="0" step="1" aria-label="Energy scale">
+    <div class="force-scale-labels">
+      <span>10<sup>0</sup> GeV</span>
+      <span>10<sup>19</sup> GeV</span>
+    </div>
+  </div>
+</div>

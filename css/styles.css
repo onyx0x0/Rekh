@@ -72,6 +72,7 @@ header {
 nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px;
   gap: 14px;
 }
@@ -79,7 +80,7 @@ nav {
 .nav-island {
   display: flex;
   align-items: center;
-  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0)) #0e0e12;
+  background: #101010;
   border-radius: 20px;
   padding: 8px 2px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.5);
@@ -103,7 +104,7 @@ nav {
 }
 
 .folder-button {
-  background: linear-gradient(135deg, #96009b, #7c0d7f);
+  background: linear-gradient(135deg, #2d2f36, #1c1e24);
   color: #ffffff !important;
   border: none;
   border-radius: 12px;
@@ -111,7 +112,7 @@ nav {
   font-size: 14px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 4px 0 #610064, 0 12px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 0 #121318, 0 12px 24px rgba(0, 0, 0, 0.35);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -119,12 +120,12 @@ nav {
 
 .folder-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 0 #610064, 0 16px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 0 #121318, 0 16px 30px rgba(0, 0, 0, 0.4);
 }
 
 .folder-button:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #610064, 0 8px 18px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 0 #121318, 0 8px 18px rgba(0, 0, 0, 0.3);
 }
 
 .folder-panel {
@@ -132,7 +133,7 @@ nav {
   top: var(--folder-top, 64px);
   left: var(--folder-left, 20px);
   min-width: 320px;
-  background: linear-gradient(155deg, #0f0f12, #0a0a0c);
+  background: linear-gradient(155deg, #131313, #0a0a0a);
   border-radius: 18px;
   padding: 16px 18px;
   box-shadow: 0 18px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 0 -1px 0 rgba(0, 0, 0, 0.45);
@@ -152,7 +153,7 @@ nav {
   left: var(--folder-arrow-left, 22px);
   width: 16px;
   height: 16px;
-  background: linear-gradient(135deg, #0f0f12, #0a0a0c);
+  background: linear-gradient(135deg, #131313, #0a0a0a);
   transform: rotate(45deg);
   border-left: 1px solid rgba(255, 255, 255, 0.06);
   border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -238,7 +239,7 @@ nav {
 .app-icon-nuclide,
 .app-icon-sol,
 .app-icon-orbitals {
-  background: linear-gradient(145deg, #11131a, #0b0d12);
+  background: linear-gradient(145deg, #1c1c1c, #121212);
 }
 
 
@@ -415,6 +416,24 @@ main {
 
 /* Home Page Styles */
 /* Course Selection Styles */
+.update-notice {
+  width: min(92vw, 950px);
+  margin: 0 auto 28px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 10, 14, 0.8);
+  color: #e6e6ea;
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.5;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.update-notice strong {
+  color: #ff8800;
+}
+
 .course-selection {
   display: flex;
   justify-content: center;
@@ -488,8 +507,8 @@ main {
   left: 20px;
   width: 44px;
   height: 44px;
-  border-radius: 10px;
-  border: none;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   background: #121212;
   color: #ffffff;
   display: flex;
@@ -498,7 +517,7 @@ main {
   cursor: pointer;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
   z-index: 1200;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .course-back::before {
@@ -513,14 +532,13 @@ main {
 }
 
 .course-back:hover {
-  color: #ffffff;
-  background: #1a1a1a; /* keep simple highlight without motion */
+  background: #1a1a1a;
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .course-back:active {
   transform: scale(1.08);
   background: #222;
-  color: #ffffff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
@@ -567,27 +585,28 @@ header .button:active,
 
 /* Onboarding hint icon */
 .journey-hint-button {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   background: #121212;
   color: #ffffff;
   font-weight: 800;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: -4px;
+  margin-top: -1px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
   will-change: transform;
 }
 
 .journey-hint-button:hover {
-  background: #1a1a1a; /* keep simple highlight without motion */
+  background: #1a1a1a;
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .journey-hint-button:active {
@@ -600,7 +619,7 @@ header .button:active,
 .journey-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(5, 10, 22, 0.82);
+  background: rgba(0, 0, 0, 0.86);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -698,7 +717,7 @@ header .button:active,
   bottom: 120%;
   left: 50%;
   transform: translate(-50%, 12px);
-  background: #0b1526;
+  background: #000000;
   border: 2px solid #1fd4d4;
   color: #e5f4ff;
   padding: 10px 14px;

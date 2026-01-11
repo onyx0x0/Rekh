@@ -4,6 +4,7 @@
   const courseSelection = document.querySelector('.course-selection');
   const homeLink = document.querySelector('header .nav-left a.button[href="index.html"]');
   const widePicture = document.querySelector('.wide-picture');
+  const updateNotice = document.querySelector('.update-notice');
   const courseView = document.getElementById('course-view');
   const courseContent = document.getElementById('course-content');
   const backButton = document.getElementById('course-back');
@@ -13,16 +14,111 @@
   const inlineQuizButton = document.getElementById('inline-quiz-button');
   const inlineLecturePage = document.querySelector('#inline-lecture .lecture-page');
   const inlineButtonsContainer = document.getElementById('inline-buttons-container');
-  const hasNavigatorClass = () => typeof window !== 'undefined' && typeof window.LectureNavigator === 'function';
+  const body = document.body;
+  const focusToggle = document.getElementById('lecture-focus-toggle');
   const transitionTime = 350;
   const baseUrl = `${window.location.pathname}`;
   let currentLectureParams = null;
+  let fallbackWheelHandler = null;
+  const focusTransitionTime = 460;
+  const setPhysicsInlineState = (isActive) => {
+    if (!courseContent) return;
+    courseContent.classList.toggle('physics-inline', isActive);
+    if (courseView) {
+      courseView.classList.toggle('physics-inline-active', isActive);
+    }
+    if (body) {
+      body.classList.toggle('physics-inline-open', isActive);
+    }
+    if (document.documentElement) {
+      document.documentElement.classList.toggle('physics-inline-open', isActive);
+    }
+  };
+  const releaseInlinePhysicsScrollLock = () => {
+    if (body) {
+      body.classList.remove('physics-inline-open');
+    }
+    if (document.documentElement) {
+      document.documentElement.classList.remove('physics-inline-open');
+    }
+  };
+  const restoreInlinePhysicsScrollLock = () => {
+    if (!courseContent || !courseContent.classList.contains('physics-inline')) return;
+    if (body) {
+      body.classList.add('physics-inline-open');
+    }
+    if (document.documentElement) {
+      document.documentElement.classList.add('physics-inline-open');
+    }
+  };
+
+  const closeNavFolders = () => {
+    document.querySelectorAll('.nav-folder.open').forEach((folder) => {
+      folder.classList.remove('open');
+    });
+    document.querySelectorAll('.folder-button[aria-expanded="true"]').forEach((toggle) => {
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  };
+
+  const setFocusMode = (isFocused) => {
+    if (!body) return;
+    body.classList.toggle('lecture-focus-mode', isFocused);
+    if (focusToggle) {
+      focusToggle.setAttribute('aria-pressed', isFocused ? 'true' : 'false');
+      focusToggle.setAttribute('aria-label', isFocused ? 'Show header' : 'Hide header');
+    }
+    if (isFocused) {
+      closeNavFolders();
+    }
+  };
+
+  const activateLectureFocus = () => {
+    if (!body) return;
+    body.classList.add('lecture-inline-active');
+    requestAnimationFrame(() => {
+      body.classList.add('lecture-stars-faded');
+    });
+    setFocusMode(true);
+  };
+
+  const deactivateLectureFocus = () => {
+    if (!body) return;
+    body.classList.remove('lecture-inline-active', 'lecture-stars-faded', 'lecture-focus-mode');
+    if (focusToggle) {
+      focusToggle.setAttribute('aria-pressed', 'false');
+      focusToggle.setAttribute('aria-label', 'Hide header');
+    }
+  };
+
+  if (focusToggle) {
+    focusToggle.addEventListener('click', () => {
+      if (!body || !body.classList.contains('lecture-inline-active')) return;
+      setFocusMode(!body.classList.contains('lecture-focus-mode'));
+    });
+  }
 
   if (!courseButtons.length || !courseView || !courseContent || !backButton) {
     return;
   }
 
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const resetScroll = () => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  };
+  const centerInlineLecture = () => {
+    if (!inlineLectureContent) return;
+    const target = inlineLectureContent.querySelector('.lecture-segment') ||
+      inlineLectureContent.querySelector('.lecture-slide');
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    const offset = rect.top + window.scrollY - (window.innerHeight - rect.height) / 2;
+    const nextScroll = Math.max(0, offset);
+    if (Math.abs(nextScroll - window.scrollY) < 2) return;
+    window.scrollTo({ top: nextScroll, behavior: 'auto' });
+  };
   const loadScriptOnce = (src) => new Promise((resolve, reject) => {
     const existing = Array.from(document.scripts).find((s) => s.src && s.src.includes(src));
     if (existing && existing.dataset.loaded === 'true') {
@@ -93,7 +189,7 @@
         await hideCourseView();
       }
       revealHomeTiles();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      resetScroll();
     });
   }
 
@@ -102,26 +198,26 @@
       await hideLectureView();
       showCourseContent();
       clearLectureState();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      resetScroll();
     } else {
       await hideCourseView();
       revealHomeTiles();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      resetScroll();
     }
   });
 
   async function hideHomeTiles() {
-    [courseSelection, widePicture].forEach((el) => {
+    [courseSelection, widePicture, updateNotice].forEach((el) => {
       if (el) el.classList.add('is-fading-out');
     });
     await wait(transitionTime);
-    [courseSelection, widePicture].forEach((el) => {
+    [courseSelection, widePicture, updateNotice].forEach((el) => {
       if (el) el.classList.add('is-hidden');
     });
   }
 
   function revealHomeTiles() {
-    [courseSelection, widePicture].forEach((el) => {
+    [courseSelection, widePicture, updateNotice].forEach((el) => {
       if (!el) return;
       el.classList.remove('is-hidden');
       // allow reflow before removing fade state for smooth return
@@ -133,6 +229,7 @@
 
   async function loadCourse(url) {
     courseContent.textContent = 'Loading...';
+    setPhysicsInlineState(url.includes('physics.html'));
     try {
       const response = await fetch(url, { cache: 'no-store' });
       const html = await response.text();
@@ -169,7 +266,9 @@
     }
     inlineLectureContent.innerHTML = '';
     inlineLectureTitle.textContent = '';
+    deactivateLectureFocus();
     clearLectureState();
+    setPhysicsInlineState(false);
   }
 
   // Reuses the physics dropdown interaction for dynamically injected content.
@@ -229,20 +328,46 @@
     });
   }
 
+  async function openLectureFromQuery() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const subject = urlParams.get('subject');
+    const topic = urlParams.get('topic');
+    const lecture = urlParams.get('lecture');
+    if (!subject || !topic || !lecture) return;
+    const courseMap = {
+      physics: 'physics.html',
+      chemistry: 'chemistry.html',
+      mathematics: 'mathematics.html',
+      math: 'mathematics.html'
+    };
+    const courseUrl = courseMap[subject];
+    if (!courseUrl) return;
+    await hideHomeTiles();
+    await loadCourse(courseUrl);
+    showCourseView();
+    await openLecture({ subject, topic, lecture });
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }
+
   async function openLecture(params) {
     if (!params.subject || !params.topic || !params.lecture || !lectureView) return;
     currentLectureParams = params;
     courseContent.classList.add('is-fading-out');
     await wait(transitionTime);
     courseContent.classList.add('is-hidden');
+    releaseInlinePhysicsScrollLock();
+    activateLectureFocus();
     lectureView.classList.add('active');
     inlineLectureContent.textContent = 'Loading lecture...';
     inlineLectureTitle.textContent = '';
     await loadLectureData(params);
+    await wait(focusTransitionTime);
     requestAnimationFrame(() => {
+      centerInlineLecture();
       lectureView.classList.add('ready');
     });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   async function hideLectureView() {
@@ -252,6 +377,12 @@
     lectureView.classList.remove('ready');
     inlineLectureContent.innerHTML = '';
     inlineLectureTitle.textContent = '';
+    deactivateLectureFocus();
+    restoreInlinePhysicsScrollLock();
+    if (fallbackWheelHandler) {
+      window.removeEventListener('wheel', fallbackWheelHandler, { capture: true });
+      fallbackWheelHandler = null;
+    }
   }
 
   function showCourseContent() {
@@ -267,6 +398,8 @@
 
   // Expose inline lecture opener so other modules (e.g., physics structure) can trigger it without a full page load.
   window.openInlineLecture = openLecture;
+
+  openLectureFromQuery();
 
   // Create the animated quiz CTA (atom image + button) inside a lecture content container.
   function buildQuizCTA(container, params) {
@@ -296,10 +429,52 @@
     return quizBtnContainer;
   }
 
-  // Local fallback segmenter (mirrors LectureNavigator.prepareContent) so inline view
-  // always uses slide layout even if the navigator script fails to load.
+  function appendQuizSlide(container, params) {
+    if (!container) return null;
+    const rail = container.querySelector('.lecture-segments-container') || container;
+    if (rail.querySelector('#lecture-quiz-cta')) {
+      return rail.querySelector('.quiz-button-container');
+    }
+    const quizSlide = document.createElement('div');
+    quizSlide.className = 'lecture-slide lecture-cta-slide';
+    quizSlide.id = 'lecture-quiz-cta';
+    const cta = buildQuizCTA(quizSlide, params);
+    if (cta) {
+      rail.appendChild(quizSlide);
+    }
+    return cta;
+  }
+
+  // Local segmenter (mirrors LectureNavigator.prepareContent) so the inline view
+  // always uses the scrollytelling layout.
   function segmentLectureHtml(content) {
-    if (!content) return '<div class="lecture-segments-container"></div>';
+    if (!content) {
+      return `
+        <div class="lecture-scrolly">
+          <div class="lecture-rail">
+            <div class="lecture-segments-container"></div>
+          </div>
+          <aside class="lecture-media-panel" aria-hidden="true">
+            <div class="media-card">
+              <div class="media-visual">
+              <div class="media-placeholder">
+                <div class="media-orb"></div>
+                <div class="media-grid"></div>
+                <div class="media-scan"></div>
+              </div>
+              <div class="media-custom" aria-hidden="true"></div>
+              <img class="media-image" alt="">
+            </div>
+              <div class="media-meta">
+                <div class="media-kicker">Focus</div>
+                <div class="media-title">Scroll to explore</div>
+                <div class="media-description">Key visuals appear here as you move through the lecture.</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      `;
+    }
 
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = content;
@@ -322,17 +497,58 @@
       });
     }
 
-    let html = '<div class="lecture-segments-container">';
-    segments.forEach((segment, index) => {
-      html += `
-        <div class="lecture-segment" data-index="${index}">
-          <div class="segment-content">
-            ${segment.content}
+    const mediaPanelMarkup = `
+      <aside class="lecture-media-panel" aria-hidden="true">
+        <div class="media-card">
+          <div class="media-visual">
+            <div class="media-placeholder">
+              <div class="media-orb"></div>
+              <div class="media-grid"></div>
+              <div class="media-scan"></div>
+            </div>
+            <div class="media-custom" aria-hidden="true"></div>
+            <img class="media-image" alt="">
           </div>
+          <div class="media-meta">
+            <div class="media-kicker">Focus</div>
+            <div class="media-title">Scroll to explore</div>
+            <div class="media-description">Key visuals appear here as you move through the lecture.</div>
+          </div>
+        </div>
+      </aside>
+    `;
+
+    let html = `
+      <div class="lecture-scrolly">
+        <div class="lecture-rail">
+          <div class="lecture-segments-container">
+    `;
+    segments.forEach((segment, index) => {
+      const safeTitle = segment.title
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      html += `
+        <div class="lecture-slide">
+          <section class="lecture-segment" data-index="${index}" data-title="${safeTitle}">
+            <div class="segment-content">
+              ${segment.content}
+            </div>
+            <div class="segment-footer">
+              <button type="button" class="segment-prev">Back</button>
+              <button type="button" class="segment-next">Next</button>
+            </div>
+          </section>
         </div>
       `;
     });
-    html += '</div>';
+    html += `
+          </div>
+        </div>
+        ${mediaPanelMarkup}
+      </div>
+    `;
     return html;
   }
 
@@ -353,19 +569,19 @@
         throw new Error(`Failed to load lecture: ${response.status} ${response.statusText}`);
       }
       const lectureData = await response.json();
+      inlineLectureContent.dataset.subject = params.subject;
+      inlineLectureContent.dataset.topic = params.topic;
+      inlineLectureContent.dataset.lecture = params.lecture;
       inlineLectureTitle.textContent = lectureData.title || '';
       const contentHtml = lectureData.content || '';
-      const navigatorAvailable = hasNavigatorClass();
-      const segmentedHtml = navigatorAvailable
-        ? LectureNavigator.prepareContent(contentHtml)
-        : segmentLectureHtml(contentHtml);
+      const segmentedHtml = segmentLectureHtml(contentHtml);
 
       inlineLectureContent.innerHTML = segmentedHtml;
 
-      // Ensure at least the first slide is visible even if navigator init fails
+      // Ensure at least the first slide is visible before observers run.
       const firstSegment = inlineLectureContent.querySelector('.lecture-segment');
-      if (firstSegment && !firstSegment.classList.contains('active')) {
-        firstSegment.classList.add('active');
+      if (firstSegment && !firstSegment.classList.contains('is-visible')) {
+        firstSegment.classList.add('is-visible');
       }
 
       // Render math (KaTeX preferred, MathJax fallback)
@@ -391,69 +607,271 @@
 
       inlineLecturePage.classList.remove('loading');
 
-      if (navigatorAvailable) {
-        const nav = new LectureNavigator(inlineLectureContent);
-        setTimeout(() => nav.init(inlineLectureContent), 100);
-        // Safety: ensure CTA exists even if navigator fails to append one
-        setTimeout(() => {
-          const cta = inlineLectureContent.querySelector('.quiz-button-container') || buildQuizCTA(inlineLectureContent, params);
-          if (cta) {
-            const segmentsCount = inlineLectureContent.querySelectorAll('.lecture-segment').length;
-            if (segmentsCount <= 1) {
-              cta.classList.add('visible');
-            }
-          }
-        }, 200);
-      } else {
-        // Minimal fallback navigation if the navigator script did not load.
-        const segments = Array.from(inlineLectureContent.querySelectorAll('.lecture-segment'));
-        let idx = 0;
-        const updateFallbackButtons = () => {
-          const prev = inlineLectureContent.querySelector('.side-nav.side-nav-prev');
-          const next = inlineLectureContent.querySelector('.side-nav.side-nav-next');
-          const atFirst = idx === 0;
-          const atLast = idx === segments.length - 1;
-          const toggle = (btn, disabled) => {
-            if (!btn) return;
-            btn.classList.toggle('is-disabled', disabled);
-            btn.setAttribute('aria-disabled', disabled ? 'true' : 'false');
-          };
-          toggle(prev, atFirst);
-          toggle(next, atLast);
-        };
-        const showSegment = (newIdx) => {
-          segments.forEach((seg, i) => {
-            seg.classList.toggle('active', i === newIdx);
-            seg.classList.toggle('prev', i < newIdx);
-            seg.classList.toggle('next', i > newIdx);
-          });
-          idx = newIdx;
-          updateFallbackButtons();
-          if (quizCTA) {
-            const atLast = idx === segments.length - 1 || segments.length === 1;
-            quizCTA.classList.toggle('visible', atLast);
-          }
-        };
-        const createSideBtn = (direction) => {
-          const btn = document.createElement('div');
-          btn.className = `side-nav side-nav-${direction}`;
-          btn.innerHTML = `<div class="side-nav-icon"><i class="fas fa-chevron-${direction === 'prev' ? 'left' : 'right'}"></i></div>`;
-          btn.addEventListener('click', () => {
-            if (direction === 'prev' && idx > 0) showSegment(idx - 1);
-            if (direction === 'next' && idx < segments.length - 1) showSegment(idx + 1);
-          });
-          inlineLectureContent.appendChild(btn);
-        };
-        if (segments.length > 1) {
-          createSideBtn('prev');
-          createSideBtn('next');
+      // Inline scrollytelling behavior.
+      const segments = Array.from(inlineLectureContent.querySelectorAll('.lecture-segment'));
+      const scrollyRoot = inlineLectureContent.querySelector('.lecture-scrolly');
+      const mediaPanel = inlineLectureContent.querySelector('.lecture-media-panel');
+      const mediaTitle = mediaPanel ? mediaPanel.querySelector('.media-title') : null;
+      const mediaDescription = mediaPanel ? mediaPanel.querySelector('.media-description') : null;
+      const mediaPlaceholder = mediaPanel ? mediaPanel.querySelector('.media-placeholder') : null;
+      const mediaImage = mediaPanel ? mediaPanel.querySelector('.media-image') : null;
+      const mediaCustom = mediaPanel ? mediaPanel.querySelector('.media-custom') : null;
+      const accentColors = ['#ff8800'];
+      let activeIndex = 0;
+
+      let quizCTA = null;
+
+      segments.forEach((segment, index) => {
+        segment.dataset.index = index;
+        if (!segment.id) {
+          segment.id = `lecture-segment-${index}`;
+        }
+        if (!segment.dataset.title) {
+          const header = segment.querySelector('h2');
+          segment.dataset.title = header ? header.textContent.trim() : `Segment ${index + 1}`;
+        }
+        let footer = segment.querySelector('.segment-footer');
+        if (!footer) {
+          footer = document.createElement('div');
+          footer.className = 'segment-footer';
+          segment.appendChild(footer);
+        }
+        let prevButton = footer.querySelector('.segment-prev');
+        if (!prevButton) {
+          prevButton = document.createElement('button');
+          prevButton.type = 'button';
+          prevButton.className = 'segment-prev';
+          footer.appendChild(prevButton);
         }
 
-        const quizCTA = buildQuizCTA(inlineLectureContent, params);
-        showSegment(0);
-        if (inlineButtonsContainer) {
-          inlineButtonsContainer.style.display = 'none';
+        let nextButton = footer.querySelector('.segment-next');
+        if (!nextButton) {
+          nextButton = document.createElement('button');
+          nextButton.type = 'button';
+          nextButton.className = 'segment-next';
+          footer.appendChild(nextButton);
         }
+
+        const isFirst = index === 0;
+        const isLast = index === segments.length - 1;
+
+        prevButton.textContent = 'Back';
+        prevButton.dataset.target = isFirst ? '' : `lecture-segment-${index - 1}`;
+        prevButton.classList.toggle('is-disabled', isFirst);
+        prevButton.disabled = isFirst;
+        prevButton.setAttribute('aria-disabled', isFirst ? 'true' : 'false');
+        prevButton.addEventListener('click', () => {
+          if (prevButton.disabled) return;
+          const targetId = prevButton.dataset.target;
+          const target = targetId ? document.getElementById(targetId) : null;
+          const targetSegment = target && target.classList.contains('lecture-segment')
+            ? target
+            : target?.querySelector?.('.lecture-segment');
+          if (targetSegment) {
+            setActive(targetSegment);
+          }
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
+
+        nextButton.textContent = isLast ? 'Finish' : 'Next';
+        nextButton.dataset.target = isLast ? 'lecture-quiz-cta' : `lecture-segment-${index + 1}`;
+        nextButton.addEventListener('click', () => {
+          const targetId = nextButton.dataset.target;
+          const target = targetId ? document.getElementById(targetId) : null;
+          if (targetId === 'lecture-quiz-cta' && quizCTA) {
+            quizCTA.classList.add('visible');
+          }
+          const targetSegment = target && target.classList.contains('lecture-segment')
+            ? target
+            : target?.querySelector?.('.lecture-segment');
+          if (targetSegment) {
+            setActive(targetSegment);
+          }
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
+      });
+
+      quizCTA = appendQuizSlide(inlineLectureContent, params);
+
+      const updateMedia = (segment, index) => {
+        if (!segment) return;
+        const accent = accentColors[index % accentColors.length];
+        if (scrollyRoot) {
+          scrollyRoot.style.setProperty('--accent', accent);
+        }
+        if (mediaTitle) {
+          mediaTitle.textContent = segment.dataset.title || `Segment ${index + 1}`;
+        }
+        if (mediaDescription) {
+          const paragraph = segment.querySelector('p');
+          const text = paragraph ? paragraph.textContent.trim() : '';
+          mediaDescription.textContent = text ? `${text.slice(0, 137)}${text.length > 140 ? '...' : ''}` : 'Keep scrolling to reveal the next idea.';
+        }
+
+        const customMedia = segment.querySelector('.segment-media-custom');
+        if (customMedia && mediaCustom) {
+          const webappName = customMedia.dataset.webapp;
+          if (webappName && window.ModuleWebapps && typeof window.ModuleWebapps.mount === 'function') {
+            window.ModuleWebapps.mount(mediaCustom, webappName);
+          } else {
+            mediaCustom.innerHTML = customMedia.innerHTML;
+          }
+          if (mediaImage) {
+            mediaImage.classList.remove('is-visible');
+            mediaImage.removeAttribute('src');
+            mediaImage.removeAttribute('alt');
+          }
+          if (mediaPlaceholder) {
+            mediaPlaceholder.classList.add('is-hidden');
+          }
+          if (mediaPanel) {
+            mediaPanel.classList.remove('is-empty', 'is-image-only');
+            mediaPanel.classList.add('is-custom');
+          }
+          return;
+        }
+
+        if (mediaCustom) {
+          mediaCustom.innerHTML = '';
+          delete mediaCustom.dataset.webappMounted;
+        }
+        if (mediaPanel) {
+          mediaPanel.classList.remove('is-custom');
+        }
+
+        const image = segment.querySelector('img.segment-media');
+        if (image && mediaImage) {
+          mediaImage.src = image.src;
+          mediaImage.alt = image.alt || (segment.dataset.title || 'Lecture visual');
+          mediaImage.classList.add('is-visible');
+          if (mediaPlaceholder) {
+            mediaPlaceholder.classList.add('is-hidden');
+          }
+          if (mediaPanel) {
+            mediaPanel.classList.remove('is-empty');
+            mediaPanel.classList.add('is-image-only');
+          }
+        } else {
+          if (mediaImage) {
+            mediaImage.classList.remove('is-visible');
+            mediaImage.removeAttribute('src');
+            mediaImage.removeAttribute('alt');
+          }
+          if (mediaPlaceholder) {
+            mediaPlaceholder.classList.add('is-hidden');
+          }
+          if (mediaPanel) {
+            mediaPanel.classList.add('is-empty');
+            mediaPanel.classList.remove('is-image-only');
+          }
+        }
+      };
+
+      const setActive = (segment) => {
+        if (!segment) return;
+        const idx = Number(segment.dataset.index) || 0;
+        activeIndex = idx;
+        updateMedia(segment, idx);
+        segments.forEach((seg, i) => {
+          seg.classList.toggle('is-visible', i === idx);
+        });
+      };
+
+      if (segments[0]) {
+        setActive(segments[0]);
+      }
+
+      if ('IntersectionObserver' in window) {
+        const segmentObserver = new IntersectionObserver((entries) => {
+          const visible = [];
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              visible.push(entry);
+            }
+          });
+          if (visible.length) {
+            visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+            const focus = visible[0];
+            setActive(focus.target);
+          }
+        }, { threshold: 0.5, rootMargin: '0px 0px -20% 0px' });
+
+        segments.forEach((segment) => segmentObserver.observe(segment));
+
+        if (quizCTA && segments.length) {
+          const lastSegment = segments[segments.length - 1];
+          const quizObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                quizCTA.classList.add('visible');
+                quizObserver.disconnect();
+              }
+            });
+          }, { threshold: 0.6 });
+          quizObserver.observe(lastSegment);
+        }
+      }
+
+      if (fallbackWheelHandler) {
+        window.removeEventListener('wheel', fallbackWheelHandler, { capture: true });
+      }
+      let scrollLocked = false;
+      let scrollLockTimeout = null;
+      fallbackWheelHandler = (event) => {
+        if (!lectureView || !lectureView.classList.contains('active')) return;
+        if (!inlineLectureContent || !inlineLectureContent.isConnected) return;
+        if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+        const scaledDelta = event.deltaMode === 1 ? event.deltaY * 16 : event.deltaMode === 2 ? event.deltaY * window.innerHeight : event.deltaY;
+        if (!scaledDelta) return;
+        if (scrollLocked) {
+          event.preventDefault();
+          return;
+        }
+        const direction = scaledDelta > 0 ? 1 : -1;
+        const lastIndex = segments.length - 1;
+        const quizSlide = document.getElementById('lecture-quiz-cta');
+        let isCtaActive = false;
+        if (quizSlide) {
+          const rect = quizSlide.getBoundingClientRect();
+          const midpoint = window.innerHeight / 2;
+          isCtaActive = rect.top <= midpoint && rect.bottom >= midpoint;
+        }
+        event.preventDefault();
+        if (isCtaActive) {
+          if (direction < 0 && segments[lastIndex]) {
+            setActive(segments[lastIndex]);
+            segments[lastIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        } else if (direction > 0 && activeIndex >= lastIndex) {
+          if (quizSlide) {
+            if (quizCTA) {
+              quizCTA.classList.add('visible');
+            }
+            quizSlide.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        } else {
+          const nextIndex = activeIndex + direction;
+          if (nextIndex >= 0 && nextIndex < segments.length) {
+            setActive(segments[nextIndex]);
+            segments[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+        scrollLocked = true;
+        if (scrollLockTimeout) {
+          clearTimeout(scrollLockTimeout);
+        }
+        scrollLockTimeout = setTimeout(() => {
+          scrollLocked = false;
+        }, 600);
+      };
+      window.addEventListener('wheel', fallbackWheelHandler, { passive: false, capture: true });
+
+      if (inlineButtonsContainer) {
+        inlineButtonsContainer.style.display = 'none';
       }
     } catch (error) {
       console.error('Error loading inline lecture:', error);

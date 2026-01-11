@@ -725,7 +725,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   backToLectureButton.addEventListener('click', function() {
-    window.location.href = `lecture.html?subject=${subject}&topic=${topic}&lecture=${lectureNumber}`;
+    window.location.href = `index.html?subject=${subject}&topic=${topic}&lecture=${lectureNumber}`;
   });
 
   // Initialize the quiz when the page loads
