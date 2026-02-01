@@ -1,0 +1,202 @@
+.size-perspective {
+  width: min(520px, 100%);
+  display: grid;
+  gap: 16px;
+  color: #e6e6e6;
+  font-family: inherit;
+  --zoom: 0.6;
+  --nucleus-size: calc(46px + 140px * var(--zoom));
+  --ring-size: calc(var(--nucleus-size) + 44px);
+}
+
+.size-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.size-readout {
+  display: grid;
+  gap: 4px;
+  text-align: right;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  padding: 8px 10px;
+  min-width: 140px;
+}
+
+.size-label { font-size: 0.72rem; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); }
+.size-value { font-size: 1.05rem; font-weight: 700; color: #ffffff; }
+.size-ratio { font-size: 0.85rem; color: rgba(255, 255, 255, 0.65); }
+
+.size-visual {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.atom-view, .zoom-view {
+  position: relative;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  height: 240px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  /* Removed vignette gradients */
+  background: #0b0b0b;
+}
+
+.atom-shell {
+  position: absolute;
+  width: 72%;
+  height: 72%;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+}
+
+.orbit {
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  --tilt: 0deg;
+  animation: orbitSpin 1.6s linear infinite;
+}
+
+.orbit::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #6fb3ff;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.orbit-1 {
+  inset: 18%;
+  --tilt: 25deg;
+  animation-duration: 1.3s;
+}
+
+.orbit-2 {
+  inset: 28%;
+  --tilt: -30deg;
+  animation-duration: 0.95s;
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(var(--tilt)); }
+  to { transform: rotate(calc(360deg + var(--tilt))); }
+}
+
+.nucleus-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffbf7a;
+  /* Removed box-shadow glow */
+}
+
+.zoom-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(var(--ring-size), 92%);
+  height: min(var(--ring-size), 92%);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transform: translate(-50%, -50%);
+  /* Removed box-shadow glow */
+}
+
+.zoom-nucleus {
+  position: relative;
+  width: var(--nucleus-size);
+  height: var(--nucleus-size);
+  border-radius: 50%;
+  /* Removed radial gradient */
+  background: #2b2b2b;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: block;
+}
+
+.nucleon {
+  position: absolute;
+  width: 28%;
+  height: 28%;
+  border-radius: 50%;
+}
+
+/* Removed radial gradients from nucleons */
+.nucleon.proton { background: #ff3c3c; }
+.nucleon.neutron { background: #bbbbbb; }
+
+.zoom-nucleus .nucleon:nth-child(1) { top: 18%; left: 30%; }
+.zoom-nucleus .nucleon:nth-child(2) { top: 20%; left: 56%; }
+.zoom-nucleus .nucleon:nth-child(3) { top: 54%; left: 24%; }
+.zoom-nucleus .nucleon:nth-child(4) { top: 54%; left: 56%; }
+
+.view-label {
+  position: absolute;
+  bottom: 28px;
+  left: 12px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.view-sub {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.size-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  appearance: none;
+  background: #1c1c1c;
+  outline: none;
+}
+
+.size-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.size-slider::-webkit-slider-thumb:hover {
+  transform: none;
+}
+
+.size-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.scale-markers {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+}

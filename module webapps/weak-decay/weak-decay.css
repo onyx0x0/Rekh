@@ -1,0 +1,81 @@
+.weak-decay {
+  width: 100%;
+  max-width: 520px;
+  background: #0b0b0b;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px;
+  color: #e6e6e6;
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.weak-decay .decay-scene {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  background: #0b0b0b;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.weak-decay .scene-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.weak-decay .label-particle {
+  position: absolute;
+  font-weight: 600;
+  font-size: inherit;
+  pointer-events: none;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+}
+
+.weak-decay .decay-ui {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weak-decay .status-text {
+  color: #ffffff;
+  font-size: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.weak-decay .button-group { display: flex; gap: 8px; }
+
+.weak-decay .action-btn {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 0 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weak-decay .trigger-decay {
+  background: #1b5e20;
+  border-color: #2e7d32;
+}
+
+.weak-decay .trigger-decay.is-triggered {
+  background: #b71c1c !important;
+  border-color: #d32f2f !important;
+}

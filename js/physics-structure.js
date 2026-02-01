@@ -6,13 +6,13 @@ const coursesData = [
         difficulty: "MEDIUM",
         progress: 75,
         lectures: [
-            { id: "m1-01", title: "Kinematics", desc: "Analysis of position, velocity, and acceleration vectors in 3D space.", time: "45m" },
+            { id: "m1-01", title: "Kinematics", desc: "Analysis of position, velocity, and acceleration vectors in 3D space.", time: "25m" },
             { id: "m1-02", title: "Newton's Laws", desc: "The three fundamental laws governing force and motion.", time: "60m" },
             { id: "m1-03", title: "Work & Energy", desc: "Conservation of energy principles and mechanical work calculations.", time: "50m" },
             { id: "m1-04", title: "Momentum", desc: "Impulse, linear momentum, and collision dynamics.", time: "55m" },
             { id: "m1-05", title: "Rotational Motion", desc: "Angular velocity, torque, and moment of inertia.", time: "55m" },
             { id: "m1-06", title: "Equilibrium", desc: "Static equilibrium and center of mass calculations.", time: "40m" },
-            { id: "m1-07", title: "Oscillations", desc: "Simple harmonic motion, springs, and pendulums.", time: "45m" },
+            { id: "m1-07", title: "Oscillations", desc: "Simple harmonic motion, springs, and pendulums.", time: "25m" },
             { id: "m1-08", title: "Gravitation", desc: "Newtonian gravity, orbits, and satellite motion.", time: "60m" },
             { id: "m1-09", title: "Non-Inertial Frames", desc: "Fictitious forces and rotating reference frames.", time: "50m" },
             { id: "m1-10", title: "Rigid Body Dynamics", desc: "Rolling motion and energy in extended bodies.", time: "55m" }
@@ -31,8 +31,8 @@ const coursesData = [
             { id: "m2-04", title: "Induction", desc: "Faraday's Law and Lenz's Law in circuit loops.", time: "55m" },
             { id: "m2-05", title: "Maxwell Eq.", desc: "The unification of electric and magnetic theories.", time: "80m" },
             { id: "m2-06", title: "Circuits I", desc: "DC circuits, resistors, and Kirchhoff's rules.", time: "40m" },
-            { id: "m2-07", title: "Capacitance", desc: "Energy storage and dielectrics in capacitors.", time: "45m" },
-            { id: "m2-08", title: "Inductance", desc: "Magnetic energy and coupled inductors.", time: "45m" },
+            { id: "m2-07", title: "Capacitance", desc: "Energy storage and dielectrics in capacitors.", time: "25m" },
+            { id: "m2-08", title: "Inductance", desc: "Magnetic energy and coupled inductors.", time: "25m" },
             { id: "m2-09", title: "AC Circuits", desc: "Reactance, impedance, and resonance.", time: "55m" },
             { id: "m2-10", title: "Waves & Transmission", desc: "EM wave propagation and Poynting vector.", time: "60m" }
         ]
@@ -56,7 +56,7 @@ const coursesData = [
         difficulty: "EXTREME",
         progress: 0,
         lectures: [
-            { id: "m4-01", title: "Blackbody Rad.", desc: "The ultraviolet catastrophe and Planck's constant.", time: "45m" },
+            { id: "m4-01", title: "Blackbody Rad.", desc: "The ultraviolet catastrophe and Planck's constant.", time: "25m" },
             { id: "m4-02", title: "Photoelectric", desc: "Einstein's explanation of light quanta.", time: "40m" },
             { id: "m4-03", title: "Schrodinger Eq.", desc: "Wavefunctions and probability density.", time: "90m" },
             { id: "m4-04", title: "Particle in Box", desc: "Infinite potential wells and energy quantization.", time: "60m" }
@@ -71,7 +71,7 @@ const coursesData = [
         lectures: [
             { id: "m5-01", title: "Postulates", desc: "The speed of light and inertial frames.", time: "30m" },
             { id: "m5-02", title: "Time Dilation", desc: "Moving clocks run slower: The Twin Paradox.", time: "50m" },
-            { id: "m5-03", title: "Length Contract.", desc: "Lorentz transformations and physical length.", time: "45m" }
+            { id: "m5-03", title: "Length Contract.", desc: "Lorentz transformations and physical length.", time: "25m" }
         ]
     },
     {
@@ -93,7 +93,7 @@ const coursesData = [
         progress: 90,
         lectures: [
             { id: "m7-01", title: "Reflection", desc: "Mirrors and the law of reflection.", time: "35m" },
-            { id: "m7-02", title: "Refraction", desc: "Snell's Law and total internal reflection.", time: "45m" },
+            { id: "m7-02", title: "Refraction", desc: "Snell's Law and total internal reflection.", time: "25m" },
             { id: "m7-03", title: "Lenses", desc: "Thin lens equation and image formation.", time: "50m" }
         ]
     },
@@ -105,26 +105,26 @@ const coursesData = [
         image: "images/Course pictures/Atom character in a reactor.png",
         progress: 0,
         lectures: [
-            { id: "m8-01", title: "Foundations", difficulty: "EASY", desc: "In this module, you will learn what this field studies, why it matters, and how scientists think about matter and energy at extremely small scales. It sets the stage for everything that follows.", time: "45m" },
-            { id: "m8-02", title: "Fundamental Forces", difficulty: "MEDIUM", desc: "In this module, you will learn about the forces that act inside matter, especially the ones that hold particles together and make stable structures possible.", time: "45m" },
-            { id: "m8-03", title: "Size and Shape", difficulty: "EASY", desc: "In this module, you will learn how scientists describe the size, shape, and density of these tiny systems, and how we know this from experiments.", time: "45m" },
-            { id: "m8-04", title: "Binding Energy", difficulty: "MEDIUM", desc: "In this module, you will learn why matter releases or absorbs enormous energy when it changes, and how energy and mass are closely connected.", time: "45m" },
-            { id: "m8-05", title: "Liquid Drop", difficulty: "MEDIUM", desc: "In this module, you will learn a simple but powerful model that explains stability, energy trends, and why some systems split apart.", time: "45m" },
-            { id: "m8-06", title: "Structure Models", difficulty: "HARD", desc: "In this module, you will learn how internal structure and organization explain patterns of stability and special magic configurations.", time: "45m" },
-            { id: "m8-07", title: "Spin and Parity", difficulty: "HARD", desc: "In this module, you will learn how rotation-like properties and symmetry help describe states and control which changes are allowed.", time: "45m" },
-            { id: "m8-08", title: "Excited States", difficulty: "MEDIUM", desc: "In this module, you will learn how systems store energy, jump between energy levels, and release energy as radiation.", time: "45m" },
-            { id: "m8-09", title: "Radioactive Decay", difficulty: "EASY", desc: "In this module, you will learn why some systems change on their own over time, how fast this happens, and how decay can be predicted.", time: "45m" },
-            { id: "m8-10", title: "Weak Interaction", difficulty: "HARD", desc: "In this module, you will learn about a subtle force that allows certain transformations to happen and introduces particles that are very hard to detect.", time: "45m" },
-            { id: "m8-11", title: "Reactions and Q-Values", difficulty: "MEDIUM", desc: "In this module, you will learn what happens when particles collide or combine, and how to calculate whether energy is released or absorbed.", time: "45m" },
-            { id: "m8-12", title: "Cross Sections", difficulty: "HARD", desc: "In this module, you will learn how likely different interactions are, and how scientists measure the chance that a reaction will occur.", time: "45m" },
-            { id: "m8-13", title: "Scattering Theory", difficulty: "EXTREME", desc: "In this module, you will learn how scientists use collisions and deflections to explore internal structure without seeing it directly.", time: "45m" },
-            { id: "m8-14", title: "Neutron Behavior", difficulty: "MEDIUM", desc: "In this module, you will learn why neutral particles play a special role, how they move through matter, and why they are so important in many systems.", time: "45m" },
-            { id: "m8-15", title: "Fission Physics", difficulty: "MEDIUM", desc: "In this module, you will learn how large systems can split into smaller ones, releasing huge amounts of energy in the process.", time: "45m" },
-            { id: "m8-16", title: "Fusion Physics", difficulty: "HARD", desc: "In this module, you will learn how small systems can combine into larger ones, and why this process powers stars and future energy concepts.", time: "45m" },
-            { id: "m8-17", title: "Stellar Processes", difficulty: "MEDIUM", desc: "In this module, you will learn how the elements are formed in stars and extreme cosmic events, and where the matter around us comes from.", time: "45m" },
-            { id: "m8-18", title: "Radiation Interaction", difficulty: "HARD", desc: "In this module, you will learn how different types of radiation move through matter and lose energy along the way.", time: "45m" },
-            { id: "m8-19", title: "Detectors", difficulty: "MEDIUM", desc: "In this module, you will learn how scientists measure particles and radiation, and how signals are turned into useful data.", time: "45m" },
-            { id: "m8-20", title: "Applications", difficulty: "EASY", desc: "In this module, you will learn how these ideas are used in energy, medicine, research, and everyday technology, along with safety considerations.", time: "45m" }
+            { id: "m8-01", title: "Foundations", difficulty: "EASY", desc: "In this module, you will learn what this field studies, why it matters, and how scientists think about matter and energy at extremely small scales. It sets the stage for everything that follows.", time: "25m" },
+            { id: "m8-02", title: "Fundamental Forces", difficulty: "MEDIUM", desc: "In this module, you will learn about the forces that act inside matter, especially the ones that hold particles together and make stable structures possible.", time: "25m" },
+            { id: "m8-03", title: "Size and Shape", difficulty: "EASY", desc: "In this module, you will learn how scientists describe the size, shape, and density of these tiny systems, and how we know this from experiments.", time: "25m" },
+            { id: "m8-04", title: "Binding Energy", difficulty: "MEDIUM", desc: "In this module, you will learn why matter releases or absorbs enormous energy when it changes, and how energy and mass are closely connected.", time: "25m" },
+            { id: "m8-05", title: "Liquid Drop", difficulty: "MEDIUM", desc: "In this module, you will learn a simple but powerful model that explains stability, energy trends, and why some systems split apart.", time: "25m" },
+            { id: "m8-06", title: "Structure Models", difficulty: "HARD", desc: "In this module, you will learn how internal structure and organization explain patterns of stability and special magic configurations.", time: "25m" },
+            { id: "m8-07", title: "Spin and Parity", difficulty: "HARD", desc: "In this module, you will learn how rotation-like properties and symmetry help describe states and control which changes are allowed.", time: "25m" },
+            { id: "m8-08", title: "Excited States", difficulty: "MEDIUM", desc: "In this module, you will learn how systems store energy, jump between energy levels, and release energy as radiation.", time: "25m" },
+            { id: "m8-09", title: "Radioactive Decay", difficulty: "EASY", desc: "In this module, you will learn why some systems change on their own over time, how fast this happens, and how decay can be predicted.", time: "25m" },
+            { id: "m8-10", title: "Weak Interaction", difficulty: "HARD", desc: "In this module, you will learn about a subtle force that allows certain transformations to happen and introduces particles that are very hard to detect.", time: "25m" },
+            { id: "m8-11", title: "Reactions and Q-Values", difficulty: "MEDIUM", desc: "In this module, you will learn what happens when particles collide or combine, and how to calculate whether energy is released or absorbed.", time: "25m" },
+            { id: "m8-12", title: "Cross Sections", difficulty: "HARD", desc: "In this module, you will learn how likely different interactions are, and how scientists measure the chance that a reaction will occur.", time: "25m" },
+            { id: "m8-13", title: "Scattering Theory", difficulty: "EXTREME", desc: "In this module, you will learn how scientists use collisions and deflections to explore internal structure without seeing it directly.", time: "25m" },
+            { id: "m8-14", title: "Neutron Behavior", difficulty: "MEDIUM", desc: "In this module, you will learn why neutral particles play a special role, how they move through matter, and why they are so important in many systems.", time: "25m" },
+            { id: "m8-15", title: "Fission Physics", difficulty: "MEDIUM", desc: "In this module, you will learn how large systems can split into smaller ones, releasing huge amounts of energy in the process.", time: "25m" },
+            { id: "m8-16", title: "Fusion Physics", difficulty: "HARD", desc: "In this module, you will learn how small systems can combine into larger ones, and why this process powers stars and future energy concepts.", time: "25m" },
+            { id: "m8-17", title: "Stellar Processes", difficulty: "MEDIUM", desc: "In this module, you will learn how the elements are formed in stars and extreme cosmic events, and where the matter around us comes from.", time: "25m" },
+            { id: "m8-18", title: "Radiation Interaction", difficulty: "HARD", desc: "In this module, you will learn how different types of radiation move through matter and lose energy along the way.", time: "25m" },
+            { id: "m8-19", title: "Detectors", difficulty: "MEDIUM", desc: "In this module, you will learn how scientists measure particles and radiation, and how signals are turned into useful data.", time: "25m" },
+            { id: "m8-20", title: "Applications", difficulty: "EASY", desc: "In this module, you will learn how these ideas are used in energy, medicine, research, and everyday technology, along with safety considerations.", time: "25m" }
         ]
     },
     {

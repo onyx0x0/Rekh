@@ -1,0 +1,38 @@
+<div class="size-perspective" data-init="false">
+  <div class="size-header">
+    <div class="size-readout" aria-live="polite">
+      <span class="size-label" data-scale-label>Atomic scale</span>
+      <span class="size-value" data-scale-value>10<sup>-10</sup> m</span>
+      <span class="size-ratio" data-zoom-ratio>Zoom 1x</span>
+    </div>
+  </div>
+  <div class="size-visual">
+    <div class="atom-view">
+      <div class="atom-shell"></div>
+      <div class="orbit orbit-1"></div>
+      <div class="orbit orbit-2"></div>
+      <div class="nucleus-dot"></div>
+      <div class="view-label">Atom</div>
+      <div class="view-sub">~10<sup>-10</sup> m radius</div>
+    </div>
+    <div class="zoom-view">
+      <div class="zoom-ring"></div>
+      <div class="zoom-nucleus">
+        <span class="nucleon proton"></span>
+        <span class="nucleon neutron"></span>
+        <span class="nucleon proton"></span>
+        <span class="nucleon neutron"></span>
+      </div>
+      <div class="view-label">Nucleus</div>
+      <div class="view-sub">~10<sup>-15</sup> m radius</div>
+    </div>
+  </div>
+  <div class="size-scale">
+    <input class="size-slider" type="range" min="0" max="100" value="60" step="1" aria-label="Zoom from atom size to nucleus size">
+    <div class="scale-markers">
+      <span>10<sup>-10</sup> m</span>
+      <span>10<sup>-12</sup> m</span>
+      <span>10<sup>-15</sup> m</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="em-repulsion" data-init="false">
+  <div class="em-visual">
+    <canvas class="em-canvas"></canvas>
+    <div class="em-overlay">
+      <div class="readout-box">
+        <div class="nucleus-stats">
+          <div class="stat-item">Protons: <span data-p-count>0</span></div>
+          <div class="stat-item">Neutrons: <span data-n-count>0</span></div>
+        </div>
+        <div class="stability-warning" data-stability-warning>Stable</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="em-controls">
+    <div class="control-group">
+      <button class="add-btn add-proton" data-add="p">Add Proton (+)</button>
+      <button class="add-btn add-neutron" data-add="n">Add Neutron</button>
+      <button class="reset-btn">Reset</button>
+    </div>
+    
+    <div class="meter-group">
+      <div class="meter-label">
+        <span>EM Repulsion (Destabilizing)</span>
+        <span data-em-val>0%</span>
+      </div>
+      <div class="meter-bar"><div class="meter-fill em-fill" style="width: 0%"></div></div>
+      
+      <div class="meter-label">
+        <span>Strong Force (Binding)</span>
+        <span data-strong-val>0%</span>
+      </div>
+      <div class="meter-bar"><div class="meter-fill strong-fill" style="width: 0%"></div></div>
+    </div>
+  </div>
+</div>

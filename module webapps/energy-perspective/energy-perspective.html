@@ -1,0 +1,36 @@
+﻿<div class="energy-perspective" data-init="false">
+  <div class="energy-grid">
+    <div class="energy-card energy-card--chemical">
+      <div class="energy-card-label">Chemical bonds</div>
+      <div class="energy-card-value">~1-10 eV</div>
+    </div>
+    <div class="energy-scale" aria-hidden="true">
+      <div class="energy-scale-track">
+        <span class="energy-tick energy-tick--top">MeV</span>
+        <span class="energy-tick energy-tick--mid">keV</span>
+        <span class="energy-tick energy-tick--bottom">eV</span>
+        <div class="energy-indicator" data-indicator></div>
+      </div>
+    </div>
+    <div class="energy-card energy-card--nuclear">
+      <div class="energy-card-label">Nuclear binding</div>
+      <div class="energy-card-value">~1-10 MeV</div>
+    </div>
+  </div>
+  <div class="energy-mid-card">
+    <div class="energy-card-label">Transitions (keV)</div>
+    <div class="energy-card-value">X-rays / gamma lines</div>
+  </div>
+  <div class="energy-readout" aria-live="polite">
+    <span class="energy-readout-label" data-energy-label>Chemical scale</span>
+    <span class="energy-readout-value" data-energy-value>10<sup>0</sup> eV</span>
+  </div>
+  <div class="energy-controls">
+    <input class="energy-slider" type="range" min="0" max="100" value="18" step="1" aria-label="Energy scale from electronvolts to megaelectronvolts">
+    <div class="energy-markers">
+      <span>eV</span>
+      <span>keV</span>
+      <span>MeV</span>
+    </div>
+  </div>
+</div>

@@ -187,10 +187,10 @@
       if (gutOn) emScale = 1.18;
       if (toeOn) emScale = 1.24;
 
-      setNode('gravity', { offset: offsets.gravity, scale: 1, opacity: gravityOpacity, merged: false });
+      setNode('gravity', { offset: offsets.gravity, scale: 1, opacity: gravityOpacity, merged: toeOn });
       setNode('em', { offset: offsets.em, scale: emScale, opacity: emOpacity, merged: ewOn || gutOn || toeOn });
-      setNode('weak', { offset: offsets.weak, scale: 1, opacity: weakOpacity, merged: false });
-      setNode('strong', { offset: offsets.strong, scale: 1, opacity: strongOpacity, merged: false });
+      setNode('weak', { offset: offsets.weak, scale: 1, opacity: weakOpacity, merged: ewOn });
+      setNode('strong', { offset: offsets.strong, scale: 1, opacity: strongOpacity, merged: gutOn });
     };
 
     const update = () => {

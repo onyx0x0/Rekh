@@ -1,0 +1,30 @@
+.real-world-context,
+.real-world-context * {
+  box-sizing: border-box;
+}
+
+.real-world-context {
+  width: min(520px, 100%);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #e6e6e6;
+  font-family: inherit;
+}
+
+.context-pill {
+  background: #101010;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 1rem; /* Matched paragraph */
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+
+@media (max-width: 560px) {
+  .real-world-context {
+    justify-content: flex-start;
+  }
+}

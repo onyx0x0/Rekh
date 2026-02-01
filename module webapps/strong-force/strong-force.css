@@ -1,0 +1,101 @@
+.strong-force {
+  width: 100%;
+  max-width: 520px;
+  background: #0b0b0b;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px;
+  color: #e6e6e6;
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.strong-force .strong-visual {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  background: #0b0b0b;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: grab;
+}
+
+.strong-force .strong-visual:active {
+  cursor: grabbing;
+}
+
+.strong-force .strong-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.strong-force .strong-overlay {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  pointer-events: none;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.strong-force .readout-box {
+  display: grid;
+  gap: 4px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  padding: 10px 12px;
+  min-width: 140px;
+  backdrop-filter: blur(4px);
+}
+
+.strong-force .force-status {
+  font-size: inherit;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.strong-force .distance-readout {
+  font-size: inherit;
+  color: rgba(255, 255, 255, 0.5);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+.strong-force .strong-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.strong-force .instruction {
+  font-size: inherit;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.strong-force .reset-btn {
+  height: 30px;
+  padding: 0 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.strong-force .reset-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}

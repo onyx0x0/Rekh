@@ -1,0 +1,32 @@
+.core-questions {
+  width: min(520px, 100%);
+  display: grid;
+  gap: 12px;
+}
+
+.core-node {
+  background: #101010;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.core-node::before {
+  content: "?";
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: grid;
+  place-items: center;
+  color: #ff8800;
+  font-weight: 800;
+}

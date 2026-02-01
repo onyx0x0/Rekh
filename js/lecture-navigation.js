@@ -73,6 +73,7 @@ class LectureNavigator {
     this.cacheMediaPanel();
     this.bindSegmentButtons();
     this.observeSegments();
+    this.mountCustomWebapps();
 
     this.initialized = true;
     console.log(`Lecture navigation initialized with ${this.totalSegments} segments`);
@@ -171,6 +172,7 @@ class LectureNavigator {
           this.activeIndex = idx;
           this.currentSegment = idx;
           this.updateMediaPanel(targetSegment, idx);
+          this.mountCustomWebapps(targetSegment);
           this.segments.forEach((segment, i) => {
             segment.classList.toggle('is-visible', i === idx);
           });
@@ -230,6 +232,7 @@ class LectureNavigator {
           this.activeIndex = idx;
           this.currentSegment = idx;
           this.updateMediaPanel(focusEntry.target, idx);
+          this.mountCustomWebapps(focusEntry.target);
         }
         this.segments.forEach((segment, i) => {
           segment.classList.toggle('is-visible', i === idx);
@@ -258,7 +261,21 @@ class LectureNavigator {
     if (this.segments[0]) {
       this.segments[0].classList.add('is-visible');
       this.updateMediaPanel(this.segments[0], 0);
+      this.mountCustomWebapps(this.segments[0]);
     }
+  }
+
+  mountCustomWebapps(specificSegment = null) {
+    const targets = specificSegment ? [specificSegment] : this.segments;
+    targets.forEach((segment) => {
+      const customMedia = segment.querySelectorAll('.segment-media-custom');
+      customMedia.forEach((el) => {
+        const webappName = el.dataset.webapp;
+        if (webappName && window.ModuleWebapps && typeof window.ModuleWebapps.mount === 'function') {
+          window.ModuleWebapps.mount(el, webappName);
+        }
+      });
+    });
   }
 
   updateMediaPanel(segment, index) {

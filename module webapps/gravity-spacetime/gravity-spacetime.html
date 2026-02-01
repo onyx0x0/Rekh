@@ -1,0 +1,25 @@
+<div class="gravity-spacetime" data-init="false">
+  <div class="spacetime-visual">
+    <canvas class="spacetime-canvas"></canvas>
+    <div class="spacetime-overlay">
+      <div class="readout-box">
+        <div class="scale-indicator" data-scale-text>Nuclear Scale</div>
+        <div class="force-status" data-force-status>Gravity is Zero</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="spacetime-controls">
+    <div class="slider-header">
+      <span class="slider-label">Zoom Level</span>
+      <span class="distance-value" data-distance>10<sup>-15</sup> m</span>
+    </div>
+    <!-- Slider starts at 100 (Nuclear) and moves to 0 (Cosmic) -->
+    <input type="range" class="spacetime-slider" min="0" max="100" value="0" step="1">
+    <div class="slider-markers">
+      <span>Galactic</span>
+      <span>Atomic</span>
+      <span>Nuclear</span>
+    </div>
+  </div>
+</div>
